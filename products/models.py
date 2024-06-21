@@ -38,14 +38,12 @@ class Order(models.Model):
   Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
 
 class OrderItem(models.Model):
-  #OrderItemID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   Product = models.ForeignKey(Product, on_delete=models.CASCADE)
   Quantity = models.PositiveIntegerField()
   Price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Transaction(models.Model):
-  #TransactionID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   PAYMENT_METHOD_CHOICES = (
       ('Credit Card', 'Credit Card'),
@@ -55,9 +53,8 @@ class Transaction(models.Model):
   Amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Delivery(models.Model):
-  #DeliveryID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
-  DeliveryPerson = models.ForeignKey(, on_delete=models.SET_NULL, blank=True, null=True)
+  DeliveryPerson = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
   STATUS_CHOICES = (
       ('Pending', 'Pending'),
       ('On the way', 'On the way'),
@@ -67,24 +64,21 @@ class Delivery(models.Model):
   DeliveryFee = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Reward(models.Model):
-  RewardID = models.AutoField(primary_key=True)
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   PointsRequired = models.PositiveIntegerField()
 
 class UserReward(models.Model):
-  UserRewardID = models.AutoField(primary_key=True)
-  User = models.ForeignKey(User, on_delete=models.CASCADE)
+  User = models.ForeignKey(Customer, on_delete=models.CASCADE)
   Reward = models.ForeignKey(Reward, on_delete=models.CASCADE)
   EarnedDate = models.DateTimeField(blank=True, null=True)
 
 class Coin(models.Model):
-  CoinID = models.AutoField(primary_key=True)
-  User = models.ForeignKey(User, on_delete=models.CASCADE)
+  User = models.ForeignKey(Customer, on_delete=models.CASCADE)
   Amount = models.PositiveIntegerField()
 
+
 class Competition(models.Model):
-  CompetitionID = models.AutoField(primary_key=True)
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
