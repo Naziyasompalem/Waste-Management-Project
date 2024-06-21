@@ -3,7 +3,7 @@ from django.core.validators import FileExtensionValidator
 import os
 
 
-class User(models.Model):
+class Customer(models.Model):
   UserID = models.AutoField(primary_key=True)
   Name = models.CharField(max_length=255)
   Email = models.EmailField(unique=True)
@@ -11,11 +11,11 @@ class User(models.Model):
   Address = models.CharField(max_length=255, blank=True)
 
 class Category(models.Model):
-  CategoryID = models.AutoField(primary_key=True)
+  #CategoryID = models.AutoField(primary_key=True,bank=true)
   Name = models.CharField(max_length=255)
 
 class Product(models.Model):
-  ProductID = models.AutoField(primary_key=True)
+  #ProductID = models.AutoField(primary_key=True)
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   Price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -26,8 +26,8 @@ class FoodItem(Product):
   Cuisine = models.CharField(max_length=255, blank=True)
 
 class Order(models.Model):
-  OrderID = models.AutoField(primary_key=True)
-  UserID = models.ForeignKey(User, on_delete=models.CASCADE)
+  #OrderID = models.AutoField(primary_key=True)
+  CustomerID = models.ForeignKey(Customer, on_delete=models.CASCADE)
   OrderDate = models.DateTimeField(auto_now_add=True)
   STATUS_CHOICES = (
       ('Pending', 'Pending'),
@@ -38,14 +38,14 @@ class Order(models.Model):
   Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
 
 class OrderItem(models.Model):
-  OrderItemID = models.AutoField(primary_key=True)
+  #OrderItemID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   Product = models.ForeignKey(Product, on_delete=models.CASCADE)
   Quantity = models.PositiveIntegerField()
   Price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Transaction(models.Model):
-  TransactionID = models.AutoField(primary_key=True)
+  #TransactionID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   PAYMENT_METHOD_CHOICES = (
       ('Credit Card', 'Credit Card'),
@@ -55,9 +55,9 @@ class Transaction(models.Model):
   Amount = models.DecimalField(max_digits=10, decimal_places=2)
 
 class Delivery(models.Model):
-  DeliveryID = models.AutoField(primary_key=True)
+  #DeliveryID = models.AutoField(primary_key=True)
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
-  DeliveryPerson = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+  DeliveryPerson = models.ForeignKey(, on_delete=models.SET_NULL, blank=True, null=True)
   STATUS_CHOICES = (
       ('Pending', 'Pending'),
       ('On the way', 'On the way'),
@@ -88,6 +88,8 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
+ #wcogift class
+  
  # EndDate
     #@property
     #def curmonth(self):

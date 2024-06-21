@@ -14,15 +14,15 @@ from datetime import datetime
 from django.contrib import messages
 
 # from products.models import Product
-from products.models import User,Category,Product,FoodItem,Order,OrderItem,Transaction,Delivery,Reward,UserReward,Coin,Competition
+from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,Transaction,Delivery,Reward,UserReward,Coin,Competition
 
 
 def index(request):  
 
-    ur=User.objects.filter()
+    ur=Customer.objects.filter()
     print(ur)
     context={
-        'User':ur
+        'Customer':ur
     }
     ct=Category.objects.filter()
     print(ct)
