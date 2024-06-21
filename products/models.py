@@ -88,17 +88,7 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
- 
-  
- # EndDate
-    #@property
-    #def curmonth(self):
-        # yr=date.today().year
-        # mn=date.today().month
-        # print(self.deadline, date.today())
-        #if self.deadline<=date.today():
-            # print('OVER')
-            #return 'rgb(248, 233, 129)'
+
 class Meta:
     managed = True
     def __str__(self):
