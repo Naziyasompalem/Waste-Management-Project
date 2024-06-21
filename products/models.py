@@ -88,7 +88,7 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
- #wcogift class
+ 
   
  # EndDate
     #@property
