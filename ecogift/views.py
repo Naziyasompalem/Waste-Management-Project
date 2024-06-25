@@ -20,66 +20,50 @@ from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,T
 def index(request):  
 
     ur=Customer.objects.filter()
-    print(ur)
-    context={
-        'Customer':ur
-    }
-    ct=Category.objects.filter()
-    print(ct)
-    context={
-        'Category':ct
-    }
+    
     pr=Product.objects.filter()
-    print(pr)
-    context={
-        'Product':pr
-    }
     Fi=FoodItem.objects.filter()
-    print(Fi)
-    context={
-        'FoodItem':Fi
-    }
     ord=Order.objects.filter()
-    print(ord)
-    context={
-        'Order':ord
-    }
     oi=OrderItem.objects.filter()
-    print(oi)
-    context={
-        'OrderItem':oi
-    }
     tn=Transaction.objects.filter()
-    print(tn)
-    context={
-        'Transaction':tn
-    }
     delv=Delivery.objects.filter()
-    print(delv)
-    context={
-        'Delivery':delv
-    }
 
-    rew=Reward.objects.filter()
-    print(rew)
-    context={
-        'Reward':rew
-    }
-    urew=UserReward.objects.filter()
-    print(urew)
-    context={
-        'UserReward':urew   
-    }
-    cn=Coin.objects.filter()
-    print(cn)
-    context={
-        'Coin':cn
-    }
-    comp=Competition.objects.filter()
-    print(comp)
-    context={
-        'Competition':comp
-    }
+    veg=Product.objects.filter(Category_id__Name='Vegetable')
+    fruits=Product.objects.filter(Category_id__Name='Fruit')
+    waste=Product.objects.filter(Category_id__Name='Agricultural waste')
 
-   
+
+    ct=Category.objects.filter()
+    cat=list(ct.values_list('Name', flat=True))
+    
+    prd_all = [dict() for x in range(len(cat))]
+    i=0
+    for c in cat:
+        prd=Product.objects.filter(Category_id__Name=c)
+        
+        prd_all[i]={**prd_all[i],**{prd:prd}}
+        i+=1
+    print(prd_all[0])
+    context={
+        'veg':veg,
+        'fruits':fruits,
+        'waste':waste,
+        'category':ct,
+        'prd_all':prd_all
+    }
     return render(request,'index.html', context)
+
+
+def shop(request):  
+
+    ur=Customer.objects.filter()
+    
+    pr=Product.objects.filter()
+    Fi=FoodItem.objects.filter()
+    
+    context={
+        'ur':ur,
+        'Fi':Fi
+
+    }
+    return render(request,'shop.html', context)
