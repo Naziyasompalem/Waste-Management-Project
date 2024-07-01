@@ -17,7 +17,7 @@ from .forms import ProdutForm
 
 def index(request):  
 
-    pr=Product.objects.filter(category='vegetable')
+    pr=Product.objects.filter(id=1)
     print(pr)
     context={
         'product':pr
@@ -29,7 +29,7 @@ def index(request):
 
 def add_product(request): 
     if request.POST:
-        form=ProdutForm(request.POST) 
+        form=ProdutForm(request.POST,request.FILES) 
         if form.is_valid():
             instance = form.save(commit=False)
             # messages.success(request, "Data saved")
