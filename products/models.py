@@ -8,6 +8,7 @@ class Customer(models.Model):
   Email = models.EmailField(unique=True)
   Password = models.CharField(max_length=128)
   Address = models.CharField(max_length=255, blank=True)
+  Phone = models.CharField(max_length=20, blank=True) 
 
 
 class Category(models.Model):
@@ -93,8 +94,64 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
+from django.db import models
 
-  class Meta:
-      managed = True
+class Seller(models.Model):
+  """
+  This model represents a seller on the e-commerce website.
+  """
+  ShopName = models.CharField(max_length=255)
+  Email = models.EmailField(unique=True)
+  # Assuming password is handled separately (e.g., hashed and stored securely)
+  # Password = models.CharField(max_length=128)
+
+  # Contact Information
+  Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
+
+  # Business Information
+  CompanyAddress = models.CharField(max_length=255, blank=True)
+  TaxIdentificationNumber = models.CharField(max_length=50, blank=True)  # May vary based on location
+
+  # Pickup Address (optional for in-store pickup)
+  PickupAddress = models.CharField(max_length=255, blank=True)
+
+  # Bank Details (**sensitive, store securely!**)
+  BankAccountName = models.CharField(max_length=255, blank=True)
+  BankName = models.CharField(max_length=255, blank=True)
+  AccountNumber = models.CharField(max_length=50, blank=True)
+  # **Never store raw credit card details!**
+
+  # Additional details (optional)
+  Description = models.TextField(blank=True)  # Seller's shop description
+  Website = models.URLField(blank=True)  # Seller's website URL (if applicable)
+from django.db import models
+
+class ShippingInformation(models.Model):
+  """
+  This model represents shipping information for an order.
+  """
+  # Consider linking this model to your Order model (if applicable)
+  # Order = models.ForeignKey(Order, on_delete=models.CASCADE)  # Example foreign key
+
+  # Customer Information (might be linked to Customer model)
+  FullName = models.CharField(max_length=255)
+  Email = models.EmailField(blank=True)  # Optional for guest checkout
+  Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
+
+  # Shipping Address
+  AddressLine1 = models.CharField(max_length=255)
+  AddressLine2 = models.CharField(max_length=255, blank=True)  # Optional for additional address details
+  City = models.CharField(max_length=100)
+  State = models.CharField(max_length=100)  # Adjust field length based on your location
+  PostalCode = models.CharField(max_length=20)
+  Country = models.CharField(max_length=100)
+
+  # Additional Information (optional)
+  ShippingInstructions = models.TextField(blank=True)  # Special delivery instructions
+  ShippingMethod = models.CharField(max_length=100, blank=True)  # Chosen shipping method (e.g., standard, express)
+
+
+class Meta:
+  managed = True
   def __str__(self):
-      return str(self.Name)
+    return str(self.Name)

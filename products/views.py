@@ -14,6 +14,8 @@ from django.contrib import messages
 
 from .models import Product
 from .forms import ProdutForm
+from .forms import CustomerdetForm
+from .forms import sellerForm
 
 def index(request):  
 
@@ -41,4 +43,35 @@ def add_product(request):
             return render(request,'product_entry_form.html', {'form':form})
     else:
         form=ProdutForm()
+        return render(request,'product_entry_form.html', {'form':form})
+def customerinfo(request): 
+    if request.POST:
+        form=CustomerdetForm(request.POST,request.FILES) 
+        if form.is_valid():
+            instance = form.save(commit=False)
+            # messages.success(request, "Data saved")
+            instance.save()
+            return redirect('product-home')
+        else:
+            # messages.success(request, "Data Not saved, Please check input")
+            form=CustomerdetForm()
+            return render(request,'product_entry_form.html', {'form':form})
+    else:
+        form=CustomerdetForm()
+        return render(request,'product_entry_form.html', {'form':form})
+
+def sellerinfo(request): 
+    if request.POST:
+        form=sellerForm(request.POST,request.FILES) 
+        if form.is_valid():
+            instance = form.save(commit=False)
+            # messages.success(request, "Data saved")
+            instance.save()
+            return redirect('product-home')
+        else:
+            # messages.success(request, "Data Not saved, Please check input")
+            form=sellerForm()
+            return render(request,'product_entry_form.html', {'form':form})
+    else:
+        form=sellerForm()
         return render(request,'product_entry_form.html', {'form':form})

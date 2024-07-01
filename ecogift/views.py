@@ -14,7 +14,7 @@ from datetime import datetime
 from django.contrib import messages
 
 # from products.models import Product
-from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,Transaction,Delivery,Reward,UserReward,Coin,Competition
+from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,Transaction,Delivery,Reward,UserReward,Coin,Competition,Seller,ShippingInformation
 
 
 def index(request):  
@@ -27,6 +27,8 @@ def index(request):
     oi=OrderItem.objects.filter()
     tn=Transaction.objects.filter()
     delv=Delivery.objects.filter()
+    Sell=Seller.objects.filter()
+    ship=ShippingInformation.objects.filter()
 
     veg=Product.objects.filter(Category_id__Name='Vegetable')
     fruits=Product.objects.filter(Category_id__Name='Fruit')
