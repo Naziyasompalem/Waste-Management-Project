@@ -13,6 +13,7 @@ from datetime import datetime
 from django.contrib import messages
 
 from .models import Product
+from .forms import ProdutForm
 
 def index(request):  
 
@@ -23,3 +24,21 @@ def index(request):
     }
    
     return render(request,'index.html', context)
+
+
+
+def add_product(request): 
+    if request.POST:
+        form=ProdutForm(request.POST) 
+        if form.is_valid():
+            instance = form.save(commit=False)
+            # messages.success(request, "Data saved")
+            instance.save()
+            return redirect('product-home')
+        else:
+            # messages.success(request, "Data Not saved, Please check input")
+            form=ProdutForm()
+            return render(request,'product_entry_form.html', {'form':form})
+    else:
+        form=ProdutForm()
+        return render(request,'product_entry_form.html', {'form':form})
