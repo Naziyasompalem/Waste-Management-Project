@@ -12,6 +12,6 @@ urlpatterns=[
     path('', views.index, name="product-home"),
     path('add-product', views.add_product, name="add-product"),
     path('customer-info', views.customerinfo, name="customer-info"),
-    path('seller-det', views.sellerinfo, name="seller-det")
-    
+    path('seller-det', views.sellerinfo, name="seller-det"),
+    path('checkout-det', views.checkout, name="checkout-det")
 ]

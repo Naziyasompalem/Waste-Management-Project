@@ -16,6 +16,7 @@ from .models import Product
 from .forms import ProdutForm
 from .forms import CustomerdetForm
 from .forms import sellerForm
+from .forms import Checkoutform
 
 def index(request):  
 
@@ -74,4 +75,20 @@ def sellerinfo(request):
             return render(request,'product_entry_form.html', {'form':form})
     else:
         form=sellerForm()
+        return render(request,'product_entry_form.html', {'form':form})
+    
+def checkout(request): 
+    if request.POST:
+        form=Checkoutform(request.POST,request.FILES) 
+        if form.is_valid():
+            instance = form.save(commit=False)
+            # messages.success(request, "Data saved")
+            instance.save()
+            return redirect('product-home')
+        else:
+            # messages.success(request, "Data Not saved, Please check input")
+            form=Checkoutform()
+            return render(request,'product_entry_form.html', {'form':form})
+    else:
+        form=Checkoutform()
         return render(request,'product_entry_form.html', {'form':form})

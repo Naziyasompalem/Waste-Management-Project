@@ -14,7 +14,7 @@ from datetime import datetime
 from django.contrib import messages
 
 # from products.models import Product
-from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,Transaction,Delivery,Reward,UserReward,Coin,Competition,Seller,ShippingInformation
+from products.models import Customer,Category,Product,FoodItem,Order,OrderItem,Delivery,Transaction,Reward,UserReward,Coin,Competition,Seller,ShippingInformation
 
 
 def index(request):  
@@ -30,29 +30,28 @@ def index(request):
     Sell=Seller.objects.filter()
     ship=ShippingInformation.objects.filter()
 
-    veg=Product.objects.filter(Category_id__Name='Vegetable')
-    fruits=Product.objects.filter(Category_id__Name='Fruit')
-    waste=Product.objects.filter(Category_id__Name='Agricultural waste')
+    
+    #agriwaste=Product.objects.filter(Category_id__Name='Agricultural waste')
 
 
     ct=Category.objects.filter()
     cat=list(ct.values_list('Name', flat=True))
+    print(cat)
     
     prd_all = [dict() for x in range(len(cat))]
     i=0
     for c in cat:
         prd=Product.objects.filter(Category_id__Name=c)
-        
+        #print(prd)
         prd_all[i]={**prd_all[i],**{prd:prd}}
         i+=1
-    print(prd_all[0])
-    context={
-        'veg':veg,
-        'fruits':fruits,
-        'waste':waste,
-        'category':ct,
-        'prd_all':prd_all
+    print(prd_all)
+    context={'cat':cat,
+             'prd_all':prd_all
+        
     }
+    
+    #print(veg)
     return render(request,'index.html', context)
 
 

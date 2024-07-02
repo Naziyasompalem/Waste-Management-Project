@@ -20,7 +20,7 @@ class Category(models.Model):
 class Product(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
-  Price = models.DecimalField(max_digits=10, decimal_places=2)
+  Price = models.CharField(max_length=10)
   Category = models.ForeignKey(Category, on_delete=models.CASCADE)
   Image = models.ImageField(upload_to='products/', blank=True)
 
@@ -94,7 +94,7 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
-from django.db import models
+
 
 class Seller(models.Model):
   """
@@ -124,7 +124,7 @@ class Seller(models.Model):
   # Additional details (optional)
   Description = models.TextField(blank=True)  # Seller's shop description
   Website = models.URLField(blank=True)  # Seller's website URL (if applicable)
-from django.db import models
+
 
 class ShippingInformation(models.Model):
   """
@@ -145,6 +145,7 @@ class ShippingInformation(models.Model):
   State = models.CharField(max_length=100)  # Adjust field length based on your location
   PostalCode = models.CharField(max_length=20)
   Country = models.CharField(max_length=100)
+  
 
   # Additional Information (optional)
   ShippingInstructions = models.TextField(blank=True)  # Special delivery instructions
