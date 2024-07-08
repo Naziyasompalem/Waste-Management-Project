@@ -50,9 +50,27 @@ def index(request):
              'prd_all':prd_all
         
     }
+    return render(request, 'index.html', context)
     
-    #print(veg)
-    return render(request,'index.html', context)
+    
+    """return render(request,'index.html', context)
+    categories = Category.objects.all()  # More efficient than filtering all categories
+    products_by_category = {category.Name: Product.objects.filter(category=category) for category in categories}
+
+    context = {
+        'categories': categories,
+        'products_by_category': products_by_category,
+    }
+    return render(request, 'index.html', context)"""
+"""def index(request):
+    categories = Category.objects.all()  # More efficient than filtering all categories
+    products_by_category = {category.Name: Product.objects.filter(category=category) for category in categories}
+
+    context = {
+        'categories': categories,
+        'products_by_category': products_by_category,
+    }
+    return render(request, 'index.html', context)"""
 
 
 def shop(request):  

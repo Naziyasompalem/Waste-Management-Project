@@ -16,7 +16,8 @@ from .models import Product
 from .forms import ProdutForm
 from .forms import CustomerdetForm
 from .forms import sellerForm
-from .forms import Checkoutform
+from .forms import ShipForm
+from .forms import TransacForm
 
 def index(request):  
 
@@ -79,7 +80,7 @@ def sellerinfo(request):
     
 def checkout(request): 
     if request.POST:
-        form=Checkoutform(request.POST,request.FILES) 
+        form=ShipForm(request.POST,request.FILES) 
         if form.is_valid():
             instance = form.save(commit=False)
             # messages.success(request, "Data saved")
@@ -87,8 +88,21 @@ def checkout(request):
             return redirect('product-home')
         else:
             # messages.success(request, "Data Not saved, Please check input")
-            form=Checkoutform()
+            form=ShipForm()
             return render(request,'product_entry_form.html', {'form':form})
     else:
-        form=Checkoutform()
+        form=ShipForm()
+    if request.POST:
+        form=TransacForm(request.POST,request.FILES) 
+        if form.is_valid():
+            instance = form.save(commit=False)
+            # messages.success(request, "Data saved")
+            instance.save()
+            return redirect('product-home')
+        else:
+            # messages.success(request, "Data Not saved, Please check input")
+            form=TransacForm()
+            return render(request,'product_entry_form.html', {'form':form})
+    else:
+        form=TransacForm()
         return render(request,'product_entry_form.html', {'form':form})

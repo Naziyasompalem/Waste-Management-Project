@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Category,Customer,Seller,ShippingInformation
+from .models import Product, Category,Customer,Seller,ShippingInformation,Transaction
 
 
 class ProdutForm(forms.ModelForm):
@@ -19,9 +19,15 @@ class sellerForm(forms.ModelForm):
     class Meta:
         model=Seller
         fields="__all__"
-class Checkoutform(forms.ModelForm):
+class ShipForm(forms.ModelForm):
     class Meta:
         model=ShippingInformation
         fields="__all__"
+class TransacForm(forms.ModelForm):
+    class Meta:
+        model=Transaction
+        fields="__all__"
+
+
 
     
