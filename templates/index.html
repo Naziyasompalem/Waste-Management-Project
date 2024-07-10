@@ -12,8 +12,7 @@
             <div class="row g-5 align-items-center">
                 <div class="col-md-12 col-lg-7">
                     <h4 class="mb-3 text-secondary">waste Management</h4>
-                    <h1 class="mb-5 display-3 text-primary">Recycled products and waste Resources </h1>
-                    <h4>Products Availability</h4>
+                    <h1 class="mb-5 display-3 text-primary">Recycled products and waste Resources</h1>
                     {% for p in product %}
                     <h6>{{p.name}} price : {{ p.price }}</h6>
                     {% endfor %}
@@ -56,10 +55,11 @@
                         </button>
                     </div>
                 </div>
-            </div>m
+            </div>
         </div>
     </div>
     <!-- Hero End -->
+     
     <!-- Featurs Start -->
     <div class="container-fluid service py-5">
         <div class="container py-5">
@@ -161,6 +161,7 @@
         </div>
     </div>
     <!-- Featurs Section End -->
+     
     <!-- Fruits Shop Start-->
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
@@ -173,10 +174,10 @@
                     <div class="col-lg-8 text-end">
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <!-- ----------------------- -->
-                            {% for i in category %}
+                            {% for i in categories %}
                             <li class="nav-item">
-                                <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill"
-                                    href="#{{i.id}}">
+                                <a class="d-flex m-2 py-2 bg-light rounded-pill {% if i.id == 1 %}active{% endif %}" data-bs-toggle="pill"
+                                    href="#tab-{{i.id}}">
                                     <span class="text-dark" style="width: 130px;">{{i.Name}} </span>
                                 </a>
                             </li>
@@ -186,84 +187,53 @@
                     </div>
                 </div>
                 <div class="tab-content">
-
-                    {% for j in category %}  <!--## LOOP 1-->
-                    {% if forloop.counter == 1 %}
-                    <div id="{{j.id}}" class="tab-pane fade show p-0 active">
+                    {% for category in categories %}
+                    <div id="tab-{{ category.id }}" class="tab-pane fade show p-0 {% if category.id == 1 %} active {% endif %}">
                         <div class="row g-4">
                             <div class="col-lg-12">
                                 <div class="row g-4">
-                                    {% for i in prd_all %}
-                                    <h4> {{i}}</h4>
-                                    {% for k in i %}
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{{ k.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Eco-Friendly</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4 style="color: red;">{{ k.Name}}</h4>
-                                                <p>{{k.Description}}</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">Rs. {{k.Price}} / kg</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
+                                    {% for cat_name, products in products_by_category.items %}
+                                    {% if cat_name == category.Name %}
+                                        {% for product in products %}
+                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                            <div class="rounded position-relative fruite-item">
+                                                <div class="fruite-img">
+                                                    <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top"
+                                                        alt="">
+                                                </div>
+                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                    style="top: 10px; left: 10px;">Eco-Friendly</div>
+                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                    <h4>{{ product.Name }}</h4>
+                                                    <p>{{ product.Description }}</p>
+                                                    <div class="d-flex justify-content-between flex-lg-wrap">
+                                                        <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/ kg</p>
+                                                        <a href="#"
+                                                            class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                            cart</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% empty %}
+                                    No items to display
                                     {% endfor %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {%else%}
-                    <div id="{{j.id}}" class="tab-pane fade show p-0 inactive">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    {% for i in fruits %}
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{{ i.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Eco-Friendly</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4 style="color: red;">{{ i.Name}}</h4>
-                                                <p>{{i.Description}}</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">Rs. {{i.Price}} / kg</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif%}
-                    {%endfor%}
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
     <!-- Fruits Shop End-->
+    
 
+{% comment %} 
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
             <div class="tab-class text-center">
@@ -383,11 +353,7 @@
             </div>
         </div>
     </div>
-
- 
-
-
-
+  {% endcomment %}
 
     <!-- Vesitable Shop Start-->
     <div class="container-fluid vesitable py-5">
@@ -468,10 +434,11 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Potatoes</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                        <h4>Rubber</h4>
+                        <p>High strength and elasticity,Natural rubber can be stretched to several times its original
+                            length and return to its original shape.</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
+                            <p class="text-dark fs-5 fw-bold mb-0">40Rs/pack</p>
                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                         </div>
@@ -484,10 +451,12 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Parsely</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
+                        <h4>natural Toothbrush</h4>
+                        <p>The handle is typically made of bamboo, a fast-growing, renewable resource that biodegrades
+                            quickly after you're done using the toothbrush. Bamboo also has natural antibacterial
+                            properties</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">$7.99 / kg</p>
+                            <p class="text-dark fs-5 fw-bold mb-0">50Rs/piece</p>
                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                         </div>
