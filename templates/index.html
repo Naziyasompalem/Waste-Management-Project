@@ -1,6 +1,7 @@
 {%extends 'base.html'%}
 {% load static %}
 {% load mathfilters %}
+{% load custom_filters %}
 
 
 {%block content%}
@@ -263,7 +264,6 @@
     </div>
     <!-- Fruits Shop End-->
 
-{% comment %} 
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
             <div class="tab-class text-center">
@@ -276,7 +276,7 @@
                                 <li>
                                     <h2>{{ category.Name }}</h2>
                                     <ul>
-                                        {% for product in products_by_category[category.Name] %}
+                                        {% for product in products_by_category|get_item:category.Name %}
                                             <li>
                                                 <h3>{{ product.Name }}</h3>
                                                 <p>{{ product.Description }}</p>
@@ -383,7 +383,7 @@
             </div>
         </div>
     </div>
- {% endcomment %}
+
  
 
 
