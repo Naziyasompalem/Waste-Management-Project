@@ -12,7 +12,7 @@ from django.contrib.auth.models import Group  # to assign group to new user whil
 from datetime import datetime
 from django.contrib import messages
 
-from .models import Product
+from .models import Product,Category
 from .forms import ProdutForm
 from .forms import CustomerdetForm
 from .forms import sellerForm
@@ -22,9 +22,12 @@ from .forms import TransacForm
 def index(request):  
 
     pr=Product.objects.filter(id=1)
-    print(pr)
+    cr=Category.objects.all()
+    
+    print(pr,cr)
     context={
-        'product':pr
+        'product':pr,
+        'categories':cr
     }
    
     return render(request,'index.html', context)
@@ -106,3 +109,12 @@ def checkout(request):
     else:
         form=TransacForm()
         return render(request,'product_entry_form.html', {'form':form})
+    
+def shopDetails(request):
+    categories = Category.objects.all()
+    products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
+    print(categories.values,products_by_category)
+    return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
+
+def contactus(request):
+    return render(request, 'contact.html')
