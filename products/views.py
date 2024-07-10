@@ -21,7 +21,7 @@ from .forms import TransacForm
 
 def index(request):  
 
-    pr=Product.objects.filter(id=1)
+    '''pr=Product.objects.filter(id=1)
     cr=Category.objects.all()
     
     print(pr,cr)
@@ -29,7 +29,19 @@ def index(request):
         'product':pr,
         'categories':cr
     }
-   
+   '''
+    categories = Category.objects.all()
+    products_by_category = {}
+
+    for category in categories:
+        products = Product.objects.filter(Category=category)
+        products_by_category[category.Name] = products
+
+    context = {
+        'categories': categories,
+        'products_by_category': products_by_category
+    }
+
     return render(request,'index.html', context)
 
 

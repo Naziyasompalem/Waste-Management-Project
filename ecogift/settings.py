@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'products',
     'mathfilters',
     'crispy_forms',
-    'crispy_bootstrap4'
-    
+    'crispy_bootstrap4',
+    'products.templatetags',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
