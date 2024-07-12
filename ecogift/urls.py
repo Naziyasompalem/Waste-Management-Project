@@ -27,7 +27,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('shop', views.shop, name="shop"),
     #path('register', views.registerPage, name="register"),
-    #path('login', views.loginPage, name="login"),
+    path('loginCus', views.customerLogin, name="loginCus"),
     path('products/',include('products.urls')),
 ]
 

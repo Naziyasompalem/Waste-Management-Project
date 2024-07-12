@@ -86,3 +86,18 @@ def shop(request):
 
     }
     return render(request,'shop.html', context)
+
+
+def customerLogin(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+   
+        print("Details received from customer",username,password)
+        user = authenticate(Email=username, password=password)
+        if user is not None:
+            login(request, user)
+            print("Login successful")
+            return redirect('index')
+    print("Login Failed")
+    return render(request,'clogin.html')

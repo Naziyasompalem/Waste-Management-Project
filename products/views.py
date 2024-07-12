@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 #from .forms import CreateUserForm, NoticeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Product, Cart, CartItem
 import requests
 #import json
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group  # to assign group to new user while creation
 from datetime import datetime
 from django.contrib import messages
@@ -130,3 +131,72 @@ def shopDetails(request):
 
 def contactus(request):
     return render(request, 'contact.html')
+
+
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    print("product reviced with the id : " + product_id)
+    cart, created = Cart.objects.get_or_create(customer=request.user)
+
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return JsonResponse({'status': 'success'})
+    #return render(request, 'cart.html', {'cart': cart})
+
+@login_required
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(customer=request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
+
+#Loading the reference data  warning:load only if the data is missed 
+#else can cause constrain inssues in the database
+'''
+related_products = {
+    "Non-Eatable Wastes": [
+        "Egg Shells", "Fruit Peels", "Tea Bags", "Coffee Grounds", "Bones", 
+        "Nut Shells", "Expired Bread", "Used Paper Towels", "Banana Peels", "Coconut Shells"
+    ],
+    "Eatable Leftovers": [
+        "Leftover Pizza", "Leftover Pasta", "Leftover Rice", "Leftover Salad", "Leftover Soup", 
+        "Leftover Sandwiches", "Leftover Stir Fry", "Leftover Baked Goods", "Leftover Meat", "Leftover Vegetables"
+    ],
+    "Plastic Waste": [
+        "Plastic Bottle", "Plastic Bag", "Plastic Straw", "Plastic Wrap", "Plastic Container", 
+        "Plastic Cutlery", "Plastic Packaging", "Plastic Cups", "Plastic Toys", "Plastic Lids"
+    ],
+    "Agriculture Waste": [
+        "Corn Husks", "Straw", "Hay", "Crop Residue", "Weeds", 
+        "Plant Trimmings", "Grass Clippings", "Manure", "Sawdust", "Fruit Scraps"
+    ]
+}
+
+def generate_related_products(related_products):
+    products = []
+    for category, items in related_products.items():
+        for item in items:
+            products.append({
+                "Name": item,
+                "Description": fake.sentence(),
+                "Price": str(round(random.uniform(1.0, 100.0), 2)),
+                "Category": category,
+                "Image": fake.image_url()
+            })
+    return products
+
+related_specific_products = generate_related_products(related_products)
+
+df_related_specific_products = pd.DataFrame(related_specific_products)
+
+# Create new Excel writer
+with pd.ExcelWriter('/mnt/data/related_specific_models_data.xlsx') as writer:
+    df_specific_categories.to_excel(writer, sheet_name='Category', index=False)
+    df_related_specific_products.to_excel(writer, sheet_name='Product', index=False)
+
+'/mnt/data/related_specific_models_data.xlsx'
+'''
