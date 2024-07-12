@@ -5,6 +5,7 @@ from django.urls import path
 from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns 
 from django.views.decorators.csrf import csrf_exempt
+from .views import add_to_cart, view_cart
 
 
 urlpatterns=[
@@ -16,4 +17,7 @@ urlpatterns=[
     path('checkout-det', views.checkout, name="checkout-det"),
     path("shop-details", views.shopDetails, name="shop-details"),
     path('contactus', views.contactus, name="contactus"),
+    path('cart', views.Cart, name="cart"),
+    path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('cart/', view_cart, name='view_cart'),
 ]
