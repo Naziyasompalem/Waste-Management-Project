@@ -208,9 +208,13 @@
                                         <p>{{ product.Description }}</p>
                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                             <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/ kg</p>
-                                            <button class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" class="add-to-cart" data-product-id="{{ product.id }}">
-                                                {% comment %} <i class="fa fa-shopping-bag me-2 text-primary"></i>{% endcomment %} Add to cart 
+                                            <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                                Add to cart
                                             </button>
+                                            
+                                            {% comment %} <button onclick="add-to-cart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" class="add-to-cart" data-product-id="{{ product.id }}">
+                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart 
+                                            </button> {% endcomment %}
                                         </div>
                                     </div>
                                 </div>
@@ -226,8 +230,32 @@
         </div>
         {% endfor %}
     </div>
-
     <script>
+        function addToCart(productid) {
+            const url = "{% url 'add_to_cart' 0 %}".replace('0', productid);
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',  // Ensure you include CSRF token for security
+                },
+                body: JSON.stringify({ productid: productid })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Handle response data
+                alert('Product added to cart');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to add product to cart');
+            });
+        }
+    </script>
+    
+
+    {% comment %} <script>
         $(document).ready(function(){
             $('.add-to-cart').click(function(event){
                 event.preventDefault();
@@ -244,7 +272,7 @@
                 });
             });
         });
-    </script>
+    </script> {% endcomment %}
 </body>
 </html>
 

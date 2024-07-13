@@ -134,19 +134,27 @@ def contactus(request):
 
 
 
-@login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def add_to_cart(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    print("product reviced with the id : " + product_id)
-    cart, created = Cart.objects.get_or_create(customer=request.user)
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        #print("product reviced with the id : " + product_id)
+        cart, created = Cart.objects.get_or_create(customer=request.user)
 
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
 
-    return JsonResponse({'status': 'success'})
-    #return render(request, 'cart.html', {'cart': cart})
+            return JsonResponse({'message': 'Product added to cart'})
+       
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+
 
 @login_required
 def view_cart(request):
