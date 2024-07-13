@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.conf import settings
 from .models import Product, Cart, CartItem
 import requests
 #import json
@@ -20,6 +21,22 @@ from .forms import sellerForm
 from .forms import ShipForm
 from .forms import TransacForm
 
+
+def mapbox_api_call(request):
+    longitude = float(request.GET.get('longitude'))
+    latitude = float(request.GET.get('latitude'))
+    url = f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={longitude}&latitude={latitude}&proximity=ip&access_token={settings.MAPBOX_API_KEY}"
+
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            posts = response.json()
+            return JsonResponse(posts)
+        else:
+            return JsonResponse({"error": "Failed to fetch data from Mapbox API"}, status=500)
+    except:
+        print("Error")
+
 def index(request):
     categories = Category.objects.all()
     products_by_category = {}
@@ -27,6 +44,7 @@ def index(request):
     for category in categories:
         products = Product.objects.filter(Category=category)
         products_by_category[category.Name] = products
+
 
     context = {
         'categories': categories,
