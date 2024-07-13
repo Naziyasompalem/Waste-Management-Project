@@ -20,17 +20,7 @@ from .forms import sellerForm
 from .forms import ShipForm
 from .forms import TransacForm
 
-def index(request):  
-
-    '''pr=Product.objects.filter(id=1)
-    cr=Category.objects.all()
-    
-    print(pr,cr)
-    context={
-        'product':pr,
-        'categories':cr
-    }
-   '''
+def index(request):
     categories = Category.objects.all()
     products_by_category = {}
 
@@ -44,8 +34,6 @@ def index(request):
     }
 
     return render(request,'index.html', context)
-
-
 
 def add_product(request): 
     if request.POST:
@@ -62,6 +50,7 @@ def add_product(request):
     else:
         form=ProdutForm()
         return render(request,'product_entry_form.html', {'form':form})
+
 def customerinfo(request): 
     if request.POST:
         form=CustomerdetForm(request.POST,request.FILES) 
@@ -208,3 +197,5 @@ with pd.ExcelWriter('/mnt/data/related_specific_models_data.xlsx') as writer:
 
 '/mnt/data/related_specific_models_data.xlsx'
 '''
+def signup(request):
+    return render(request, 'signup.html')
