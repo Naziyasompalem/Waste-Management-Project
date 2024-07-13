@@ -87,14 +87,14 @@ def shop(request):
     }
     return render(request,'shop.html', context)
 
-
+from django.contrib.auth.hashers import make_password
 def customerLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
    
-        print("Details received from customer",username,password)
-        user = authenticate(Email=username, password=password)
+        print("Details received from customer",username)
+        user = authenticate(email=username,password=password)
         if user is not None:
             login(request, user)
             print("Login successful")
