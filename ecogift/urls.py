@@ -21,10 +21,11 @@ from django.conf import settings
 from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns 
 from django.views.decorators.csrf import csrf_exempt
+from products import views as products_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="index"),
+    path('', products_views.index, name="index"),
     path('shop', views.shop, name="shop"),
     #path('register', views.registerPage, name="register"),
     path('loginCus', views.customerLogin, name="loginCus"),
