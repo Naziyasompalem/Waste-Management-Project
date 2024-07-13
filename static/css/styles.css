@@ -1,0 +1,108 @@
+/* Add some modern UI/UX design elements */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
+}
+
+header {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.winner-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 450px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+th, td {
+  border: none;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background-color: #ecf0f1;
+}
+
+.winner-award {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+footer {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Add some modern chart styles */
+
+.chart-container canvas {
+  border-radius: 10px;
+}
+
+.chartjs-tooltip {
+  background-color: #333;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.chartjs-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: #333 transparent transparent transparent;
+}
