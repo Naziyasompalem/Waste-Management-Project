@@ -4,6 +4,7 @@ charset-normalizer==3.3.2
 crispy-bootstrap4==2024.1
 Django==5.0.6
 django-crispy-forms==2.2
+django-environ==0.11.2
 django-mathfilters==1.0.0
 idna==3.7
 pillow==10.4.0
