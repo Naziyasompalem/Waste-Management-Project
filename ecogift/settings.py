@@ -13,10 +13,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
-
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# env = environ.Env()
+# environ.Env.read_env('.env')
+MAPBOX_API_KEY = "pk.eyJ1IjoibmF6aXlhc29tcGFsZW0iLCJhIjoiY2x5azdxMDliMHQ3NTJxczQ4dWI5N3k5dSJ9.gbQLsxkj-nXDoCGbpoP38w"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -28,6 +31,8 @@ SECRET_KEY = 'django-insecure-+fq-y^unx%$rgdmzuk&c@m)2-t+xcxwgur(upy@z$#-og!dza3
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+
 
 
 # Application definition
@@ -56,7 +61,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
+AUTH_USER_MODEL = 'products.Customer'
 ROOT_URLCONF = 'ecogift.urls'
 
 TEMPLATES = [
@@ -106,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

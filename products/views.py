@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.conf import settings
 from .models import Product, Cart, CartItem
 import requests
 #import json
@@ -13,12 +14,28 @@ from django.contrib.auth.models import Group  # to assign group to new user whil
 from datetime import datetime
 from django.contrib import messages
 
-from .models import Product,Category
+from .models import Product,Category,Customer
 from .forms import ProdutForm
 from .forms import CustomerdetForm
 from .forms import sellerForm
 from .forms import ShipForm
 from .forms import TransacForm
+
+
+def mapbox_api_call(request):
+    longitude = float(request.GET.get('longitude'))
+    latitude = float(request.GET.get('latitude'))
+    url = f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={longitude}&latitude={latitude}&proximity=ip&access_token={settings.MAPBOX_API_KEY}"
+
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            posts = response.json()
+            return JsonResponse(posts)
+        else:
+            return JsonResponse({"error": "Failed to fetch data from Mapbox API"}, status=500)
+    except:
+        print("Error")
 
 def index(request):
     categories = Category.objects.all()
@@ -27,6 +44,7 @@ def index(request):
     for category in categories:
         products = Product.objects.filter(Category=category)
         products_by_category[category.Name] = products
+
 
     context = {
         'categories': categories,
@@ -127,6 +145,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
+@login_required
 def add_to_cart(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
@@ -197,5 +216,35 @@ with pd.ExcelWriter('/mnt/data/related_specific_models_data.xlsx') as writer:
 
 '/mnt/data/related_specific_models_data.xlsx'
 '''
+from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
+from django.contrib import messages
+from products.models import Customer
+
 def signup(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+
+        # Check for existing username or email
+        if Customer.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists.')
+            return render(request, 'signup.html')
+        if Customer.objects.filter(email=email).exists():
+            messages.error(request, 'Email already registered.')
+            return render(request, 'signup.html')
+
+        try:
+            # Create the user using create_user method
+            user = Customer.objects.create_user(username=username, email=email, password=password, first_name=first_name)
+            user.save()
+            messages.success(request, 'Signup successful. You can now log in.')
+            return redirect('loginCus')
+        except Exception as e:
+            messages.error(request, f'Error: {e}')
+            return render(request, 'signup.html')
+
     return render(request, 'signup.html')
+
