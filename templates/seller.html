@@ -1,3 +1,7 @@
+{% endblock content %}
+{% extends "base.html" %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,15 +22,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+        <link href="{% static 'lib/lightbox/css/lightbox.min.css'%}" rel="stylesheet">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
     </head>
 
     <body>
@@ -159,7 +162,7 @@
                     <div class="owl-carousel vegetable-carousel justify-content-center">
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/banana.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/banana.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Agricultre waste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -174,7 +177,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/recy12.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/recy12.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Recycled product</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -189,7 +192,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/chocolate.jpg" class="img-fluid w-100 rounded-top bg-light" alt="">
+                                <img  src="{% static 'img/chocolate.jpg' %}" class="img-fluid w-100 rounded-top bg-light" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Industrialwaste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -204,7 +207,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/sg basses.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/sg basses.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Agricultre waste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -219,7 +222,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/wool.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/wool.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Agricultre</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -233,7 +236,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/tea.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/tea.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Industrialwaste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -248,7 +251,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/hostel.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/hostel.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Industrialwaste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -264,7 +267,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/rice husk.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/rice husk.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Agriculture waste</div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -280,7 +283,7 @@
                         </div>
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
-                                <img src="img/eggsh.jpg" class="img-fluid w-100 rounded-top" alt="">
+                                <img  src="{% static 'img/eggsh.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Agricultre waste </div>
                             <div class="p-4 pb-0 rounded-bottom">
@@ -316,7 +319,7 @@
                             <tr>
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
-                                        <img src="img/coconut sheel.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                        <img  src="{% static 'img/coconut sheel.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
                                     </div>
                                 </th>
                                 <td>
@@ -337,7 +340,7 @@
                                 <tr>
                                     <th scope="row">
                                         <div class="d-flex align-items-center">
-                                            <img src="img/ban.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                            <img  src="{% static 'img/ban.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
                                         </div>
                                     </th>
                                     <td>
@@ -356,7 +359,7 @@
                                 <tr>
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
-                                        <img src="img/cow.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
+                                        <img  src="{% static 'img/cow.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
                                     </div>
                                 </th>
                                 <td>
@@ -376,7 +379,7 @@
                             <tr>
                                 <th scope="row">
                                     <div class="d-flex align-items-center">
-                                        <img src="img/rice husk.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
+                                        <img  src="{% static 'img/rice husk.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
                                     </div>
                                 </th>
                                 <td>
@@ -467,7 +470,7 @@
                                     <div class="p-4 rounded bg-light">
                                         <div class="row align-items-center">
                                             <div class="col-6">
-                                                <img src="img/coconut sheel.jpg" class="img-fluid rounded-circle w-100" alt="">
+                                                <img  src="{% static 'img/coconut sheel.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
                                             </div>
                                             <div class="col-6">
                                                 <a href="#" class="h5">Cocunut Shells</a>
@@ -483,7 +486,7 @@
                                     <div class="p-4 rounded bg-light">
                                         <div class="row align-items-center">
                                             <div class="col-6">
-                                                <img src="img/ag2.jpg" class="img-fluid rounded-circle w-100" alt="">
+                                                <img  src="{% static 'img/ag2.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
                                             </div>
                                             <div class="col-6">
                                                 <a href="#" class="h5">Cow Dung</a>
@@ -498,7 +501,7 @@
                                     <div class="p-4 rounded bg-light">
                                         <div class="row align-items-center">
                                             <div class="col-6">
-                                                <img src="img/ag3.jpg" class="img-fluid rounded-circle w-100" alt="">
+                                                <img  src="{% static 'img/ag3.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
                                             </div>
                                             <div class="col-6">
                                                 <a href="#" class="h5">Egg Shells</a>
@@ -584,7 +587,7 @@
                             <p>Email: Example@gmail.com</p>
                             <p>Phone: +919956423187</p>
                             <p>Payment Accepted</p>
-                            <img src="img/payment.png" class="img-fluid" alt="">
+                            <img  src="{% static 'img/payment.png'%}" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
@@ -619,13 +622,14 @@
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{% static 'lib/lightbox/js/lightbox.min.js'%}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/main.js'%}"></script>
     </body>
 
 </html>
+{% block content %}
