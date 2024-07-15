@@ -39,8 +39,6 @@ class Migration(migrations.Migration):
                 ('Name', models.CharField(max_length=255)),
                 ('Description', models.TextField(blank=True)),
                 ('Price', models.CharField(max_length=10)),
-                ('Description', models.TextField(blank=True)),
-                ('Price', models.CharField(max_length=10)),
                 ('Image', models.ImageField(blank=True, upload_to='products/')),
                 ('Category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.category')),
             ],

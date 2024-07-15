@@ -91,10 +91,9 @@ def shop(request):
 
 def customerLogin(request):
     if request.method == 'POST':
-        email = request.POST.get('username')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        print(Customer.objects.filter(email=email).values())
-        username = Customer.objects.filter(email=email).username
+        print(username, password)
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request, user)
