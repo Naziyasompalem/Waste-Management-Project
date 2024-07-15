@@ -87,7 +87,8 @@ def shop(request):
     }
     return render(request,'shop.html', context)
 
-from django.contrib.auth.hashers import make_password
+
+
 def customerLogin(request):
     if request.method == 'POST':
         email = request.POST.get('username')
@@ -99,5 +100,22 @@ def customerLogin(request):
             login(request, user)
             print("Login successful")
             return redirect('index')
+        else:
+            # Add more specific debugging information
+            print("Authentication failed. Checking user existence and password manually.")
+            try:
+                user = Customer.objects.get(username=username)
+                print(f"User found: {user}")
+                if user.check_password(password):
+                    print("Password is correct")
+                    # If it reaches here, the problem is with `authenticate` or other configurations.
+                else:
+                    print("Incorrect password")
+            except Customer.DoesNotExist:
+                print("User does not exist")
+            
+            messages.error(request, 'Invalid username or password')
+
     print("Login Failed")
-    return render(request,'clogin.html')
+    return render(request, 'clogin.html')
+
