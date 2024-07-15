@@ -90,11 +90,11 @@ def shop(request):
 from django.contrib.auth.hashers import make_password
 def customerLogin(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('username')
         password = request.POST.get('password')
-   
-        print("Details received from customer",username)
-        user = authenticate(email=username,password=password)
+        print(Customer.objects.filter(email=email).values())
+        username = Customer.objects.filter(email=email).username
+        user = authenticate(username=username,password=password)
         if user is not None:
             login(request, user)
             print("Login successful")
