@@ -94,7 +94,7 @@ def customerLogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         print(username, password)
-        user = authenticate(username=username,password=password)
+        user = Customer.objects.get(username=username, password_main=password)
         if user is not None:
             login(request, user)
             print("Login successful")

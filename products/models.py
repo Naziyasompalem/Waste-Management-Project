@@ -14,6 +14,7 @@ class Customer(AbstractUser):
   Address = models.CharField(max_length=255, blank=True)
   Phone = models.CharField(max_length=20, blank=True)
   location = models.CharField(max_length=50)
+  password_main = models.CharField(max_length=50)
   groups = models.ManyToManyField(
         Group,
         related_name='customer_set',  # unique related_name
@@ -164,7 +165,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Cart of {self.customer.Name}"
+        return f"Cart of {self.customer.username}"
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')

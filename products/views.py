@@ -164,11 +164,13 @@ def add_to_cart(request, product_id):
 
 
 
-@login_required
 def view_cart(request):
-    cart, created = Cart.objects.get_or_create(customer=request.user)
-    return render(request, 'cart.html', {'cart': cart})
-
+    try:
+        cart = Cart.objects.get(user=request.user)
+        context = {'cart': cart}
+        return render(request, 'cart.html', context)
+    except Cart.DoesNotExist:
+        return render(request, 'cart.html', {'cart': None})
 
 #Loading the reference data  warning:load only if the data is missed 
 #else can cause constrain inssues in the database
@@ -238,7 +240,7 @@ def signup(request):
 
         try:
             # Create the user using create_user method
-            user = Customer.objects.create_user(username=username, email=email, password=password, first_name=first_name)
+            user = Customer.objects.create_user(username=username, email=email, password_main=password, first_name=first_name)
             user.save()
             messages.success(request, 'Signup successful. You can now log in.')
             return redirect('loginCus')
