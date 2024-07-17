@@ -25,17 +25,29 @@ from .forms import TransacForm
 def mapbox_api_call(request):
     longitude = float(request.GET.get('longitude'))
     latitude = float(request.GET.get('latitude'))
+    location = get_location(longitude, latitude)
+    if not location:
+        return JsonResponse({'error': 'Unable to find location'})
+    print(location)
+    sellers = Seller.objects.filter(CompanyAddress=location)
+    # need to add query to get food items amd send as response
+    return JsonResponse({'location': location})
+
+def get_location(longitude, latitude):
     url = f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={longitude}&latitude={latitude}&proximity=ip&access_token={settings.MAPBOX_API_KEY}"
 
     try:
         response = requests.get(url)
         if response.status_code == 200:
             posts = response.json()
-            return JsonResponse(posts)
+            location = posts['features'][0]['properties']['context']['locality']['name']
+            print(location)
+            return location
         else:
-            return JsonResponse({"error": "Failed to fetch data from Mapbox API"}, status=500)
+            return None
     except:
-        print("Error")
+        return None
+
 
 def index(request):
     categories = Category.objects.all()
