@@ -164,13 +164,21 @@ def add_to_cart(request, product_id):
 
 
 
+@login_required
 def view_cart(request):
     try:
-        cart = Cart.objects.get(user=request.user)
-        context = {'cart': cart}
-        return render(request, 'cart.html', context)
+        cart = Cart.objects.get(customer=request.user)
+        cart_items = cart.items.all()
     except Cart.DoesNotExist:
-        return render(request, 'cart.html', {'cart': None})
+        cart = None
+        cart_items = []
+
+    context = {
+        'cart': cart,
+        'cart_items': cart_items
+    }
+
+    return render(request, 'cart.html', context)
 
 #Loading the reference data  warning:load only if the data is missed 
 #else can cause constrain inssues in the database
