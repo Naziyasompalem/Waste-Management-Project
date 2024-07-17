@@ -164,21 +164,37 @@ def add_to_cart(request, product_id):
 
 
 
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Cart, CartItem
+
 @login_required
 def view_cart(request):
     try:
-        cart = Cart.objects.get(customer=request.user)
-        cart_items = cart.items.all()
+        cart = Cart.objects.filter(customer=request.user).first()
+        
+        if cart:
+            cart_items = cart.items.all()
+            subtotal = sum(item.product.Price * item.quantity for item in cart_items)
+        else:
+            cart_items = []
+            subtotal = 0
+        
+        context = {
+            'cart': cart,
+            'cart_items': cart_items,
+            'subtotal': subtotal,
+        }
+        
+        return render(request, 'cart.html', context)
+    
     except Cart.DoesNotExist:
-        cart = None
-        cart_items = []
+        return render(request, 'cart.html', {'cart': None, 'cart_items': [], 'subtotal': 0})
+    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return render(request, 'cart.html', {'cart': None, 'cart_items': [], 'subtotal': 0})
 
-    context = {
-        'cart': cart,
-        'cart_items': cart_items
-    }
-
-    return render(request, 'cart.html', context)
 
 #Loading the reference data  warning:load only if the data is missed 
 #else can cause constrain inssues in the database
