@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.conf import settings
-from .models import Product, Cart, CartItem
+from .models import Product, Cart, CartItem, Seller, FoodItem
 import requests
 #import json
 from django.contrib.auth.models import Group  # to assign group to new user while creation
@@ -29,9 +29,13 @@ def mapbox_api_call(request):
     if not location:
         return JsonResponse({'error': 'Unable to find location'})
     print(location)
-    sellers = Seller.objects.filter(CompanyAddress=location)
-    # need to add query to get food items amd send as response
-    return JsonResponse({'location': location})
+    # sellers = Seller.objects.filter(CompanyAddress=location)
+    products = FoodItem.objects.filter(Sellers__CompanyAddress=location)
+    print(list(products))
+    return JsonResponse({
+        'location': location,
+        'products': list(products)
+    })
 
 def get_location(longitude, latitude):
     url = f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={longitude}&latitude={latitude}&proximity=ip&access_token={settings.MAPBOX_API_KEY}"

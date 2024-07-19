@@ -130,6 +130,9 @@ class Seller(models.Model):
   AccountNumber = models.CharField(max_length=50, blank=True)
   # **Never store raw credit card details!**
 
+  #Items sold by the Seller
+  Products = models.ManyToManyField(Product, related_name="Sellers", blank=True)
+
   # Additional details (optional)
   Description = models.TextField(blank=True)  # Seller's shop description
   Website = models.URLField(blank=True)  # Seller's website URL (if applicable)

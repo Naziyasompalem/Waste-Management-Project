@@ -271,7 +271,10 @@
             console.log(position.coords.latitude, position.coords.longitude)
             fetch(`/products/mapbox?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`, {
                 method: 'GET'
-            }).then(response => response.json()).then(result => document.querySelector('#location').innerText = result.location);
+            }).then(response => response.json()).then(result => {
+                document.querySelector('#location').innerText = result.location;
+                console.log(result);
+            });
         }
 
         getLocation();
