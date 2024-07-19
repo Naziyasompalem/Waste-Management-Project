@@ -259,6 +259,7 @@
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
     <script>
+        var location;
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -274,10 +275,13 @@
             }).then(response => response.json()).then(result => {
                 document.querySelector('#location').innerText = result.location;
                 console.log(result);
+                return result;
             });
         }
 
         getLocation();
+        {% block script %}
+        {% endblock script %}
     </script>
 </body>
 
