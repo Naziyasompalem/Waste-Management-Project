@@ -32,10 +32,11 @@
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <form action="" class="">
-                                <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
-                                <input type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Enter Your Email">
-                                <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" placeholder="Your Message"></textarea>
+                            <form action="" class="" method="POST" id="contact-form">
+                                {% csrf_token %}
+                                <input type="text" class="w-100 form-control border-0 py-3 mb-4" name="name" placeholder="Your Name">
+                                <input type="email" class="w-100 form-control border-0 py-3 mb-4" name="email" placeholder="Enter Your Email">
+                                <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10" name="message" placeholder="Your Message"></textarea>
                                 <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
                             </form>
                         </div>
@@ -69,3 +70,39 @@
         <!-- Contact End -->
 
 {% endblock content %}
+
+{% block script %}
+
+document.querySelector('#contact-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const message = form.message.value;
+    const csrf_token = form.csrfmiddlewaretoken.value;
+
+    // TODO: Send form data to server using AJAX or PHP
+    console.log({ name, email, message });
+    var message = await fetch('/products/contactus', {
+        method: "POST", 
+      
+    // Adding body or contents to send 
+    body: JSON.stringify({ 
+        name: name,
+        email: email,
+        message: message,
+    }), 
+    
+    // Adding headers to the request 
+    headers: { 
+        "Content-type": "application/json; charset=UTF-8"
+        "X-CSRFToken": csrf_token  // Ensure you include CSRF token for security
+    } 
+    }).then(response => console.log(response));
+    {% comment %} alert(message); {% endcomment %}
+    // Reset form inputs
+    form.reset();
+})
+
+{% endblock script %}

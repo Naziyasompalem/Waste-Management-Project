@@ -100,9 +100,15 @@
                                     class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                     style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
+                        {% if user %}
+                        <a href="{% url 'logout' %}" class="my-auto">
+                            <i class="fas fa-sign-out-alt fa-2x"></i>
+                        </a>
+                        {% else %}
                         <a href="{% url 'loginCus' %}" class="my-auto">
                             <i class="fas fa-user fa-2x"></i>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -260,7 +266,7 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-    {% comment %} <script>
+    <script>
         var location;
         function getLocation() {
             if (navigator.geolocation) {
@@ -281,10 +287,10 @@
             });
         }
 
-        getLocation();
+        {% comment %} getLocation(); {% endcomment %}
         {% block script %}
         {% endblock script %}
-    </script> {% endcomment %}
+    </script>
 </body>
 
 </html>

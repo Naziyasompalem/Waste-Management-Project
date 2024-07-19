@@ -153,6 +153,21 @@ def shopDetails(request):
     return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
 
 def contactus(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        data = {
+            'name': name,
+            'email': email,
+           'message': message
+        }
+
+        # send email using SMTP
+        # send_wait_mail(data)
+
+        return HttpResponse("Success")
     return render(request, 'contact.html')
 
 
@@ -187,11 +202,12 @@ from .models import Cart, CartItem
 @login_required
 def view_cart(request):
     try:
-        cart = Cart.objects.filter(customer=request.user).first()
+        cart = Cart.objects.get_or_create(customer=request.user)
         
         if cart:
-            cart_items = cart.items.all()
-            subtotal = sum(item.product.Price * item.quantity for item in cart_items)
+            cart_items = CartItem.objects.filter(cart=cart)
+            # cart_items = cart.values.all()
+            subtotal = sum(float(item.product.Price) * float(item.quantity) for item in cart_items)
         else:
             cart_items = []
             subtotal = 0
@@ -201,7 +217,7 @@ def view_cart(request):
             'cart_items': cart_items,
             'subtotal': subtotal,
         }
-        
+        print(cart_items)
         return render(request, 'cart.html', context)
     
     except Cart.DoesNotExist:
@@ -294,3 +310,31 @@ def signup(request):
 def My_Orders(request):
    
     return render(request, 'My orders.html')
+
+import smtplib
+from email.mime.text import MIMEText
+
+def send_wait_mail(data):
+    # Set up email server
+    sender_email = "Ecogiftbusiness@outlook.com"
+    sender_password = "Ecogift@2022"
+    smtp_server = "smtp-mail.outlook.com"
+    smtp_port = 587
+    recipient_email = data['email']
+
+    # Create message
+    subject = "EcoGift - For environment"
+    body = f"Greeting {data['name']},\nWe have recived your response , our Support team will reach you within 45M - 60M , Thank you for reaching out us\nReplying for: {data['message']}"
+    message = MIMEText(body)
+    message["Subject"] = subject
+    message["From"] = sender_email
+    message["To"] = recipient_email
+
+    # Connect to the server
+    with smtplib.SMTP(smtp_server, smtp_port) as server:
+        server.starttls()
+        # Log in to the email account
+        server.login(sender_email, sender_password)
+        # Send the email
+        server.sendmail(sender_email, recipient_email, message.as_string())
+        print("Response sent successfully.")

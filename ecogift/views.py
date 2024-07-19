@@ -118,5 +118,10 @@ def customerLogin(request):
     print("Login Failed")
     return render(request, 'clogin.html')
 
+@login_required
+def customerLogout(request):
+    logout(request)
+    return redirect('index')
+
 def fcompPage(request):
     return render(request,'fcomp.html')
