@@ -264,12 +264,13 @@ from django.contrib import messages
 from products.models import Customer
 
 def signup(request):
+    print(request.method)
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
         first_name = request.POST.get('first_name')
-
+        print(username, password, email, first_name)
         # Check for existing username or email
         if Customer.objects.filter(username=username).exists():
             messages.error(request, 'Username already exists.')
@@ -277,7 +278,7 @@ def signup(request):
         if Customer.objects.filter(email=email).exists():
             messages.error(request, 'Email already registered.')
             return render(request, 'signup.html')
-
+        print("Completed")
         try:
             # Create the user using create_user method
             user = Customer.objects.create_user(username=username, email=email, password_main=password, first_name=first_name)
@@ -285,8 +286,8 @@ def signup(request):
             messages.success(request, 'Signup successful. You can now log in.')
             return redirect('loginCus')
         except Exception as e:
+            print(e)
             messages.error(request, f'Error: {e}')
             return render(request, 'signup.html')
-
     return render(request, 'signup.html')
 
