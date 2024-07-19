@@ -151,8 +151,8 @@ def shopDetails(request):
     products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
     print(categories.values,products_by_category)
     return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
-
-def contactus(request):
+def contactus_request(request):
+    print("Hi")
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -167,9 +167,13 @@ def contactus(request):
         # send email using SMTP
         # send_wait_mail(data)
 
-        return HttpResponse("Success")
-    return render(request, 'contact.html')
+        return JsonResponse({
+            "message": "Success"
+        })
 
+def contactus(request):
+    print("C")
+    return render(request, 'contact.html')
 
 
 from django.http import JsonResponse
