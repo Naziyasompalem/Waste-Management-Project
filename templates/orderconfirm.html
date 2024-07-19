@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .order-summary, .order-details {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .order-summary {
+    width: 35%;
+    margin-right: 20px;
+  }
+  .order-details {
+    width: 60%;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  .header .check-mark {
+    margin-right: 10px;
+    animation: checkMarkAnimation 1s ease-in-out;
+  }
+  .check-mark img {
+    width: 24px;
+    height: 24px;
+  }
+  @keyframes checkMarkAnimation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .map {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .order-confirmed, .customer-info {
+    margin-bottom: 20px;
+  }
+  .customer-info h4, .customer-info .details, .payment-method, .total-label, .total-amount, .product {
+    margin-bottom: 10px;
+  }
+  .product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  .product-details h4, .product-details p, .product-price {
+    margin: 0;
+  }
+  .product-details h4 {
+    font-size: 16px;
+  }
+  .product-details p {
+    color: #777;
+  }
+  .total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+  }
+  .total-label {
+    font-weight: bold;
+  }
+  .total-amount {
+    font-size: 1.2em;
+  }
+  .button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="order-summary">
+    <div class="header">
+      <div class="check-mark">
+          <img src="{% static 'img/gif.gif' %}" alt="Check Mark Animation" style="width: 100px; height: 100px;">
+</div>
+      <h1>Thank you, Arun Industries!</h1>
+    </div>
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d307.8117843146322!2d78.50886388535142!3d13.569609820684125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb2666f65282021%3A0xc76ca4970c227d07!2s3%2F169-13-64-3%2C%20Old%20Byp%20Rd%2C%20Ramarao%20Colony%2C%20Kammapalle%2C%20Madanapalle%2C%20Andhra%20Pradesh%20517326!5e0!3m2!1sen!2sin!4v1720870869226!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="order-confirmed">
+      <h3>Your order is confirmed</h3>
+      <p>We've accepted your order, and we're getting it ready. A confirmation email has been sent to arun.kumar@gmail.com. Come back to this page for updates on your order status.</p>
+    </div>
+    <div class="customer-info">
+      <h3>Customer Information</h3>
+      <h4>Shipping Address</h4>
+      <div class="address">
+        Arun Industries<br>
+        3/169-13-64-3, Old Byp Rd Ramarao Colony, Kammapalle<br> Madanapalle<br>
+        Andhra Pradesh, 517325<br>
+        India<br>
+        +91-9876543210
+      </div>
+      <h4>Billing Address</h4>
+      <div class="address">
+        Arun Industries<br>
+        3/169-13-64-3, Old Byp Rd Ramarao Colony, Kammapalle<br> Madanapalle<br>
+        Andhra Pradesh, 517325<br>
+        India<br>
+        +91-9876543210
+      </div>
+      <h4>Shipping Method</h4>
+      <div class="details">Standard Delivery</div>
+      <h4>Payment Method</h4>
+      <div class="payment-method">VISA ending with 4242 - ₹1700</div>
+    </div>
+  </div>
+  <div class="order-details">
+    <div class="product">
+      <img class="product-image" src="{% static 'img/coconut.jpg' %}" alt="Product image">
+      <div class="product-details">
+        <h4>Coconut Shell</h4>
+        <p>₹70/KG</p>
+      </div>
+      <div class="product-price">20 kg bought</div>
+    </div>
+    <div class="total">
+      <div class="total-label">Subtotal</div>
+      <div class="total-amount">₹1400</div>
+    </div>
+    <div class="total">
+      <div class="total-label">Shipping</div>
+      <div class="total-amount">₹100</div>
+    </div>
+    <div class="total">
+      <div class="total-label">GST</div>
+      <div class="total-amount">₹200</div>
+    </div>
+    <div class="total">
+      <div class="total-label">Total</div>
+      <div class="total-amount">₹1700</div>
+    </div>
+    <button class="button">Continue shopping</button>
+  </div>
+</div>
+</body>
+</html>

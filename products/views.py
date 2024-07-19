@@ -291,3 +291,6 @@ def signup(request):
             return render(request, 'signup.html')
     return render(request, 'signup.html')
 
+def My_Orders(request):
+   
+    return render(request, 'My orders.html')
