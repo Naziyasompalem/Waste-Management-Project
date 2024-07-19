@@ -118,3 +118,5 @@ def customerLogin(request):
     print("Login Failed")
     return render(request, 'clogin.html')
 
+def fcompPage(request):
+    return render(request,'fcomp.html')

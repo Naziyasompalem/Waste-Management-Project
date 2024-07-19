@@ -29,6 +29,7 @@ urlpatterns = [
     path('shop', views.shop, name="shop"),
     #path('register', views.registerPage, name="register"),
     path('loginCus', views.customerLogin, name="loginCus"),
+    path('fcomp',views.fcompPage, name="fcomp"),
     path('products/',include('products.urls')),
 ]
 
