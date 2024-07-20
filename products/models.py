@@ -15,6 +15,7 @@ class Customer(AbstractUser):
   Phone = models.CharField(max_length=20, blank=True)
   location = models.CharField(max_length=50)
   password_main = models.CharField(max_length=50)
+  is_seller = models.BooleanField(default=False)
   groups = models.ManyToManyField(
         Group,
         related_name='customer_set',  # unique related_name
@@ -50,6 +51,9 @@ class Order(models.Model):
   Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
   class Meta:
       managed = True
+
+
+
 class OrderItem(models.Model):
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   Product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -57,6 +61,9 @@ class OrderItem(models.Model):
   Price = models.DecimalField(max_digits=10, decimal_places=2)
   class Meta:
       managed = True
+
+
+
 class Transaction(models.Model):
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   PAYMENT_METHOD_CHOICES = (
@@ -67,6 +74,8 @@ class Transaction(models.Model):
   Amount = models.DecimalField(max_digits=10, decimal_places=2)
   class Meta:
       managed = True
+
+
 class Delivery(models.Model):
   Order = models.ForeignKey(Order, on_delete=models.CASCADE)
   DeliveryPerson = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
@@ -79,12 +88,17 @@ class Delivery(models.Model):
   DeliveryFee = models.DecimalField(max_digits=10, decimal_places=2)
   class Meta:
       managed = True
+
+
 class Reward(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   PointsRequired = models.PositiveIntegerField()
   class Meta:
       managed = True
+
+
+
 class UserReward(models.Model):
   Cust = models.ForeignKey(Customer, on_delete=models.CASCADE)
   Reward = models.ForeignKey(Reward, on_delete=models.CASCADE)
@@ -98,6 +112,7 @@ class Coin(models.Model):
   Amount = models.PositiveIntegerField()
   class Meta:
       managed = True
+
 
 class Competition(models.Model):
   Name = models.CharField(max_length=255)

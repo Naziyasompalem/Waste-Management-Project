@@ -121,7 +121,13 @@ def customerLogin(request):
 @login_required
 def customerLogout(request):
     logout(request)
-    return redirect('index')
+    return redirect('loginCus')#home page
 
 def fcompPage(request):
     return render(request,'fcomp.html')
+
+
+@login_required
+def myaccountPage(request):
+    user = request.user
+    return render(request,'my_account.html',{'user': user})

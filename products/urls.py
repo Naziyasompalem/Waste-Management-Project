@@ -23,5 +23,7 @@ urlpatterns=[
     #path('cart/', view_cart, name='view_cart'),
     path('signup', views.signup, name="signup"),
     path('mapbox', views.mapbox_api_call, name="mapbox"),
-    path('My orders', views.My_Orders, name="My orders"),
+    path('Myorders', views.My_Orders, name="My orders"),
+    path('checkout', views.checkout_call, name="checkout"),
+    path('successPage',views.paymentSuccessPage, name="successPage")
 ]
