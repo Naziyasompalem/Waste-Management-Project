@@ -202,10 +202,12 @@ from .models import Cart, CartItem
 @login_required
 def view_cart(request):
     try:
-        cart = Cart.objects.get_or_create(customer=request.user)
+        cart = Cart.objects.get(customer=request.user)
+        print(cart)
         
         if cart:
             cart_items = CartItem.objects.filter(cart=cart)
+            print(cart_items)
             # cart_items = cart.values.all()
             subtotal = sum(float(item.product.Price) * float(item.quantity) for item in cart_items)
         else:
@@ -338,3 +340,11 @@ def send_wait_mail(data):
         # Send the email
         server.sendmail(sender_email, recipient_email, message.as_string())
         print("Response sent successfully.")
+
+
+
+def checkout_call(request):
+    return render(request,'paymentPage.html')
+
+def paymentSuccessPage(request):
+    return render(request,'SuccessPage.html')

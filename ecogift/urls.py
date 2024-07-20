@@ -32,6 +32,7 @@ urlpatterns = [
     path('logout', views.customerLogout, name="logout"),
     path('fcomp',views.fcompPage, name="fcomp"),
     path('products/',include('products.urls')),
+    path('myaccount', views.myaccountPage, name="myaccount"),
 ]
 
 
