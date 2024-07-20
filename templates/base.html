@@ -74,19 +74,24 @@
                 </button>
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
-                        <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a>
-                        <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
-                        <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a>
+                        {% if user.is_seller %}
+                        <a href="{% url 'seller-main' %}" class="nav-item nav-link active">Home</a>
+                        {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
+                      <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
+                        {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
+                        <a href="{% url 'add-product' %}" class="dropdown-item">addproduct</a>
+                        <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                {% if user.is_seller %}
-                                <a href="{% url 'add-product' %}" class="dropdown-item">addproduct</a>
-                                <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a>
+                            <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
+                            
+                                {% comment %} <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a> {% endcomment %}
                                 {% else %}
+                                <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+                                <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a>
+                                <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
                                 <a href="{% url 'checkout-det' %}" class="dropdown-item">Checkout</a>
                                 <a href="{% url 'customer-info' %}" class="dropdown-item">customer-data</a>
+                                <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
                                 {% endif %}
                             </div>
                         </div>

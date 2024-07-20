@@ -26,4 +26,5 @@ urlpatterns=[
     path('Myorders', views.My_Orders, name="My orders"),
     path('checkout', views.checkout_call, name="checkout"),
     path('successPage',views.paymentSuccessPage, name="successPage")
+    
 ]

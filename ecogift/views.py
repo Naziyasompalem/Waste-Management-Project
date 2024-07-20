@@ -116,7 +116,7 @@ def customerLogin(request):
             messages.error(request, 'Invalid username or password')
 
     print("Login Failed")
-    return render(request, 'clogin.html')
+    return render(request, 'LOGINPG.html')
 
 @login_required
 def customerLogout(request):
@@ -131,3 +131,9 @@ def fcompPage(request):
 def myaccountPage(request):
     user = request.user
     return render(request,'my_account.html',{'user': user})
+
+def shop_detail(request,product_id):
+    return render(request,'shop-detail.html')
+
+def sellerMain(request):
+    return render(request,"seller.html")
