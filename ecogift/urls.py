@@ -33,6 +33,7 @@ urlpatterns = [
     path('fcomp',views.fcompPage, name="fcomp"),
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),
+    path('seller-main',views.sellerMain,name="seller-main")
 ]
 
 

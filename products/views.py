@@ -152,6 +152,7 @@ def shopDetails(request):
     products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
     print(categories.values,products_by_category)
     return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
+
 def contactus_request(request):
     print(request)
     if request.method == "POST":

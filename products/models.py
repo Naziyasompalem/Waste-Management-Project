@@ -124,33 +124,33 @@ class Seller(models.Model):
   """
   This model represents a seller on the e-commerce website.
   """
-  ShopName = models.CharField(max_length=255)
-  Email = models.EmailField(unique=True)
+  ShopName = models.CharField(max_length=255,null=True)
+  #Email = models.EmailField(unique=True)
   # Assuming password is handled separately (e.g., hashed and stored securely)
   # Password = models.CharField(max_length=128)
 
   # Contact Information
-  Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
+  #Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
 
   # Business Information
-  CompanyAddress = models.CharField(max_length=255, blank=True)
-  TaxIdentificationNumber = models.CharField(max_length=50, blank=True)  # May vary based on location
+  CompanyAddress = models.CharField(max_length=255, blank=True,null=True)
+  TaxIdentificationNumber = models.CharField(max_length=50, blank=True,null=True)  # May vary based on location
 
   # Pickup Address (optional for in-store pickup)
-  PickupAddress = models.CharField(max_length=255, blank=True)
+  PickupAddress = models.CharField(max_length=255, blank=True,null=True)
 
   # Bank Details (**sensitive, store securely!**)
-  BankAccountName = models.CharField(max_length=255, blank=True)
-  BankName = models.CharField(max_length=255, blank=True)
-  AccountNumber = models.CharField(max_length=50, blank=True)
+  BankAccountName = models.CharField(max_length=255, blank=True,null=True)
+  BankName = models.CharField(max_length=255, blank=True,null=True)
+  AccountNumber = models.CharField(max_length=50, blank=True,null=True)
   # **Never store raw credit card details!**
 
   #Items sold by the Seller
-  Products = models.ManyToManyField(Product, related_name="Sellers", blank=True)
+  Products = models.ManyToManyField(Product, related_name="Sellers", blank=True,null=True)
 
   # Additional details (optional)
-  Description = models.TextField(blank=True)  # Seller's shop description
-  Website = models.URLField(blank=True)  # Seller's website URL (if applicable)
+  Description = models.TextField(blank=True,null=True)  # Seller's shop description
+  Website = models.URLField(blank=True,null=True)  # Seller's website URL (if applicable)
 
 
 class ShippingInformation(models.Model):
