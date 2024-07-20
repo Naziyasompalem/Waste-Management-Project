@@ -25,5 +25,6 @@ urlpatterns=[
     path('mapbox', views.mapbox_api_call, name="mapbox"),
     path('Myorders', views.My_Orders, name="My orders"),
     path('checkout', views.checkout_call, name="checkout"),
-    path('successPage',views.paymentSuccessPage, name="successPage")
+    path('successPage',views.paymentSuccessPage, name="successPage"),
+    path('bulkdata', views.bulkdata_call, name="bulkdata"),
 ]

@@ -28,6 +28,7 @@ class TransacForm(forms.ModelForm):
         model=Transaction
         fields="__all__"
 
-
+class bulkdataform(forms.Form):
+    file = forms.FileField()
 
     
