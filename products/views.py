@@ -349,18 +349,12 @@ from django.core.files.base import ContentFile
 
 def bulkdata_call(request):
     if request.method == 'POST':
-        print("Recieved")
         form = bulkdataform(request.POST, request.FILES)
         if form.is_valid():
-            print("Valid")
             file = request.FILES['file']
             df = pd.read_excel(file)
-            files = os.listdir('media/products')
             for index, row in df.iterrows():
                 image_url = row['Image (Search Term)']
-                for file in files:
-                    if image_url in file:
-                        image_url = "http://127.0.0.1:8000/media/products/" + file.replace(" ", "%20")
                 img_temp = NamedTemporaryFile(delete=True)
                 img_temp.write(requests.get(image_url).content)
                 img_temp.flush()
