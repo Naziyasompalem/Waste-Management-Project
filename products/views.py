@@ -21,6 +21,7 @@ from .forms import sellerForm
 from .forms import ShipForm
 from .forms import TransacForm
 
+import json
 
 def mapbox_api_call(request):
     longitude = float(request.GET.get('longitude'))
@@ -151,25 +152,18 @@ def shopDetails(request):
     products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
     print(categories.values,products_by_category)
     return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
+def contactus_request(request):
+    print(request)
+    if request.method == "POST":
+        data = json.loads(request.body)
+        # send email using SMTP
+        send_wait_mail(data)
+        return JsonResponse({
+            "message": "Success"
+        })
 
 def contactus(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        message = request.POST.get('message')
-
-        data = {
-            'name': name,
-            'email': email,
-           'message': message
-        }
-
-        # send email using SMTP
-        # send_wait_mail(data)
-
-        return HttpResponse("Success")
     return render(request, 'contact.html')
-
 
 
 from django.http import JsonResponse
@@ -326,12 +320,11 @@ def send_wait_mail(data):
 
     # Create message
     subject = "EcoGift - For environment"
-    body = f"Greeting {data['name']},\nWe have recived your response , our Support team will reach you within 45M - 60M , Thank you for reaching out us\nReplying for: {data['message']}"
+    body = f"Greetings {data['name']},\n\nWe have received your response. Our support team will reach you within 45 to 60 minutes. Thank you for reaching out to us.\n\nReplying to: {data['message']}"
     message = MIMEText(body)
     message["Subject"] = subject
     message["From"] = sender_email
     message["To"] = recipient_email
-
     # Connect to the server
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
@@ -340,11 +333,3 @@ def send_wait_mail(data):
         # Send the email
         server.sendmail(sender_email, recipient_email, message.as_string())
         print("Response sent successfully.")
-
-
-
-def checkout_call(request):
-    return render(request,'paymentPage.html')
-
-def paymentSuccessPage(request):
-    return render(request,'SuccessPage.html')
