@@ -18,6 +18,14 @@
 
        <!-- Cart Page Start -->
 <!-- Cart Page Start -->
+
+{% if not user.is_authenticated %}
+<div class="loginRequest" style="display: flex; align-items: center; justify-content:center; padding: 9%; margin: 9%; gap: 2%;">
+<h3>Please login into Your Account , to access Cart</h3><a href="{% url 'loginCus' %}" class="my-auto">
+    <i class="fas fa-user fa-2x"></i>
+</a>
+</div>
+{% else %}
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="table-responsive">
@@ -110,6 +118,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 {% comment %} cart end {% endcomment %}
 

@@ -193,7 +193,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Cart, CartItem
 
-@login_required
+# @login_required
 def view_cart(request):
     try:
         cart = Cart.objects.get(customer=request.user)
@@ -304,8 +304,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 def My_Orders(request):
-   
-    return render(request, 'My orders.html')
+    return render(request, 'My_orders.html')
 
 import smtplib
 from email.mime.text import MIMEText
@@ -333,3 +332,10 @@ def send_wait_mail(data):
         # Send the email
         server.sendmail(sender_email, recipient_email, message.as_string())
         print("Response sent successfully.")
+
+
+def checkout_call(request):
+    return render(request,"paymentPage.html")
+
+def paymentSuccessPage(request):
+    return render(request,"successPage.html")

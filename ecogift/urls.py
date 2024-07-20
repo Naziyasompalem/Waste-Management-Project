@@ -29,7 +29,7 @@ urlpatterns = [
     path('shop', views.shop, name="shop"),
     #path('register', views.registerPage, name="register"),
     path('loginCus', views.customerLogin, name="loginCus"),
-    path('logout', views.customerLogout, name="logout"),
+    path('logout', views.customerLogout, name="logoutCus"),
     path('fcomp',views.fcompPage, name="fcomp"),
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),

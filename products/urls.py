@@ -16,13 +16,14 @@ urlpatterns=[
     path('seller-det', views.sellerinfo, name="seller-det"),
     path('checkout-det', views.checkout, name="checkout-det"),
     path("shop-details", views.shopDetails, name="shop-details"),
+    path('contactemail', views.contactus_request, name="contactemail"),
     path('contactus', views.contactus, name="contactus"),
     path('cart', views.view_cart, name="cart"),
     path('add-to-cart/<int:product_id>', add_to_cart, name='add_to_cart'),
     #path('cart/', view_cart, name='view_cart'),
     path('signup', views.signup, name="signup"),
     path('mapbox', views.mapbox_api_call, name="mapbox"),
-    path('My orders', views.My_Orders, name="My orders"),
+    path('Myorders', views.My_Orders, name="My orders"),
     path('checkout', views.checkout_call, name="checkout"),
     path('successPage',views.paymentSuccessPage, name="successPage")
 ]
