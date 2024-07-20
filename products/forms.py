@@ -19,6 +19,7 @@ class sellerForm(forms.ModelForm):
     class Meta:
         model=Seller
         fields="__all__"
+        exclude = ['Customer']
 class ShipForm(forms.ModelForm):
     class Meta:
         model=ShippingInformation

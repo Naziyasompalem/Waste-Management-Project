@@ -136,4 +136,12 @@ def shop_detail(request,product_id):
     return render(request,'shop-detail.html')
 
 def sellerMain(request):
-    return render(request,"seller.html")
+    seller = Seller.objects.get(Customer=request.user)
+    products = Product.objects.filter(Seller=seller)
+    context = {
+        "categories": Category.objects.all(),
+        'products': products,
+    }
+    if products:
+        return render(request,"seller.html", context)
+    return render(request,"seller.html",{'products': None})

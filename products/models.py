@@ -26,6 +26,39 @@ class Customer(AbstractUser):
         related_name='customer_permissions_set',  # unique related_name
         blank=True,
     )
+class Seller(models.Model):
+  """
+  This model represents a seller on the e-commerce website.
+  """
+  Customer = models.ForeignKey(Customer, related_name='seller',on_delete=models.CASCADE)
+  ShopName = models.CharField(max_length=255,null=True)
+  #Email = models.EmailField(unique=True)
+  # Assuming password is handled separately (e.g., hashed and stored securely)
+  # Password = models.CharField(max_length=128)
+
+  # Contact Information
+  #Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
+
+  # Business Information
+  CompanyAddress = models.CharField(max_length=255, blank=True,null=True)
+  TaxIdentificationNumber = models.CharField(max_length=50, blank=True,null=True)  # May vary based on location
+
+  # Pickup Address (optional for in-store pickup)
+  PickupAddress = models.CharField(max_length=255, blank=True,null=True)
+
+  # Bank Details (**sensitive, store securely!**)
+  BankAccountName = models.CharField(max_length=255, blank=True,null=True)
+  BankName = models.CharField(max_length=255, blank=True,null=True)
+  AccountNumber = models.CharField(max_length=50, blank=True,null=True)
+  # **Never store raw credit card details!**
+
+  #Items sold by the Seller
+  #Products = models.ManyToManyField(Product, related_name="Sellers", blank=True,null=True)
+
+  # Additional details (optional)
+  Description = models.TextField(blank=True,null=True)  # Seller's shop description
+  Website = models.URLField(blank=True,null=True)  # Seller's website URL (if applicable)
+
 
 class Product(models.Model):
   Name = models.CharField(max_length=255)
@@ -33,6 +66,8 @@ class Product(models.Model):
   Price = models.CharField(max_length=10)
   Category = models.ForeignKey(Category, on_delete=models.CASCADE)
   Image = models.ImageField(upload_to='products/', blank=True)
+  Seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default = 1)
+
 
 
 class FoodItem(Product):
@@ -118,39 +153,6 @@ class Competition(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField()
   StartDate = models.DateTimeField()
-
-
-class Seller(models.Model):
-  """
-  This model represents a seller on the e-commerce website.
-  """
-  ShopName = models.CharField(max_length=255,null=True)
-  #Email = models.EmailField(unique=True)
-  # Assuming password is handled separately (e.g., hashed and stored securely)
-  # Password = models.CharField(max_length=128)
-
-  # Contact Information
-  #Phone = models.CharField(max_length=20, blank=True)  # Phone number with country code
-
-  # Business Information
-  CompanyAddress = models.CharField(max_length=255, blank=True,null=True)
-  TaxIdentificationNumber = models.CharField(max_length=50, blank=True,null=True)  # May vary based on location
-
-  # Pickup Address (optional for in-store pickup)
-  PickupAddress = models.CharField(max_length=255, blank=True,null=True)
-
-  # Bank Details (**sensitive, store securely!**)
-  BankAccountName = models.CharField(max_length=255, blank=True,null=True)
-  BankName = models.CharField(max_length=255, blank=True,null=True)
-  AccountNumber = models.CharField(max_length=50, blank=True,null=True)
-  # **Never store raw credit card details!**
-
-  #Items sold by the Seller
-  Products = models.ManyToManyField(Product, related_name="Sellers", blank=True,null=True)
-
-  # Additional details (optional)
-  Description = models.TextField(blank=True,null=True)  # Seller's shop description
-  Website = models.URLField(blank=True,null=True)  # Seller's website URL (if applicable)
 
 
 class ShippingInformation(models.Model):

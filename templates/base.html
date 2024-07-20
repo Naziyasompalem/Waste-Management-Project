@@ -84,16 +84,58 @@
                         <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a>
                         <div class="nav-item dropdown">
                             <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
-                            
+                            <div class="d-flex m-3 me-0">
+                                <button
+                                    class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                    data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                        class="fas fa-search text-primary"></i></button>
+                                <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
+                                        <i class="fa fa-shopping-bag fa-2x"></i>
+                                        <span
+                                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                    </a>
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'myaccount' %}" class="my-auto">
+                                    <i class="fas fa-sign-out-alt fa-2x"></i>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'loginCus' %}" class="my-auto">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </a>
+                                {% endif %}
+                            </div>
                                 {% comment %} <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a> {% endcomment %}
                                 {% else %}
                                 <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
                                 <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a>
-                                <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
+                                {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
+                                <a href="{% url 'checkout-det' %}" class="nav-item nav-link">Checkout</a>
+                                <a href="{% url 'customer-info' %}" class="nav-item nav-link">customer-data</a>
+                                {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                                 <a href="{% url 'cart' %}" class="nav-item nav-link">cart</a>
-                                <a href="{% url 'checkout-det' %}" class="dropdown-item">Checkout</a>
-                                <a href="{% url 'customer-info' %}" class="dropdown-item">customer-data</a>
                                 <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
+                                <div class="d-flex m-3 me-0">
+                                    <button
+                                        class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                        data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                            class="fas fa-search text-primary"></i></button>
+                                    <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
+                                            <i class="fa fa-shopping-bag fa-2x"></i>
+                                            <span
+                                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                        </a>
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'myaccount' %}" class="my-auto">
+                                        <i class="fas fa-sign-out-alt fa-2x"></i>
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url 'loginCus' %}" class="my-auto">
+                                        <i class="fas fa-user fa-2x"></i>
+                                    </a>
+                                    {% endif %}
+                                </div>
                                 {% endif %}
 
                             </div>
@@ -105,29 +147,30 @@
                         <a href="{% url 'checkout-det' %}" class="dropdown-item">Checkout</a>
                         <a href="{% url 'customer-info' %}" class="dropdown-item">customer-data</a>
                         <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
-                        {% endif %}
-                    </div>
-                    <div class="d-flex m-3 me-0">
-                        <button
-                            class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                            data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                class="fas fa-search text-primary"></i></button>
-                        <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
-                                <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span
-                                    class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                        <div class="d-flex m-3 me-0">
+                            <button
+                                class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                    class="fas fa-search text-primary"></i></button>
+                            <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
+                                    <i class="fa fa-shopping-bag fa-2x"></i>
+                                    <span
+                                        class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                        style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                </a>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'myaccount' %}" class="my-auto">
+                                <i class="fas fa-sign-out-alt fa-2x"></i>
                             </a>
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'myaccount' %}" class="my-auto">
-                            <i class="fas fa-sign-out-alt fa-2x"></i>
-                        </a>
-                        {% else %}
-                        <a href="{% url 'loginCus' %}" class="my-auto">
-                            <i class="fas fa-user fa-2x"></i>
-                        </a>
+                            {% else %}
+                            <a href="{% url 'loginCus' %}" class="my-auto">
+                                <i class="fas fa-user fa-2x"></i>
+                            </a>
+                            {% endif %}
+                        </div>
                         {% endif %}
                     </div>
+                    
                 </div>
             </nav>
         </div>

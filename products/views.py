@@ -69,12 +69,16 @@ def index(request):
     }
 
     return render(request,'index.html', context)
-
+from .models import Seller
+@login_required
 def add_product(request): 
     if request.POST:
         form=ProdutForm(request.POST,request.FILES) 
         if form.is_valid():
             instance = form.save(commit=False)
+            seller = Seller.objects.get(Customer=request.user)
+            instance.Seller = seller
+            print(request.user)
             # messages.success(request, "Data saved")
             instance.save()
             return redirect('product-home')
@@ -102,22 +106,23 @@ def customerinfo(request):
         form=CustomerdetForm()
         return render(request,'product_entry_form.html', {'form':form})
 
-def sellerinfo(request): 
-    if request.POST:
-        form=sellerForm(request.POST,request.FILES) 
+
+@login_required
+def sellerinfo(request):
+    if request.method == 'POST':
+        form = sellerForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            # messages.success(request, "Data saved")
+            instance.Customer = request.user  # Assign the logged-in user
             instance.save()
-            return redirect('product-home')
+            return redirect('seller-main')
         else:
-            # messages.success(request, "Data Not saved, Please check input")
-            form=sellerForm()
-            return render(request,'product_entry_form.html', {'form':form})
+            form = sellerForm()
+            return render(request, 'product_entry_form.html', {'form': form})
     else:
-        form=sellerForm()
-        return render(request,'product_entry_form.html', {'form':form})
-    
+        form = sellerForm()
+        return render(request, 'product_entry_form.html', {'form': form})
+
 def checkout(request): 
     if request.POST:
         form=ShipForm(request.POST,request.FILES) 
@@ -283,6 +288,8 @@ def signup(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         first_name = request.POST.get('first_name')
+        role = request.POST.get('role')
+        is_seller = True if (role == 'seller') else False
         print(username, password, email, first_name)
         # Check for existing username or email
         if Customer.objects.filter(username=username).exists():
@@ -294,15 +301,17 @@ def signup(request):
         print("Completed")
         try:
             # Create the user using create_user method
-            user = Customer.objects.create_user(username=username, email=email, password_main=password, first_name=first_name)
+            user = Customer.objects.create_user(username=username, email=email, password_main=password, first_name=first_name,is_seller=is_seller)
             user.save()
+            login(request, user)
             messages.success(request, 'Signup successful. You can now log in.')
-            return redirect('loginCus')
+            return redirect('seller-det')
         except Exception as e:
             print(e)
             messages.error(request, f'Error: {e}')
             return render(request, 'signup.html')
     return render(request, 'signup.html')
+
 
 def My_Orders(request):
     return render(request, 'My_orders.html')
