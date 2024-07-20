@@ -340,3 +340,36 @@ def checkout_call(request):
 
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
+
+from .forms import bulkdataform
+import pandas as pd
+import os
+from django.core.files.temp import NamedTemporaryFile
+from django.core.files.base import ContentFile
+
+def bulkdata_call(request):
+    if request.method == 'POST':
+        form = bulkdataform(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            df = pd.read_excel(file)
+            for index, row in df.iterrows():
+                image_url = row['Image (Search Term)']
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(requests.get(image_url).content)
+                img_temp.flush()
+
+                product = Product(
+                    Category=Category.objects.get_or_create(Name=row['Category'])[0],
+                    Name=row['Product Name'],
+                    Description=row['Description'],
+                    Price=row['Price (INR)'],
+                )
+                product.Image.save(f"{row['Product Name']}.jpg", ContentFile(img_temp.read()), save=True)
+                img_temp.close()
+                print("Saved")
+            messages.success(request, 'Products uploaded successfully!')
+            return redirect('bulkdata')
+    else:
+        form = bulkdataform()
+    return render(request, 'bulk.html', {'form': form})
