@@ -6,6 +6,7 @@ class ProdutForm(forms.ModelForm):
     class Meta:
         model=Product
         fields="__all__"
+        exclude = ['Seller']
 
 class ProdutCategoryForm(forms.ModelForm):
     class Meta:

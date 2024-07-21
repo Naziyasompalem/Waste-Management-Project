@@ -66,9 +66,9 @@
                         <div class="navbar-nav mx-auto">
                             <a href="{% url 'seller-main' %}" class="nav-item nav-link active">Home</a>
                         {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
-                      <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
+                      {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                         {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
-                        <a href="{% url 'add-product' %}" class="nav-item nav-link">Add Product</a>
+                        <a href="{% url 'add-product' %}" style="text-decoration:none;" class="nav-item nav-link">Add Product</a>
                         {% comment %} <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a> {% endcomment %}
                         <div class="nav-item dropdown">
                             <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>

@@ -87,7 +87,8 @@ def shop(request):
     }
     return render(request,'shop.html', context)
 
-
+def paymentSuccessPage(request):
+    return render(request,"successPage.html")
 
 def customerLogin(request):
     if request.method == 'POST':

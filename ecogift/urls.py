@@ -31,6 +31,7 @@ urlpatterns = [
     path('loginCus', views.customerLogin, name="loginCus"),
     path('logout', views.customerLogout, name="logoutCus"),
     path('fcomp',views.fcompPage, name="fcomp"),
+    path('successPage',views.paymentSuccessPage, name="successPage"),
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),
     path('seller-main',views.sellerMain,name="seller-main")
