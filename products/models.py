@@ -14,6 +14,7 @@ class Customer(AbstractUser):
   Address = models.CharField(max_length=255, blank=True)
   Phone = models.CharField(max_length=20, blank=True)
   location = models.CharField(max_length=50)
+  description = models.TextField(max_length=200, blank=True)
   password_main = models.CharField(max_length=50)
   is_seller = models.BooleanField(default=False)
   groups = models.ManyToManyField(
@@ -66,7 +67,7 @@ class Product(models.Model):
   Price = models.CharField(max_length=10)
   Category = models.ForeignKey(Category, on_delete=models.CASCADE)
   Image = models.ImageField(upload_to='products/', blank=True)
-  Seller = models.ForeignKey(Seller, on_delete=models.CASCADE,default = 1)
+  Seller = models.ForeignKey(Seller, on_delete=models.CASCADE, default = 1)
 
 
 

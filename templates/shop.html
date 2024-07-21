@@ -318,6 +318,7 @@
 {%endblock%}
 
 {% block script %}
+<script>
     async function load_food_card(){
         var data = await getLocation();
         document.querySelector('#food_items').innerHTML = "";
@@ -343,4 +344,5 @@
         });
     }
     load_food_card();
+</script>
 {% endblock script %}

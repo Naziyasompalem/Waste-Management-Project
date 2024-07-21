@@ -395,3 +395,12 @@ def DiscardItem(request,CartItem_id):
     item = CartItem.objects.get(id=CartItem_id)
     item.delete()
     return redirect('cart')
+
+from django.db.models import Q
+def search(request):
+    query = request.GET.get('search')
+    if query:
+        products = Product.objects.filter(Name__icontains=query)
+        print(products)
+        return render(request, 'search.html', {'products': products})
+    return redirect('index')

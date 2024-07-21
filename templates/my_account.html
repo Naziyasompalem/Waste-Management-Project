@@ -1,22 +1,10 @@
+{% extends "base.html" %}
 {% load static %}
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Account</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="{% static 'my_account_styles.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-</head>
-<body>
-    <section class="tg-may-account-wrapp tg">
+{% block style %}
+<link rel="stylesheet" href="{% static 'my_account_styles.css' %}">
+{% endblock style %}
+{% block content %}
+    <section class="tg-may-account-wrapp tg hero-header">
         <div class="inner">
             <div class="tg-account">
                 <!-- Account banner start -->
@@ -27,8 +15,8 @@
                                 <div class="col-md-8 detail">
                                     <div class="inner">
                                         <h1 class="page-title">My Account</h1>
-                                        <h3 class="user-name">Hello Arun industries!</h3>
-                                        <p class="description">Arun Industries pioneers sustainable solutions by repurposing coconut shell waste into high-quality products like activated carbon and biochar, promoting environmental stewardship and innovation.</p>
+                                        <h3 class="user-name">Hello {{ request.user.first_name }}</h3>
+                                        <p class="description">{{  request.user.description }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 profile">
@@ -255,5 +243,4 @@
     <button><a href="{% url 'logoutCus' %}">LOG OUT</a></button>
 
     <script src="{% static 'my_account_script.js' %}"></script>
-</body>
-</html>
+{% endblock content %}

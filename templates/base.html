@@ -81,13 +81,16 @@
                     <div class="navbar-nav mx-auto">
                         {% if user.is_authenticated %}
                         {% if user.is_seller %}
-                        <a href="{% url 'seller-main' %}" class="nav-item nav-link active">Home</a>
+                        {% url 'seller-main' as seller_view %}
+                        <a href="{% url 'seller-main' %}" class="nav-item nav-link {% if request.path == seller_view %}active{% endif %}">Home</a>
                         {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
                       {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                         {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
-                        <a href="{% url 'add-product' %}" class="nav-item nav-link">addproduct</a>
+                        {% url 'add-product' as add_product_view %}
+                        <a href="{% url 'add-product' %}" class="nav-item nav-link {% if request.path == add_product_view %}active{% endif %}">addproduct</a>
                         {% comment %} <a href="{% url 'seller-det' %}" class="nav-item nav-link">Seller-log</a> {% endcomment %}
-                        <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
+                        {% url 'contactus' as contact_view %}
+                        <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
                         <div class="nav-item dropdown">
                             <div class="d-flex m-3 me-0">
                                 <button
@@ -112,14 +115,20 @@
                             </div>
                                 {% comment %} <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a> {% endcomment %}
                                 {% else %}
-                                <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
-                                <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a>
+                                {% url 'index' as index_view %}
+                                <a href="{% url 'index' %}" class="nav-item nav-link {% if request.path == index_view %}active{% endif %}">Home</a>
+                                {% url 'shop' as shop_view %}
+                                <a href="{% url 'shop' %}" class="nav-item nav-link {% if request.path == shop_view %}active{% endif %}">Food</a>
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                                <a href="{% url 'checkout-det' %}" class="nav-item nav-link">Checkout</a>
-                                <a href="{% url 'customer-info' %}" class="nav-item nav-link">customer-data</a>
+                                {% url 'checkout-det' as checkout_view %}
+                                <a href="{% url 'checkout-det' %}" class="nav-item nav-link {% if request.path == checkout_view %}active{% endif %}">Checkout</a>
+                                {% url 'customer-info' as customer_view %}
+                                <a href="{% url 'customer-info' %}" class="nav-item nav-link {% if request.path == customer_view %}active{% endif %}">customer-data</a>
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                                <a href="{% url 'cart' %}" class="nav-item nav-link">cart</a>
-                                <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
+                                {% url 'cart' as cart_view %}
+                                <a href="{% url 'cart' %}" class="nav-item nav-link {% if request.path == cart_view %}active{% endif %}">cart</a>
+                                {% url 'contactus' as contact_view %}
+                                <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
                                 <div class="d-flex m-3 me-0">
                                     <button
                                         class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
@@ -192,18 +201,17 @@
                     <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex align-items-center">
+                <form method="GET" action="{% url 'search' %}" class="modal-body d-flex align-items-center">
                     <div class="input-group w-75 mx-auto d-flex">
                         <input type="search" class="form-control p-3" placeholder="keywords"
-                            aria-describedby="search-icon-1">
+                            aria-describedby="search-icon-1" name="search" id="search">
                         <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- Modal Search End -->
-
 
     {% block content%}
 

@@ -28,4 +28,5 @@ urlpatterns=[
     path('checkout', views.checkout_call, name="checkout"),
     path('successPage',views.paymentSuccessPage, name="successPage"),
     path('bulkdata', views.bulkdata_call, name="bulkdata"),
+    path('search', views.search, name="search"),
 ]
