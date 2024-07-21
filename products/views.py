@@ -31,7 +31,7 @@ def mapbox_api_call(request):
         return JsonResponse({'error': 'Unable to find location'})
     print(location)
     # sellers = Seller.objects.filter(CompanyAddress=location)
-    products = FoodItem.objects.filter(Sellers__CompanyAddress=location)
+    products = FoodItem.objects.filter(Seller__CompanyAddress=location)
     print(list(products))
     return JsonResponse({
         'location': location,
@@ -194,6 +194,11 @@ def add_to_cart(request, product_id):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
+def increment_product(request, cartItem_id, quantity):
+    cart_item = get_object_or_404(CartItem, id=cartItem_id)
+    cart_item.quantity = int(quantity)
+    cart_item.save()
+    return redirect('cart')
 
 
 from django.shortcuts import render, get_object_or_404
@@ -385,3 +390,8 @@ def bulkdata_call(request):
     else:
         form = bulkdataform()
     return render(request, 'bulk.html', {'form': form})
+
+def DiscardItem(request,CartItem_id):
+    item = CartItem.objects.get(id=CartItem_id)
+    item.delete()
+    return redirect('cart')

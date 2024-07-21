@@ -32,6 +32,11 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        .navbar-nav.mx-auto > *{
+            align-self: center;
+        }
+    </style>
     {% block style %}
     {% endblock style %}
 </head>
@@ -82,8 +87,8 @@
                         {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
                         <a href="{% url 'add-product' %}" class="nav-item nav-link">addproduct</a>
                         {% comment %} <a href="{% url 'seller-det' %}" class="nav-item nav-link">Seller-log</a> {% endcomment %}
+                        <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
                         <div class="nav-item dropdown">
-                            <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
                             <div class="d-flex m-3 me-0">
                                 <button
                                     class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"

@@ -3,6 +3,13 @@
 {% load mathfilters %}
 {% load custom_filters %}
 
+{% block style %}
+<style>
+        .vesitable-img > img {
+            aspect-ratio: 16/9 !important;
+        }
+</style>
+{% endblock style %}
 
 {%block content%}
 
@@ -421,7 +428,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Bio-diesel</h4>
+                        <h4 class="textDesc">Bio-diesel</h4>
                         <p class="textDesc" >Biodiesel is a renewable, biodegradable fuel manufactured domestically from vegetable oils,
                             animal fats, or recycled restaurant grease</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
@@ -472,7 +479,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Neem Oil Spray for Plants</h4>
+                        <h4 class="textDesc">Neem Oil Spray for Plants</h4>
                         <p class="textDesc">Natural, organic pest control for plants; protects and nourishes with neem oil</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold mb-0">300/Litre</p>
@@ -488,7 +495,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Rubber</h4>
+                        <h4 class="textDesc">Rubber</h4>
                         <p class="textDesc">High strength and elasticity,Natural rubber can be stretched to several times its original
                             length and return to its original shape.</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
@@ -505,7 +512,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>natural Toothbrush</h4>
+                        <h4 class="textDesc">natural Toothbrush</h4>
                         <p class="textDesc">The handle is typically made of bamboo, a fast-growing, renewable resource that biodegrades
                             quickly after you're done using the toothbrush. Bamboo also has natural antibacterial
                             properties</p>
@@ -523,7 +530,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Cleaning brush</h4>
+                        <h4 class="textDesc">Cleaning brush</h4>
                         <p class="textDesc">Can be Used to Clean Carpets, Mats, Home Interiors, Car Seats, Sofa Covers</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold mb-0">120 Rs</p>
@@ -539,7 +546,7 @@
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                         style="top: 10px; right: 10px;">Vegetable</div>
                     <div class="p-4 rounded-bottom">
-                        <h4>Eco Notepad(Pack Of 5)</h4>
+                        <h4 class="textDesc">Eco Notepad(Pack Of 5)</h4>
                         <p class="textDesc">Sustainable, durable, and stylish notepad made from 100% recycled and biodegradable materials
                         </p>
                         <div class="d-flex justify-content-between flex-lg-wrap">

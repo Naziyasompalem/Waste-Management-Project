@@ -61,15 +61,19 @@
                         <td>
                             <div class="input-group quantity mt-4" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <!-- <a href="change_quantity/{{ item.product.id }}/{{ item.quantity }}"> -->
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="return increment(this)" data-id="{{ item.id }}" data-use="decrease">
                                         <i class="fa fa-minus"></i>
                                     </button>
+                                    <!-- </a> -->
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0" value="{{ item.quantity }}">
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="{{ item.quantity }}" id="cart-quantity-{{ item.id }}" data-id="{{ item.id }}" onchange="return change(this)">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <!-- <a href="change_quantity/{{ item.product.id }}/{{ item.quantity }}"> -->
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border" onclick="return increment(this)" data-id="{{ item.id }}" data-use="increase">
                                         <i class="fa fa-plus"></i>
                                     </button>
+                                    <!-- </a> -->
                                 </div>
                             </div>
                         </td>
@@ -77,9 +81,11 @@
                             <p class="mb-0 mt-4">{{ item.product.Price|mul:item.quantity }} Rs</p>
                         </td>
                         <td>
+                            <a href="{% url 'discardItem' item.id %}">
                             <button class="btn btn-md rounded-circle bg-light border mt-4">
                                 <i class="fa fa-times text-danger"></i>
                             </button>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -115,7 +121,7 @@
                     <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button"><a href="{% url 'checkout' %}">Proceed Checkout</a></button>
                 </div>
             </div>
-        </div>
+        </div
     </div>
 </div>
 {% endif %}
@@ -123,3 +129,22 @@
 {% comment %} cart end {% endcomment %}
 
 {% endblock content %}
+
+{% block script %}
+<script>
+    increment = (event) => {
+        var productId = parseInt(event.dataset.id)
+        var use = event.dataset.use;
+        console.log(productId)
+        var quantity = parseInt(document.getElementById(`cart-quantity-${productId}`).value);
+        if (use==="increase") quantity++;
+        else quantity--;
+        window.location = `change_quantity/${productId}/${quantity}`;
+        }
+    change = (event) => {
+        var productId = parseInt(event.dataset.id);
+        var quantity = parseInt(event.value);
+        window.location = `change_quantity/${productId}/${quantity}`;
+    }
+</script>
+{% endblock script %}
