@@ -94,10 +94,13 @@ def customerLogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         print(username, password)
-        user = Customer.objects.get(username=username, password_main=password)
+        user = Customer.objects.filter(username=username, password_main=password).first()
         if user is not None:
             login(request, user)
-            print("Login successful")
+            if user.is_seller:
+                print("Seller Login successful")
+                return redirect('seller-main')
+            print("Customer Login successful")
             return redirect('index')
         else:
             # Add more specific debugging information

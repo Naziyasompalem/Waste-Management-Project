@@ -152,11 +152,12 @@ def checkout(request):
         form=TransacForm()
         return render(request,'product_entry_form.html', {'form':form})
     
-def shopDetails(request):
+def shopDetails(request,product_id):
     categories = Category.objects.all()
     products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
-    print(categories.values,products_by_category)
-    return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category})
+    product = get_object_or_404(Product, id=product_id)
+    print(categories.values,products_by_category,product)
+    return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category,'product':product})
 
 def contactus_request(request):
     print(request)
@@ -304,8 +305,10 @@ def signup(request):
             user = Customer.objects.create_user(username=username, email=email, password_main=password, first_name=first_name,is_seller=is_seller)
             user.save()
             login(request, user)
-            messages.success(request, 'Signup successful. You can now log in.')
-            return redirect('seller-det')
+            if user.is_seller:
+                messages.success(request, 'Signup successful. You can now log in.')
+                return redirect('seller-det')
+            return redirect('loginCus')
         except Exception as e:
             print(e)
             messages.error(request, f'Error: {e}')

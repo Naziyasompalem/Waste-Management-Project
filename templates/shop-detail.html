@@ -23,14 +23,14 @@
                             <div class="col-lg-6">
                                 <div class="border rounded">
                                     <a href="#">
-                                        <img src="{% static 'img/single-item.jpg' %}" class="img-fluid rounded" alt="Image">
+                                        <img src="{{ product.Image.url }}" class="img-fluid rounded" alt="Image">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <h4 class="fw-bold mb-3">Brocoli</h4>
-                                <p class="mb-3">Category: Vegetables</p>
-                                <h5 class="fw-bold mb-3">3,35 $</h5>
+                                <h4 class="fw-bold mb-3">{{ product.Name }}</h4>
+                                <p class="mb-3">Category: {{ product.Category }}</p>
+                                <h5 class="fw-bold mb-3">{{ product.Price }}$</h5>
                                 <div class="d-flex mb-4">
                                     <i class="fa fa-star text-secondary"></i>
                                     <i class="fa fa-star text-secondary"></i>
@@ -38,8 +38,7 @@
                                     <i class="fa fa-star text-secondary"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                                <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
+                                <p class="mb-4">{{ product.Description }} </p>
                                 <div class="input-group quantity mb-5" style="width: 100px;">
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
@@ -53,8 +52,33 @@
                                         </button>
                                     </div>
                                 </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                    Add to cart
+                                </butto
                             </div>
+                            <script>
+                                function addToCart(productid) {
+                                    const url = "{% url 'add_to_cart' 0 %}".replace('0', productid);
+                                    
+                                    fetch(url, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRFToken': '{{ csrf_token }}',  // Ensure you include CSRF token for security
+                                        },
+                                        body: JSON.stringify({ productid: productid })
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log(data);  // Handle response data
+                                        alert('Product added to cart');
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        alert('Failed to add product to cart');
+                                    });
+                                }
+                            </script>
                             <div class="col-lg-12">
                                 <nav>
                                     <div class="nav nav-tabs mb-3">

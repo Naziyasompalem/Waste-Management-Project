@@ -78,10 +78,10 @@
                         {% if user.is_seller %}
                         <a href="{% url 'seller-main' %}" class="nav-item nav-link active">Home</a>
                         {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
-                      <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
+                      {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                         {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
-                        <a href="{% url 'add-product' %}" class="dropdown-item">addproduct</a>
-                        <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a>
+                        <a href="{% url 'add-product' %}" class="nav-item nav-link">addproduct</a>
+                        {% comment %} <a href="{% url 'seller-det' %}" class="nav-item nav-link">Seller-log</a> {% endcomment %}
                         <div class="nav-item dropdown">
                             <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
                             <div class="d-flex m-3 me-0">
@@ -143,7 +143,7 @@
                         {% else %}
                         <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a>
-                        <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a>
+                        {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                         <a href="{% url 'checkout-det' %}" class="dropdown-item">Checkout</a>
                         <a href="{% url 'customer-info' %}" class="dropdown-item">customer-data</a>
                         <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
@@ -279,8 +279,8 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item">
                         <h4 class="text-light mb-3">Contact</h4>
-                        <p>Address: 1429 Netus Rd, NY 48247</p>
-                        <p>Email: Example@gmail.com</p>
+                        <p>Adress:Madanapalle Institute of Technology&Science,Kadiri Road,Angallu Madanapalle-517325,Andhra Pradesh, India</p>
+                        <p>Email: ecogiftbussiness@gmail.com</p>
                         <p>Phone: +0123 4567 8910</p>
                         <p>Payment Accepted</p>
                         <img src="{% static 'img/payment.png" class="img-fluid" alt="">
