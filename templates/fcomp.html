@@ -190,43 +190,23 @@
       </div>
       <div class="winner-table">
         <table id="rankingTable">
-          <tr>
-            <th><i class="fas fa-user"></i> Rank</th>
-            <th><i class="fas fa-user"></i> Seller</th>
-            <th><i class="fas fa-recycle"></i> Quantity Score</th>
-            <th><i class="fas fa-trophy"></i> Award</th>
+          <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Points</th>
+            </tr>
+        </thead>
           </tr>
           <!-- Top 5 Participants (Sorted by Quantity Score) -->
-          <tr>
-            <td>1</td>
-            <td>Prasad Babu</td>
-            <td>79</td>
-            <td><span class="winner-award">Gold</span></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Lakshmi Reddy</td>
-            <td>78</td>
-            <td><span class="winner-award">Silver</span></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Rameshwar Rao</td>
-            <td>71</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Venkateshwarlu</td>
-            <td>70</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Sai Kumar</td>
-            <td>65</td>
-            <td></td>
-          </tr>
+          {% for seller in sellers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ seller.Name }}</td>
+                <td>{{ seller.sellerPoints }}</td>
+            </tr>
+            {% endfor %}
+          
         </table>
       </div>
     </div>

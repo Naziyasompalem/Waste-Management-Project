@@ -81,6 +81,11 @@ def add_product(request):
             print(request.user)
             # messages.success(request, "Data saved")
             instance.save()
+            products = Product.objects.filter(Seller=seller)
+            points = sum(int(float(product.Price)) for product in products)
+            print(points)
+            instance.sellerPoints = int(points)
+            instance.save()
             return redirect('product-home')
         else:
             # messages.success(request, "Data Not saved, Please check input")

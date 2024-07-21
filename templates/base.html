@@ -85,7 +85,8 @@
                         <a href="{% url 'seller-main' %}" class="nav-item nav-link {% if request.path == seller_view %}active{% endif %}">Home</a>
                         {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
                       {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                        {% comment %} <a href="{% url 'My orders' %}" class="nav-item nav-link">My Orders</a> {% endcomment %}
+                        
+                      <a href="{% url 'fcomp' %}" style="text-decoration:none;" class="nav-item nav-link">Competition</a>
                         {% url 'add-product' as add_product_view %}
                         <a href="{% url 'add-product' %}" class="nav-item nav-link {% if request.path == add_product_view %}active{% endif %}">addproduct</a>
                         {% comment %} <a href="{% url 'seller-det' %}" class="nav-item nav-link">Seller-log</a> {% endcomment %}

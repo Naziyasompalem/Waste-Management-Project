@@ -59,8 +59,10 @@ class Seller(models.Model):
   # Additional details (optional)
   Description = models.TextField(blank=True,null=True)  # Seller's shop description
   Website = models.URLField(blank=True,null=True)  # Seller's website URL (if applicable)
+  sellerpoints = models.PositiveIntegerField(null=True, blank=True,default=0)
 
-
+  def __str__(self) -> str:
+     return super().__str__()
 class Product(models.Model):
   Name = models.CharField(max_length=255)
   Description = models.TextField(blank=True)

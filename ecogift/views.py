@@ -128,8 +128,8 @@ def customerLogout(request):
     return redirect('loginCus')#home page
 
 def fcompPage(request):
-    return render(request,'fcomp.html')
-
+    sellers = Seller.objects.all().order_by('-sellerpoints')[:5]
+    return render(request,'fcomp.html',{'sellers':sellers})
 
 @login_required
 def myaccountPage(request):
