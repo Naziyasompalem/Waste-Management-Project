@@ -117,13 +117,20 @@
                                 {% else %}
                                 {% url 'index' as index_view %}
                                 <a href="{% url 'index' %}" class="nav-item nav-link {% if request.path == index_view %}active{% endif %}">Home</a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <a href="{% url 'add-product' %}" class="dropdown-item">Agriculture Waste</a>
+                                        <a href="{% url 'checkout-det' %}" class="dropdown-item">Food waste</a>
+                                        <a href="{% url 'customer-info' %}" class="dropdown-item">Industrial Waste</a>
+                                        <a href="{% url 'seller-det' %}" class="dropdown-item">Recycled Products</a>
+                                    </div>
+                                </div>
                                 {% url 'shop' as shop_view %}
                                 <a href="{% url 'shop' %}" class="nav-item nav-link {% if request.path == shop_view %}active{% endif %}">Food</a>
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                                {% url 'checkout-det' as checkout_view %}
-                                <a href="{% url 'checkout-det' %}" class="nav-item nav-link {% if request.path == checkout_view %}active{% endif %}">Checkout</a>
-                                {% url 'customer-info' as customer_view %}
-                                <a href="{% url 'customer-info' %}" class="nav-item nav-link {% if request.path == customer_view %}active{% endif %}">customer-data</a>
+                                
+                                
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                                 {% url 'cart' as cart_view %}
                                 <a href="{% url 'cart' %}" class="nav-item nav-link {% if request.path == cart_view %}active{% endif %}">cart</a>
@@ -296,7 +303,7 @@
                         <p>Email: ecogiftbussiness@gmail.com</p>
                         <p>Phone: +0123 4567 8910</p>
                         <p>Payment Accepted</p>
-                        <img src="{% static 'img/payment.png" class="img-fluid" alt="">
+                        <img src="{% static 'img/payment.png' %}" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
