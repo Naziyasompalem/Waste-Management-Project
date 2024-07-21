@@ -90,6 +90,13 @@ def shop(request):
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
 
+
+def My_Orders(request):
+    order = Order.objects.filter(Customer=request.user)
+    print(order)
+    #order_items = OrderItem.objects.filter(Order=orderId for orderId in order)
+    return render(request, 'My_Orders.html', {'order': order})#, 'order_items': order_items
+
 def customerLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')

@@ -87,6 +87,7 @@ class Order(models.Model):
       ('Cancelled', 'Cancelled'),
   )
   Status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+  Customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
   class Meta:
       managed = True
 

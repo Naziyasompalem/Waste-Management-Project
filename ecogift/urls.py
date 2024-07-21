@@ -32,6 +32,7 @@ urlpatterns = [
     path('logout', views.customerLogout, name="logoutCus"),
     path('fcomp',views.fcompPage, name="fcomp"),
     path('successPage',views.paymentSuccessPage, name="successPage"),
+    path('Myorders', views.My_Orders, name="Myorders"),
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),
     path('seller-main',views.sellerMain,name="seller-main")

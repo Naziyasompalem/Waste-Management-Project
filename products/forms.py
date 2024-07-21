@@ -12,6 +12,7 @@ class ProdutCategoryForm(forms.ModelForm):
     class Meta:
         model=Category
         fields="__all__"
+        exclude = ['sellerPoints']
 class CustomerdetForm(forms.ModelForm):
     class Meta:
         model=Customer

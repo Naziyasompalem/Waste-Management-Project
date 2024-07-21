@@ -35,7 +35,7 @@
                                         <a class="nav-link active" id="dashboard-link" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="my-order" data-toggle="tab" href="#my-orders" role="tab" aria-controls="my-orders" aria-selected="false"><i class="fas fa-file-invoice"></i> <span>Orders</span></a>
+                                        <a class="nav-link" id="my-order" data-toggle="tab" href="Myorders" role="tab" aria-controls="my-orders" aria-selected="false"><i class="fas fa-file-invoice"></i> <span>Orders</span></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="my-address" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false"><i class="fas fa-map-marker-alt"></i> <span>Address</span></a>
@@ -66,6 +66,7 @@
                                         <div class="my-account-dashboard">
                                             <div class="inner">
                                                 <div class="row">
+                                                    <a href="{% url 'Myorders' %}">
                                                     <div class="col-md-4 mb-3">
                                                         <div class="card" area-toggle="my-order">
                                                             <div class="card-body">
@@ -77,6 +78,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    </a>
                                                     <div class="col-md-4 mb-3">
                                                         <div class="card" area-toggle="my-address">
                                                             <div class="card-body">
@@ -88,6 +90,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                            
                                                     <div class="col-md-4 mb-3">
                                                         <div class="card" area-toggle="account-detail">
                                                             <div class="card-body">

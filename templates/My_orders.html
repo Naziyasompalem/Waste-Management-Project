@@ -10,6 +10,33 @@
     </div>
     <!-- Single Page Header End -->
 
+    <p>Order ID: {{ order.id }}</p>
+    <p>Order Date: {{ order.OrderDate }}</p>
+    <p>Status: {{ order.Status }}</p>
+
+    <h2>Order Items</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                <td>{{ item.Product.name }}</td> <!-- Adjust field name as per your Product model -->
+                <td>{{ item.Quantity }}</td>
+                <td>{{ item.Price }}</td>
+                {% comment %} <td>{{ item.Price|multiply:item.Quantity }}</td> <!-- Assuming you have a custom template filter to multiply --> {% endcomment %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
 
     <!-- Tastimonial Start -->
     <div class="container-fluid testimonial py-5">

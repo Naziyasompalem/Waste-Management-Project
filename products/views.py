@@ -177,6 +177,42 @@ def contactus_request(request):
 def contactus(request):
     return render(request, 'contact.html')
 
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Cart, CartItem, Order, OrderItem
+
+@login_required
+def checkout_call(request):
+    customer = request.user
+    try:
+        cart = Cart.objects.get(customer=customer)
+    except Cart.DoesNotExist:
+        # Handle the case where the cart doesn't exist
+        return redirect('cart')  # Redirect to cart page or show an error
+
+    # Create a new order
+    order = Order.objects.create(Customer=customer, Status='Pending')
+
+    # Add cart items to order items
+    cart_items = CartItem.objects.filter(cart=cart)
+    for item in cart_items:
+        OrderItem.objects.create(
+            Order=order,
+            Product=item.product,
+            Quantity=item.quantity,
+            Price=item.product.Price
+        )
+
+    # Clear the cart
+    cart_items.delete()
+    cart.delete()
+
+    order_items = OrderItem.objects.filter(Order=order)
+    return render(request,'My_orders.html',{'order': order, 'order_items': order_items})
+
+
+
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -357,8 +393,8 @@ def send_wait_mail(data):
         print("Response sent successfully.")
 
 
-def checkout_call(request):
-    return render(request,"paymentPage.html")
+# def checkout_call(request):
+#     return render(request,"paymentPage.html")
 
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
