@@ -27,6 +27,6 @@ urlpatterns=[
     path('add_query', views.add_query, name="add_query"),
     path('checkout', views.checkout_call, name="checkout"),
     path('successPage',views.paymentSuccessPage, name="successPage"),
-    path('bulkdata', views.bulkdata_call, name="bulkdata"),
+    #path('bulkdata', views.bulkdata_call, name="bulkdata"),
     path('search', views.search, name="search"),
 ]

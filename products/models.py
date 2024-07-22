@@ -204,3 +204,20 @@ class Meta:
   managed = True
   def __str__(self):
     return str(self.Name)
+
+
+class ExtraItem(models.Model):
+  #PrID = models.ForeignKey(Order, on_delete=models.CASCADE)
+  product_id = models.PositiveIntegerField(blank=True, null=True)
+  
+  #Q = models.TextField()
+  order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='extra_items')
+  
+  #timePosted = models.DateTimeField()
+  query = models.TextField(verbose_name='Query')
+  time_posted = models.DateTimeField(auto_now_add=True)
+  customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+  #user = models.DecimalField(max_digits=10, decimal_places=2)
+  flag = models.BooleanField(default=False)
+  class Meta:
+      managed = True
