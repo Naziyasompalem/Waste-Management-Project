@@ -85,7 +85,7 @@
                         <a href="{% url 'seller-main' %}" class="nav-item nav-link {% if request.path == seller_view %}active{% endif %}">Home</a>
                         {% comment %} <a href="{% url 'shop' %}" class="nav-item nav-link">Food</a> {% endcomment %}
                       {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                        
+                      <a href="{% url 'Prices' %}" style="text-decoration:none;" class="nav-item nav-link">PriceHub</a> 
                       <a href="{% url 'fcomp' %}" style="text-decoration:none;" class="nav-item nav-link">Competition</a>
                         {% url 'add-product' as add_product_view %}
                         <a href="{% url 'add-product' %}" class="nav-item nav-link {% if request.path == add_product_view %}active{% endif %}">addproduct</a>
@@ -124,9 +124,18 @@
                                         <a href="{% url 'seller-det' %}" class="dropdown-item">Recycled Products</a>
                                     </div>
                                 </div>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Food</a>
+                                    <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                        <a href="{% url 'shop' %}" class="dropdown-item">Surplus Food</a>
+                                        <a href="{% url 'Donate' %}" class="dropdown-item">Donate</a>
+                                    </div>
+                                </div>
                                 {% url 'shop' as shop_view %}
+                                
+                                {% comment %}
                                 <a href="{% url 'shop' %}" class="nav-item nav-link {% if request.path == shop_view %}active{% endif %}">Food</a>
-                                {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
+                                 <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
                                 
                                 
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}

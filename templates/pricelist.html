@@ -1,0 +1,736 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recyclable Materials</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6fff2;
+            margin: 0;
+            padding: 0;
+            color: #0e100e;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .item {
+            background-color: #bfe773;
+            border: 1px solid #81C408;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 128, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 120px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .item:hover {
+            transform: scale(1.05);
+        }
+
+        .item img {
+            height: 80px;
+            width: 80px;
+            margin-bottom: 10px;
+            border-radius: 50%;
+        }
+
+        .item p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #81c408;
+            padding: 20px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #f0fff0;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #81C408;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal-content img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            color: #81C408;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #81C408;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+  
+    <!-- <title>Pricelist</title> -->
+    <h1>Agriculture Waste</h1>
+<div class="container">
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Banana Peel Biochar.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Banana Peel Biochar</p>
+    <p>₹10/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Eggshell Powder.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Eggshell Powder    </p>
+    <p>₹40/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Wheat Straw.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Wheat Straw    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Peanut Shell Ash.png' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Peanut Shell Ash    </p>
+    <p>₹503/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Olive Pit Biochar.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Olive Pit Biochar    </p>
+    <p>₹300/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/tea waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Tea Waste</p>
+    <p>₹180/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/cotton_stalk.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Cotton Stalk</p>
+    <p>₹12/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/jute waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Jute Stick</p>
+    <p>₹15/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/banana leaves.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Banana Leaves</p>
+    <p>₹8/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Coconut Shells.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Coconut Shell</p>
+    <p>₹70/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/mustard.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Mustard Stalk</p>
+    <p>₹9/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/sunflower stalk.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Sunflower Stalk</p>
+    <p>₹11/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/ground nut.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Groundnut Shell</p>
+    <p>₹7/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/cashew nuts.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Cashew Nut Shell</p>
+    <p>₹12/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/areca husk.png' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Areca Nut Husk</p>
+    <p>₹10/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/paddy waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Paddy Straw</p>
+    <p>₹5/Kg</p>
+  </div>
+  
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/jowar waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Jowar Straw</p>
+    <p>₹5/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Coffee Husk Powder.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Coffee husk Powder</p>
+    <p>₹45/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Barley Husk.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Barley Husk    </p>
+    <p>₹45/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Cocoa Husk Powder.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Cocoa husk powder   </p>
+    <p>₹1000/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Palm Kernel Shells.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Palm Kernel Shells    </p>
+    <p>₹120/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Oat Straw.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Oat Straw    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Lemon Peel Powder.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Lemon Peel Powder    </p>
+    <p>₹200/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Sugarcane Bagasse.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Sugarcane Bagasse    </p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Tomato Peel Powder.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Tomato Peel Powder    </p>
+    <p>₹150/Kg</p>
+  </div>
+  
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Cotton Waste.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Cotton Waste    </p>
+    <p>₹32/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Banana Stems.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Banana Stems    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/rice husk.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Rice Husk    </p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Wool.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Wool    </p>
+    <p>₹200/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Beeswax.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Beeswax    </p>
+    <p>₹10/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Eggshells.avif' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Eggshells    </p>
+    <p>₹20/Kg</p>
+  </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded');
+        });
+    </script>
+</body>
+<body>
+    <div class="container">
+        <div class="left-column">
+          <h1>Industrial Waste</h1>
+
+<div class="container">
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/scrap meatal.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Scrap Metal</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/ewaste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>E-Waste</p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/plastic waste.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Plastic Waste</p>
+    <p>₹15/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/rubber waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Rubber Waste</p>
+    <p>₹18/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/glass waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Glass Waste</p>
+    <p>₹12/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/ceramic waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Ceramic Waste</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/textile waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Textile Waste</p>
+    <p>₹10/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/leather waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Leather Waste</p>
+    <p>₹15/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/paper waste.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Paper Waste</p>
+    <p>₹5/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Wood Chips.avif' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Wood Waste</p>
+    <p>₹8/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/construction waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Construction Waste</p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/demoliation waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Demolition Waste</p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/chemical waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Chemical Waste</p>
+    <p>₹60/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/pharamcy waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Pharmaceutical Waste</p>
+    <p>₹50/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/battery waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Battery Waste</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/tire waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Tire Waste</p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/oil waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Oil Waste</p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Solvent Waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Solvent Waste</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/paint waste.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Paint Waste</p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Steel Shavings.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Steel Shavings</p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Wood Chips.avif' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Wood Chips</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Glass Fragments.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Glass Fragments    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Corn Stover.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Corn Stover    </p>
+    <p>₹15/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/PET Plastic Scrap.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>PET Plastic Scrap    </p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Copper Wire Scrap.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Copper Wire Scrap    </p>
+    <p>₹200/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/PP Plastic Scrap.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>PP Plastic Scrap    </p>
+    <p>₹35/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Aluminum Foil Scrap.png' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Aluminum Foil Scrap    </p>
+    <p>₹100/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Rubber Shavings.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Rubber Shavings </p>
+    <p>₹80/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/PVC Plastic Scrap.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>PVC Plastic Scrap    </p>
+    <p>₹15/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Brass Turnings.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Brass Turnings    </p>
+    <p>₹875/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Silicon Scrap.avif' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Silicon Scrap    </p>
+    <p>₹674/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/LDPE Plastic Scrap.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>LDPE Plastic Scrap    </p>
+    <p>₹337/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Zinc Turnings.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Zinc Turnings    </p>
+    <p>₹556/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Fabric Waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Fabric Waste    </p>
+    <p>₹40/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Polystyrene Scrap.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Polystyrene Scrap    </p>
+    <p>₹26/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Titanium Turnings.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Titanium Turnings    </p>
+    <p>₹170/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/PVC Plastic Scrap.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>PVC Plastic Scrap    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Nylon Scrap.jpeg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Nylon Scrap    </p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Nickel Turnings.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Nickel Turnings    </p>
+    <p>₹810/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Paper Pulp Waste.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+  </div>
+    <p>Paper Pulp Waste    </p>
+    <p>₹60/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/ABS Plastic Scrap.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>ABS Plastic Scrap    </p>
+    <p>₹42/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Chocolate Factory.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Chocolate Factory    </p>
+    <p>₹300/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Food Factory.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Food Factory    </p>
+    <p>₹100/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Vegetable Market.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Vegetable Market    </p>
+    <p>₹10/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Oil Factory.webp' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Oil Factory    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Supermarket.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Supermarket    </p>
+    <p>₹30/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Food Packaging Factory.png' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Food Packaging Factory    </p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+        <img src="{% static 'imgprice/Paper Industry.jpg' %}" class="img-fluid rounded-circle" style="width: 90px; height: 90px;" alt="">
+    </div>
+    <p>Paper Industry</p>
+    <p>₹20/Kg</p>
+  </div>
+
+
+
+
+
+</div>
+</body>
+<body>
+    <div class="container">
+        <div class="left-column ">
+          <h1>Food Waste</h1>
+
+<div class="container">
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Restaurant.webp' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+
+    </div>
+    <p>Resturants</p>
+    <p>₹20/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Hostel Food.webp' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+    </div>
+    <p>Hostel Food</p>
+    <p>₹25/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/tomato waste.jpeg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+    </div>
+    <p>Tomato</p>
+    <p>₹8/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/Hotel food.webp' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+    </div>
+    <p>Hotel food</p>
+    <p>₹8/Kg</p>
+  </div>
+  <div class="item">
+    <div class="d-flex align-items-center mt-2">
+      <img src="{% static 'imgprice/function food.jpeg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
+    </div>
+    <p>Function Food</p>
+    <p>₹8/Kg</p>
+  </div>
+</div>
+
+    
+</body>
+
+
+
+</html>
+{%endblock%}

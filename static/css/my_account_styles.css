@@ -1,0 +1,212 @@
+:root {
+    --bg-primary:#81C408;
+    --text-primary: #27ae60;
+    --hover-color: #1e8449;
+    --light-bg: #eafaf1;
+    --dark-text: #2c3e50;
+}
+
+body {
+    color: var(--dark-text);
+}
+
+.tg-account .account-banner {
+    background: var(--bg-primary);
+    width: 100%;
+    float: left;
+    padding: 35px 0 0;
+}
+
+.tg-account .account-banner .inner-banner .detail * {
+    color: #fff;
+}
+
+.tg-account .account-banner .inner-banner .profile {
+    text-align: center;
+}
+
+.tg-account .account-banner .inner-banner .profile span.image img {
+    width: 130px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px -10px #000;
+}
+
+.tg-account .account-banner .inner-banner .detail h3.user-name {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area {
+    width: 100%;
+    float: left;
+    margin-top: 45px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li a {
+    background: rgba(255, 255, 255, .4);
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0px;
+    font-size: 16px;
+    border: none;
+    padding: 10px 28px;
+    min-width: 120px;
+    display: block;
+    transition: .4s;
+    text-align: center;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li {
+    margin-right: 7px;
+}
+
+.tg-account .account-banner .inner-banner .nav-area ul li a.active,
+.tg-account .account-banner .inner-banner .nav-area ul li a:hover {
+    color: var(--text-primary);
+    background: #fff;
+}
+
+.tg-tabs-content-wrapp {
+    width: 100%;
+    float: left;
+    padding: 30px 0;
+    background-color: var(--light-bg);
+}
+
+div#my-orders-table_length select,
+div#my-orders-table_filter input {
+    border: 1px solid var(--text-primary);
+    padding: 5px 15px;
+}
+
+.tg-tabs-content-wrapp form.tg-form {
+    width: 100%;
+    float: left;
+    background: #fff;
+    padding: 30px 30px 60px;
+    border: 1px solid #eaeaea;
+}
+
+.tg-tabs-content-wrapp form.tg-form button {
+    background: var(--bg-primary);
+    border: none;
+    padding: 10px 32px;
+    cursor: pointer;
+    margin: 13px 0 0;
+    color: #fff;
+}
+
+.tg-tabs-content-wrapp form.tg-form button:hover {
+    background: var(--hover-color);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card {
+    background-color: #fff;
+    border: 1px solid var(--text-primary);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card img {
+    max-width: 80px;
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card h2 {
+    font-size: 20px;
+    margin-top: 14px;
+    color: var(--text-primary);
+}
+
+.page-item.active .page-link {
+    background-color: var(--bg-primary) !important;
+    border-color: var(--text-primary);
+    color: #fff !important;
+}
+
+.page-link {
+    color: var(--text-primary) !important;
+}
+
+div#my-orders-table_paginate a {
+    background: var(--light-bg);
+    color: var(--text-primary);
+}
+
+div#my-orders-table_paginate span a.current {
+    color: #fff !important;
+    background: var(--bg-primary);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card:hover,
+.tg-tabs-content-wrapp .my-account-dashboard .card.active {
+    background: var(--bg-primary);
+}
+
+.tg-tabs-content-wrapp .my-account-dashboard .card:hover *,
+.tg-tabs-content-wrapp .my-account-dashboard .card.active * {
+    color: #fff;
+}
+
+table#my-orders-table a.view-order {
+    background: var(--bg-primary);
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 3px;
+}
+
+table#my-orders-table a.view-order:hover {
+    background: var(--hover-color);
+}
+
+/* Keep the existing media queries */
+@media(min-width:768px) {
+    table#my-orders-table td.action,
+    table#my-orders-table th.action {
+        text-align: center;
+    }
+}
+
+@media(max-width:768px) {
+    .tg-account .account-banner .inner-banner .nav-area ul li a {
+        min-width: auto !important;
+        padding: 8px 15px;
+    }
+}
+
+@media(max-width:600px) {
+    .tg-account .account-banner .inner-banner .nav-area ul li a span {
+        display: none;
+    }
+    .tg-account .account-banner .inner-banner .nav-area ul li a {
+        min-width: auto;
+        padding: 8px 20px;
+    }
+    .tg-account .account-banner .inner-banner .nav-area ul {
+        text-align: center;
+        margin: 0 auto;
+        width: fit-content;
+    }
+    .tg-account .detail {
+        text-align: center;
+    }
+    div#my-orders-table_length select,
+    div#my-orders-table_filter input {
+        max-width: 120px;
+        font-size: 14px;
+    }
+    div#my-orders-table_length label,
+    div#my-orders-table_filter label {
+        font-size: 0px;
+    }
+    /* .btn-logout {
+        background-color: #dc3545;
+        color: #ffffff;
+        border: none;
+        align-items: center;
+        padding: 500px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      
+      .btn-logout:hover {
+        background-color: #c82333;
+      } */
+}

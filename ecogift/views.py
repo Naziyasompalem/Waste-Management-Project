@@ -140,7 +140,7 @@ def customerLogout(request):
 
 def fcompPage(request):
     sellers = Seller.objects.all().order_by('-sellerpoints')[:5]
-    current_seller = Seller.objects.get(Customer=request.user)
+    #current_seller = Seller.objects.get(Customer=request.user)
     return render(request,'fcomp.html',{'sellers':sellers, 'current_seller':current_seller})
 
 @login_required
@@ -192,3 +192,9 @@ def sellerMain(request):
     }
     print(delivered_orders)
     return render(request, "seller.html", context)
+def Donatepg(request):
+    return render(request,"Donatepage.html")
+def Pricelist(request):
+    return render(request,"pricelist.html")
+# def Generators(request):
+#     return render(request,"selldetpg.html")

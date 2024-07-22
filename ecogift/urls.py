@@ -35,7 +35,10 @@ urlpatterns = [
     path('Myorders', views.My_Orders, name="Myorders"),
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),
-    path('seller-main',views.sellerMain,name="seller-main")
+    path('seller-main',views.sellerMain,name="seller-main"),
+    path('Donate',views.Donatepg,name="Donate"),
+    path('Prices',views.Pricelist,name="Prices"),
+    #path('Generator',views.Generators,name="Generator"),
 ]
 
 
