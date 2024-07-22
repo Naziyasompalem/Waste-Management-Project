@@ -151,13 +151,38 @@ def myaccountPage(request):
 def shop_detail(request,product_id):
     return render(request,'shop-detail.html')
 
+def get_sellers_from_order(order_instance):
+    # Get all OrderItem instances related to the given Order
+    order_items = order_instance.orders.all()
+
+    # Get all Products from the OrderItems
+    products = Product.objects.filter(orderitem__in=order_items)
+
+    # Get all Sellers from the Products
+    sellers = Seller.objects.filter(product__in=products).distinct()
+
+    return sellers
 
 def sellerMain(request):
     seller = Seller.objects.get(Customer=request.user)
     products = Product.objects.filter(Seller=seller)
 
+    # Get the latest order for the customer
+    order = Order.objects.filter(Customer=request.user).last()
+
+    # Get delivered orders for products of the current seller
+    delivered_orders = Order.objects.filter(
+        orders__Product__Seller=seller,
+        Status='Delivered'
+    ).distinct()
+    active_orders = delivered_orders = Order.objects.filter(
+        orders__Product__Seller=seller,
+        Status='Delivered'
+    ).distinct()
     context = {
         'products': products,
+        'active_orders': active_orders,
+        "delivered_orders": delivered_orders
     }
-
+    print(delivered_orders)
     return render(request, "seller.html", context)

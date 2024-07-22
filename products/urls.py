@@ -29,4 +29,5 @@ urlpatterns=[
     path('successPage',views.paymentSuccessPage, name="successPage"),
     #path('bulkdata', views.bulkdata_call, name="bulkdata"),
     path('search', views.search, name="search"),
+    path('accept-query/<int:Query_id>', views.accept_query, name="accept_query"),
 ]

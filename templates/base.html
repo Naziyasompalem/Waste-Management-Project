@@ -94,16 +94,14 @@
                         <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
                         <div class="nav-item dropdown">
                             <div class="d-flex m-3 me-0">
-                                <button
-                                    class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                                    data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                        class="fas fa-search text-primary"></i></button>
-                                <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
-                                        <i class="fa fa-shopping-bag fa-2x"></i>
-                                        <span
-                                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-                                    </a>
+                                
+                                {% url 'index' as index_view %}
+                                {% if request.path != index_view %}
+                                    <button
+                                        class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                        data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                            class="fas fa-search text-primary"></i></button>
+                                    {% endif %}
                                 {% if user.is_authenticated %}
                                 <a href="{% url 'myaccount' %}" class="my-auto">
                                     <i class="fas fa-sign-out-alt fa-2x"></i>
@@ -116,7 +114,6 @@
                             </div>
                                 {% comment %} <a href="{% url 'seller-det' %}" class="dropdown-item">Seller-log</a> {% endcomment %}
                                 {% else %}
-                                {% url 'index' as index_view %}
                                 <a href="{% url 'index' %}" class="nav-item nav-link {% if request.path == index_view %}active{% endif %}">Home</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
@@ -138,10 +135,12 @@
                                 {% url 'contactus' as contact_view %}
                                 <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
                                 <div class="d-flex m-3 me-0">
+                                    {% if request.path != index_view %}
                                     <button
                                         class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                                         data-bs-toggle="modal" data-bs-target="#searchModal"><i
                                             class="fas fa-search text-primary"></i></button>
+                                    {% endif %}
                                     <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
                                             <i class="fa fa-shopping-bag fa-2x"></i>
                                             <span
@@ -170,10 +169,12 @@
                         <a href="{% url 'customer-info' %}" class="nav-item nav-link">customer-data</a>
                         <a href="{% url 'contactus' %}" class="nav-item nav-link">Contact</a>
                         <div class="d-flex m-3 me-0">
-                            <button
-                                class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                                data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                    class="fas fa-search text-primary"></i></button>
+                            {% if request.path != index_view %}
+                                    <button
+                                        class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                                        data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                                            class="fas fa-search text-primary"></i></button>
+                                    {% endif %}
                             <a href="{% url 'cart' %}" class="position-relative me-4 my-auto">
                                     <i class="fa fa-shopping-bag fa-2x"></i>
                                     <span

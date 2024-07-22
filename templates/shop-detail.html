@@ -201,13 +201,25 @@
                                 </div>
                             </div>
                             <div>
+                            {% if request.user.is_seller %}
                                 {%  for comment in extra_items %}
                                 <h5>User : {{ comment.customer.username }}</h5>
                                 <p>Query : {{ comment.query }}</p>
+                                <button><i class="bi bi-check"></i></button>
+                                <button><i class="bi bi-x"></i></button>
                                 {% endfor %}
+                            {% else %}
+                            {%  for comment in extra_items %}
+                                <h5>User : {{ comment.customer.username }}</h5>
+                                <p>Query : {{ comment.query }}</p>
+                                {% endfor %}
+                            {% endif %}
+
                             </div>
                         
-                            <form action="{% url 'add_query' %}">
+                            <form action="{% url 'add_query' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
                                 <h4 class="mb-5 fw-bold">write a Query here for extra quantity</h4>
                                 <div class="row g-4">
                                     <div class="col-lg-6">
@@ -222,7 +234,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Query*" name="query" spellcheck="false"></textarea>
+                                            <textarea name="query" id="query" class="form-control border-0" cols="30" rows="8" placeholder="Your Query*" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -237,7 +249,7 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post your query</a>
+                                            <button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit"> Post your query</a>
                                         </div>
                                     </div>
                                 </div>

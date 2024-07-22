@@ -72,7 +72,7 @@
         <div class="container py-5">
             <div class="row g-4 justify-content-center">
                 <div class="col-md-6 col-lg-4">
-                    <a href="#">
+                    <a href="#wasteproducts">
                         <div class="service-item bg-secondary rounded border border-secondary">
                             <img src="{% static 'img/wsgnp1.jpg' %}" class="img-fluid rounded-top w-100" alt="">
                             <div class="px-4 rounded-bottom">
@@ -85,7 +85,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <a href="#">
+                    <a href="#recycledblock">
                         <div class="service-item bg-dark rounded border border-dark">
                             <img src="{% static 'img/pro1.jpg' %}" class="img-fluid rounded-top w-100" alt="">
                             <div class="px-4 rounded-bottom">
@@ -98,7 +98,7 @@
                     </a>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <a href="#">
+                    <a href="{% url 'shop' %}">
                         <div class="service-item bg-primary rounded border border-primary">
                             <img src="{% static 'img/ngo.jpg' %}" class="img-fluid rounded-top w-100" alt="">
                             <div class="px-4 rounded-bottom">
@@ -170,7 +170,7 @@
     <!-- Featurs Section End -->
      
     <!-- Fruits Shop Start-->
-    <div class="container-fluid fruite py-5">
+    <div class="container-fluid fruite py-5" id="wasteproducts">
         <div class="container py-5">
             <div class="tab-class text-center">
                 <div class="row g-4">
@@ -182,12 +182,14 @@
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <!-- ----------------------- -->
                             {% for i in categories %}
+                            {% if i.Name != "Recycled Products" %}
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill {% if i.id == 1 %}active{% endif %}" data-bs-toggle="pill"
                                     href="#tab-{{i.id}}">
                                     <span class="text-dark" style="width: 130px;">{{i.Name}} </span>
                                 </a>
                             </li>
+                            {% endif %}
                             {% endfor%}
                             <!-- ------------------------- -->
                         </ul>
@@ -198,36 +200,36 @@
         <div id="tab-{{ category.id }}" class="tab-pane fade show p-0 {% if category.id == 1 %} active {% endif %}">
             <div class="row g-4">
                 <div class="col-lg-12">
-                    <div class="row g-4">
+                    <div class="row g-4" style="display: flex;">
                         {% for cat_name, products in products_by_category.items %}
                         {% if cat_name == category.Name %}
                             {% for product in products %}
-                            <a href="{% url 'shop-details' product.id %}">
                             <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="rounded position-relative fruite-item">
-                                    <div class="fruite-img">
-                                        <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
-                                    </div>
-                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
-                                        Eco-Friendly
-                                    </div>
-                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                        <h4>{{ product.Name }}</h4>
-                                        <p style="display: block; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}">{{ product.Description }}</p>
-                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                            <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/ kg</p>
-                                            <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
-                                                Add to cart
-                                            </button>
-                                            
-                                            {% comment %} <button onclick="add-to-cart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" class="add-to-cart" data-product-id="{{ product.id }}">
-                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart 
-                                            </button> {% endcomment %}
+                                    <a href="{% url 'shop-details' product.id %}">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                            Eco-Friendly
+                                        </div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h4>{{ product.Name }}</h4>
+                                            <p style="display: block; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}">{{ product.Description }}</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/ kg</p>
+                                                <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                                    Add to cart
+                                                </button>
+                                                
+                                                {% comment %} <button onclick="add-to-cart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" class="add-to-cart" data-product-id="{{ product.id }}">
+                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart 
+                                                </button> {% endcomment %}
+                                            </div>
                                         </div>
                                     </div>
+                                </a>
                                 </div>
-                            </div>
-                        </a>
                             {% endfor %}
                         {% endif %}
                         {% empty %}
@@ -417,145 +419,28 @@
             text-overflow: ellipsis;
           }
      </style>
-    <div class="container-fluid vesitable py-5">
+    <div class="container-fluid vesitable py-5" id="recycledblock">
         <div class="container py-5">
             <h1 class="mb-0">Recycled Products</h1>
             <div class="owl-carousel vegetable-carousel justify-content-center">
+                {% for product in recycledProducts %}
                 <div class="border border-primary rounded position-relative vesitable-item">
                     <div class="vesitable-img">
-                        <img src="{% static 'img/bio.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                        <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
                     </div>
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
+                        style="top: 10px; right: 10px;">Recycled Product</div>
                     <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">Bio-diesel</h4>
-                        <p class="textDesc" >Biodiesel is a renewable, biodegradable fuel manufactured domestically from vegetable oils,
-                            animal fats, or recycled restaurant grease</p>
+                        <h4 class="textDesc">{{ product.Name }}</h4>
+                        <p class="textDesc" >{{ product.Description }}</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">69.44 RS/litre</p>
+                            <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}</p>
                             <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                         </div>
                     </div>
                 </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/compo.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4>Compost</h4>
-                        <p class="textDesc">compost is a organic matter made from decomposed plant material, used in gardening and
-                            agriculture</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">25 Rs / kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/ferti1.jpg' %}" class="img-fluid w-100 rounded-top bg-light" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4>Fertilizer</h4>
-                        <p class="textDesc">Fertilizer, natural or artificial substance containing the chemical elements that improve
-                            growth and productiveness of plants</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">95/ kg</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/recy3.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">Neem Oil Spray for Plants</h4>
-                        <p class="textDesc">Natural, organic pest control for plants; protects and nourishes with neem oil</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">300/Litre</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/recy9.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">Rubber</h4>
-                        <p class="textDesc">High strength and elasticity,Natural rubber can be stretched to several times its original
-                            length and return to its original shape.</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">40Rs/pack</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/recy12.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">natural Toothbrush</h4>
-                        <p class="textDesc">The handle is typically made of bamboo, a fast-growing, renewable resource that biodegrades
-                            quickly after you're done using the toothbrush. Bamboo also has natural antibacterial
-                            properties</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">50Rs/piece</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/recy11.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">Cleaning brush</h4>
-                        <p class="textDesc">Can be Used to Clean Carpets, Mats, Home Interiors, Car Seats, Sofa Covers</p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">120 Rs</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border border-primary rounded position-relative vesitable-item">
-                    <div class="vesitable-img">
-                        <img src="{% static 'img/recy1.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                    </div>
-                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
-                        style="top: 10px; right: 10px;">Vegetable</div>
-                    <div class="p-4 rounded-bottom">
-                        <h4 class="textDesc">Eco Notepad(Pack Of 5)</h4>
-                        <p class="textDesc">Sustainable, durable, and stylish notepad made from 100% recycled and biodegradable materials
-                        </p>
-                        <div class="d-flex justify-content-between flex-lg-wrap">
-                            <p class="text-dark fs-5 fw-bold mb-0">500 Rs</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

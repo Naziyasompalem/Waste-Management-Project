@@ -94,7 +94,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-  Order = models.ForeignKey(Order, on_delete=models.CASCADE)
+  Order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orders')
   Product = models.ForeignKey(Product, on_delete=models.CASCADE)
   Quantity = models.PositiveIntegerField()
   Price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -208,10 +208,10 @@ class Meta:
 
 class ExtraItem(models.Model):
   #PrID = models.ForeignKey(Order, on_delete=models.CASCADE)
-  product_id = models.PositiveIntegerField(blank=True, null=True)
+  product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='queries')
   
   #Q = models.TextField()
-  order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='extra_items')
+  # order = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='extra_items')
   
   #timePosted = models.DateTimeField()
   query = models.TextField(verbose_name='Query')

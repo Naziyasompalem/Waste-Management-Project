@@ -76,10 +76,6 @@
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                            <a href="#" class="position-relative me-4 my-auto">
-                                <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-                            </a>
                             <a href="#" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
@@ -99,12 +95,13 @@
                         <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body d-flex align-items-center">
+                    <form method="GET" action="{% url 'search' %}" class="modal-body d-flex align-items-center">
                         <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <input type="search" class="form-control p-3" placeholder="keywords"
+                                aria-describedby="search-icon-1" name="search" id="search">
                             <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -135,8 +132,8 @@
                     <div class="row g-4">
                         {% if products %}
                             {% for product in products %}
-                            <a href="{% url 'shop-details' product.id %}">
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <a href="{% url 'shop-details' product.id %}">
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
                                             <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top" alt="{{ product.Name }}">
@@ -155,8 +152,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                </a>
                                 </div>
-                            </a>
                             {% endfor %}
                         {% else %}
                             <p>No items to display</p>
@@ -327,102 +324,48 @@
         .button1 {width: 250px;}
         
         </style>
-        <center><button class="button button1"><a href="{% url 'add-product' %}">Add Products</a></button><br></center>
+        <center><button class="button button1"><a href="{% url 'add-product' %}" style="color: white;">Add Products</a></button><br></center>
         <br><hr>
         <h1 class="display-4">Already Sold Items</h1>
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" style="overflow: auto;">
                         <thead>
                           <tr>
-                            <th scope="col">Products</th>
-                            <th scope="col">Name</th>
-                           
-                            
-                            <th scope="col">Quantity</th>
+                            <th scope="col">Product</th>  
+                            <th scope="col">Name</th>   
+                            <th scope="col">Order ID</th>                           
+                            <th scope="col">Order Date</th>
                             <th scope="col">Price</th>
-                            
                           </tr>
                         </thead>
                         <tbody>
+                            {% for order in delivered_orders %}
+                            {% for order_item in order.orders.all %}
                             <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img  src="{% static 'img/coconut sheel.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                    </div>
-                                </th>
+                                <td><img src="{{ order_item.Product.Image.url }}" style="width: 50px;" alt="{{ order_item.Product.Name }}"></td>
                                 <td>
-                                    <p class="mb-0 mt-4">Cocunut Shells</p>
+                                    <p class="mb-0 mt-4">{{ order_item.Product.Name }}</p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 mt-4">20kgs</p>
+                                    <p class="mb-0 mt-4">{{ order.id }}</p>
                                 </td>
                                 <td>
-                                    <p class="mb-0 mt-4">1400rs</p>
+                                    <p class="mb-0 mt-4">{{ order.OrderDate }}</p>
                                 </td>
-                                
-                                       
-                               
-                            
+                                <td>
+                                    <p class="mb-0 mt-4">{{ order_item.Product.Price }}</p>
+                                </td>
                             </tr>
-                            <tr>
+                                {% endfor %}
+                            {% empty %}
                                 <tr>
-                                    <th scope="row">
-                                        <div class="d-flex align-items-center">
-                                            <img  src="{% static 'img/ban.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <p class="mb-0 mt-4">Banana Stems</p>
+                                    <td colspan="3">
+                                        <p style="text-align: center;">No orders yet</p>
                                     </td>
-                                    <td>
-                                        <p class="mb-0 mt-4">15kgs</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 mt-4">300rs</p>
-                                    </td>
-                                    
-                                    </td>
-                                
                                 </tr>
-                                <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img  src="{% static 'img/cow.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Cow Dung</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">30kgs</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">360rs</p>
-                                </td>
-                                
-                                <td>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img  src="{% static 'img/rice husk.jpg' %}" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Rice Husk</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">25kg</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">250rs</p>
-                                </td>
-                                  
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     </div>
@@ -433,7 +376,7 @@
                             <div class="bg-light rounded">
                                 <div class="p-4">
                                     <h1 class="display-6 mb-4">Income <span class="fw-normal"></span></h1>
-                                    <div class="d-flex justify-content-between mb-4">
+                                    {% comment %} <div class="d-flex justify-content-between mb-4">
                                         <h5 class="mb-0 me-4">Items</h5>
                                         <h5 class="mb-0 me-4">price</h5>
                                     </div>
@@ -473,7 +416,7 @@
                                                     <p class="mb-0 pe-4">Rs250.00</p>
                                                         
                                                     </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     
                                    
                                 </div>

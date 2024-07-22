@@ -56,6 +56,8 @@ def get_location(longitude, latitude):
 
 def index(request):
     categories = Category.objects.all()
+    RecycleCat = Category.objects.get(Name = 'Recycled Products')
+    recycledProducts = Product.objects.filter(Category = RecycleCat)
     products_by_category = {}
 
     for category in categories:
@@ -65,9 +67,10 @@ def index(request):
 
     context = {
         'categories': categories,
-        'products_by_category': products_by_category
+        'products_by_category': products_by_category,
+        'recycledProducts': recycledProducts
     }
-
+    print(context)
     return render(request,'index.html', context)
 from .models import Seller
 @login_required
@@ -172,15 +175,17 @@ def shopDetails(request, product_id):
     products_by_category = {category.Name: Product.objects.filter(Category=category) for category in categories}
     product = get_object_or_404(Product, id=product_id)
 
-    # Retrieve ExtraItems for the product
-    extra_items = ExtraItem.objects.filter(product_id=product.id)
-
+    if request.user.is_seller:
+        extra_items = ExtraItem.objects.filter(product=product)
+    else:
+        extra_items = ExtraItem.objects.filter(product=product, customer=request.user)  # Show all unanswered queries by default for customers (assuming customer has a foreign key to ExtraItem)
+    
     # Optional: Filter ExtraItems further based on customer if needed
     # (e.g., only show customer's own queries or queries addressed to them)
-    if request.user.is_authenticated:
-        current_customer = request.user  # Assuming a ForeignKey from User to Customer
-        filtered_extra_items = extra_items.filter(Q(customer=current_customer))  # Filter for customer-related queries or queries addressed to the seller (assuming seller has a customer field)
-        extra_items = filtered_extra_items  # Update extra_items with filtered list
+    # if request.user.is_authenticated:
+    #     current_customer = request.user  # Assuming a ForeignKey from User to Customer
+    #     filtered_extra_items = extra_items.filter(Q(customer=current_customer))  # Filter for customer-related queries or queries addressed to the seller (assuming seller has a customer field)
+    #     extra_items = filtered_extra_items  # Update extra_items with filtered list
 
     context = {
         'cat': categories,
@@ -473,11 +478,21 @@ def search(request):
         return render(request, 'search.html', {'products': products})
     return redirect('index')
 
+# from django.core.url.resolvers import reverse
+from django.http import HttpResponseRedirect
 def add_query(request):
     if request.method == 'POST':
         query = request.POST.get('query')
         customer = request.user
-        product_id = request.POST.get('product_id')
-        extra_item = ExtraItem(product_id=product_id, query=query, customer=customer)
+        product = Product.objects.get(id=int(request.POST.get('product_id')))
+        print(query, customer, product)
+        extra_item = ExtraItem(product=product, query=query, customer=customer)
         extra_item.save()
-        return redirect('shop-details', product_id)
+        return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': product.id}))
+
+def accept_query(request, query_id):
+    query = ExtraItem.objects.get(id=query_id)
+    query.flag = True
+    query.save()
+    return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
+
