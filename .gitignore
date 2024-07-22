@@ -6,3 +6,4 @@ products/templatetags/__pycache__/
 *.pyc
 .env
 script.py
+hackenv/
