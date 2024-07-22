@@ -207,7 +207,7 @@
                                 {% endfor %}
                             </div>
                         
-                            <form action="#">
+                            <form action="{% url 'add_query' %}">
                                 <h4 class="mb-5 fw-bold">write a Query here for extra quantity</h4>
                                 <div class="row g-4">
                                     <div class="col-lg-6">
@@ -222,7 +222,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Query*" spellcheck="false"></textarea>
+                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Query*" name="query" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
