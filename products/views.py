@@ -186,12 +186,13 @@ def shopDetails(request, product_id):
     #     current_customer = request.user  # Assuming a ForeignKey from User to Customer
     #     filtered_extra_items = extra_items.filter(Q(customer=current_customer))  # Filter for customer-related queries or queries addressed to the seller (assuming seller has a customer field)
     #     extra_items = filtered_extra_items  # Update extra_items with filtered list
-
+    products = Product.objects.filter(Category=product.Category)
     context = {
         'cat': categories,
         'prd_all': products_by_category,
         'product': product,
-        'extra_items': extra_items,  # Include ExtraItems in the context
+        'products': products,
+        'extra_items': extra_items, # Include ExtraItems in the context
     }
 
     return render(request, 'shop-detail.html', context)

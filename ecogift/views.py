@@ -175,14 +175,20 @@ def sellerMain(request):
         orders__Product__Seller=seller,
         Status='Delivered'
     ).distinct()
-    active_orders = delivered_orders = Order.objects.filter(
+    active_orders = Order.objects.filter(
         orders__Product__Seller=seller,
-        Status='Delivered'
+        Status='Pending'
     ).distinct()
+    income = 0
+    for order in delivered_orders:
+        for order_item in order.orders.all():
+            income += float(order_item.Product.Price)
+    incom = "%.2f"%income
     context = {
         'products': products,
         'active_orders': active_orders,
-        "delivered_orders": delivered_orders
+        "delivered_orders": delivered_orders,
+        "income": f"{incom}"
     }
     print(delivered_orders)
     return render(request, "seller.html", context)

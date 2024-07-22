@@ -323,173 +323,120 @@
         
         .button1 {width: 250px;}
         
-        </style>
-        <center><button class="button button1"><a href="{% url 'add-product' %}" style="color: white;">Add Products</a></button><br></center>
-        <br><hr>
-        <h1 class="display-4">Already Sold Items</h1>
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="table-responsive">
-                    <table class="table" style="overflow: auto;">
-                        <thead>
-                          <tr>
-                            <th scope="col">Product</th>  
-                            <th scope="col">Name</th>   
-                            <th scope="col">Order ID</th>                           
-                            <th scope="col">Order Date</th>
-                            <th scope="col">Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            {% for order in delivered_orders %}
-                            {% for order_item in order.orders.all %}
+    </style>
+    <center><button class="button button1"><a href="{% url 'add-product' %}" style="color: white;">Add Products</a></button><br></center>
+    <br><hr>
+    <div class="text-center mx-auto" style="max-width: 700px;">
+        <h1 class="display-4">Items Sold</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table" style="overflow: auto;">
+                    <thead>
+                        <tr>
+                        <th scope="col">Product</th>  
+                        <th scope="col">Name</th>   
+                        <th scope="col">Order ID</th>                           
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in delivered_orders %}
+                        {% for order_item in order.orders.all %}
+                        <tr>
+                            <td><img src="{{ order_item.Product.Image.url }}" style="width: 50px;" alt="{{ order_item.Product.Name }}"></td>
+                            <td>
+                                <p class="mb-0 mt-4">{{ order_item.Product.Name }}</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">{{ order.id }}</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">{{ order.OrderDate }}</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">{{ order_item.Product.Price }}</p>
+                            </td>
+                        </tr>
+                            {% endfor %}
+                        {% empty %}
                             <tr>
-                                <td><img src="{{ order_item.Product.Image.url }}" style="width: 50px;" alt="{{ order_item.Product.Name }}"></td>
-                                <td>
-                                    <p class="mb-0 mt-4">{{ order_item.Product.Name }}</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">{{ order.id }}</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">{{ order.OrderDate }}</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">{{ order_item.Product.Price }}</p>
+                                <td colspan="5">
+                                    <p style="text-align: center;">No orders yet</p>
                                 </td>
                             </tr>
-                                {% endfor %}
-                            {% empty %}
-                                <tr>
-                                    <td colspan="3">
-                                        <p style="text-align: center;">No orders yet</p>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    </div>
-                    
-                    <div class="row g-4 justify-content-end">
-                        <div class="col-8"></div>
-                        <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                            <div class="bg-light rounded">
-                                <div class="p-4">
-                                    <h1 class="display-6 mb-4">Income <span class="fw-normal"></span></h1>
-                                    {% comment %} <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="mb-0 me-4">Items</h5>
-                                        <h5 class="mb-0 me-4">price</h5>
-                                    </div>
-                                    
-                                    <div class="d-flex justify-content-between">
-                                        <p class="mb-0">Cocunut Shells</p>
-                                       
-                                        <div class="">
-                                        </div>
-                                        <p class="mb-0 pe-4">Rs1400.00</p>
-                                            
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <p class="mb-0">Banana Stems</p>
-                                            
-                                           
-                                            <div class="">
-                                            </div>
-                                            <p class="mb-0 pe-4">Rs300.00</p>
-                                                
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">Cow Dung</p>
-                                                
-                                               
-                                                <div class="">
-                                                </div>
-                                                <p class="mb-0 pe-4">Rs360.00</p>
-                                                    
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="mb-0">Rice Husk</p>
-                                                    
-                                                   
-                                                    <div class="">
-                                                    </div>
-                                                    <p class="mb-0 pe-4">Rs250.00</p>
-                                                        
-                                                    </div>
-                                    </div> {% endcomment %}
-                                    
-                                   
-                                </div>
-                                
-                                <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                    <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                    <p class="mb-0 pe-4">Rs2,310.00</p>
-                                </div>
-                                
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                
+                <div class="row g-4 justify-content-end">
+                    <div class="col-sm-8 col-md-4 col-lg-6 col-xl-4">
+                        <div class="bg-light rounded">
+                            <div class="p-4">
+                                <h1 class="display-6 mb-4">Income:${{ income }}<span class="fw-normal"></span></h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    
-                    <div class="container-fluid py-5">
-                        <div class="container py-5">
-                            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                                <h1 class="display-4">Active Orders</h1>
-                               
-                            </div>
-                            <div class="row g-4">
-                                <div class="col-lg-6 col-xl-4">
-                                    <div class="p-4 rounded bg-light">
-                                        <div class="row align-items-center">
-                                            <div class="col-6">
-                                                <img  src="{% static 'img/coconut sheel.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="h5">Cocunut Shells</a>
-                                                <p>Quantity:20kgs</p>
-            
-                                               
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-xl-4">
-                                    <div class="p-4 rounded bg-light">
-                                        <div class="row align-items-center">
-                                            <div class="col-6">
-                                                <img  src="{% static 'img/ag2.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="h5">Cow Dung</a>
-                                                
-                                                <p>Quantity:15kgs</p>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-xl-4">
-                                    <div class="p-4 rounded bg-light">
-                                        <div class="row align-items-center">
-                                            <div class="col-6">
-                                                <img  src="{% static 'img/ag3.jpg' %}" class="img-fluid rounded-circle w-100" alt="">
-                                            </div>
-                                            <div class="col-6">
-                                                <a href="#" class="h5">Egg Shells</a>
-                                               
-                                              <p>Quantity:20kg</p>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                
-                            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid  py-5">
+        <div class="container">
+            <div class="text-center mx-auto" style="max-width: 700px;">
+                <h1 class="display-4">Active Orders</h1>
+            </div>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="table-responsive">
+                        <table class="table" style="overflow: auto;">
+                            <thead>
+                                <tr>
+                                <th scope="col">Product</th>  
+                                <th scope="col">Name</th>   
+                                <th scope="col">Order ID</th>                           
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in active_orders %}
+                                {% for order_item in order.orders.all %}
+                                <tr>
+                                    <td><img src="{{ order_item.Product.Image.url }}" style="width: 50px;" alt="{{ order_item.Product.Name }}"></td>
+                                    <td>
+                                        <p class="mb-0 mt-4">{{ order_item.Product.Name }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">{{ order.id }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">{{ order.OrderDate }}</p>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0 mt-4">{{ order_item.Product.Price }}</p>
+                                    </td>
+                                </tr>
+                                    {% endfor %}
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5">
+                                            <p style="text-align: center;">No orders yet</p>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
         
         
         <!-- Single Product End -->
