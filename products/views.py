@@ -70,7 +70,6 @@ def index(request):
         'products_by_category': products_by_category,
         'recycledProducts': recycledProducts
     }
-    print(context)
     return render(request,'index.html', context)
 from .models import Seller
 @login_required
