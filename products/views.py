@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group  # to assign group to new user whil
 from datetime import datetime
 from django.contrib import messages
 
-from .models import Product,Category,Customer
+from .models import Product,Category,Customer,ExtraItem
 from .forms import ProdutForm
 from .forms import CustomerdetForm
 from .forms import sellerForm
@@ -158,13 +158,38 @@ def checkout(request):
         form=TransacForm()
         return render(request,'product_entry_form.html', {'form':form})
     
-def shopDetails(request,product_id):
+"""def shopDetails(request,product_id):
     categories = Category.objects.all()
+    #comment = objects.all()
+    
     products_by_category = {Category.Name: Product.objects.filter(Category=category) for category in categories}
     product = get_object_or_404(Product, id=product_id)
     print(categories.values,products_by_category,product)
-    return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category,'product':product})
+    return render(request, 'shop-detail.html', {'cat': categories, 'prd_all': products_by_category,'product':product})"""
+@login_required
+def shopDetails(request, product_id):
+    categories = Category.objects.all()
+    products_by_category = {category.Name: Product.objects.filter(Category=category) for category in categories}
+    product = get_object_or_404(Product, id=product_id)
 
+    # Retrieve ExtraItems for the product
+    extra_items = ExtraItem.objects.filter(product_id=product.id)
+
+    # Optional: Filter ExtraItems further based on customer if needed
+    # (e.g., only show customer's own queries or queries addressed to them)
+    if request.user.is_authenticated:
+        current_customer = request.user  # Assuming a ForeignKey from User to Customer
+        filtered_extra_items = extra_items.filter(Q(customer=current_customer))  # Filter for customer-related queries or queries addressed to the seller (assuming seller has a customer field)
+        extra_items = filtered_extra_items  # Update extra_items with filtered list
+
+    context = {
+        'cat': categories,
+        'prd_all': products_by_category,
+        'product': product,
+        'extra_items': extra_items,  # Include ExtraItems in the context
+    }
+
+    return render(request, 'shop-detail.html', context)
 def contactus_request(request):
     print(request)
     if request.method == "POST":
@@ -401,7 +426,7 @@ def send_wait_mail(data):
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
 
-from .forms import bulkdataform
+"""from .forms import bulkdataform
 import pandas as pd
 import os
 from django.core.files.temp import NamedTemporaryFile
@@ -432,7 +457,7 @@ def bulkdata_call(request):
             return redirect('bulkdata')
     else:
         form = bulkdataform()
-    return render(request, 'bulk.html', {'form': form})
+    return render(request, 'bulk.html', {'form': form})"""
 
 def DiscardItem(request,CartItem_id):
     item = CartItem.objects.get(id=CartItem_id)
