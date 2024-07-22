@@ -27,7 +27,7 @@
         <tbody>
             {% for item in order_items %}
             <tr>
-                <td>{{ item.Product.name }}</td> <!-- Adjust field name as per your Product model -->
+                <td>{{ item.Product.Name }}</td>
                 <td>{{ item.Quantity }}</td>
                 <td>{{ item.Price }}</td>
                 {% comment %} <td>{{ item.Price|multiply:item.Quantity }}</td> <!-- Assuming you have a custom template filter to multiply --> {% endcomment %}

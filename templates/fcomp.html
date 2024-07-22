@@ -178,8 +178,9 @@
   </header>
   <main>
     <div class="user-rank-box" id="userRankBox">
-      <div class="box-heading"> Your Rank  &#x1F3C6</div>
-      <div class="rank-info" id="userRankInfo">Loading...</div>
+      <div class="box-heading"> Your Points &#x1F3C6</div>
+      {% comment %} <div class="rank-info" id="userRankInfo">Loading...</div> {% endcomment %}
+      <h5>{{ current_seller.points }}</h5>
       <p>Wishing you the best of luck for your upcoming competition! You’ve got this! &#x1F917</p>
     </div>
     <img src="{% static 'img/gift.jpg' %}" alt="Participate in our competition" style="max-width: 10%; height: 50%;">
@@ -190,25 +191,26 @@
       </div>
       <div class="winner-table">
         <table id="rankingTable">
-          <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Points</th>
-            </tr>
-        </thead>
-          </tr>
-          <!-- Top 5 Participants (Sorted by Quantity Score) -->
-          {% for seller in sellers %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ seller.Name }}</td>
-                <td>{{ seller.sellerPoints }}</td>
-            </tr>
-            {% endfor %}
-          
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Top 5 Participants (Sorted by Quantity Score) -->
+                {% for seller in sellers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ seller.Customer.username }}</td>
+                        <td>{{ seller.sellerpoints }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-      </div>
+    </div>
+    
     </div>
     <section class="competition-results">
       <div class="user-table-box" id="userTableBox">

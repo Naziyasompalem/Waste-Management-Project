@@ -84,8 +84,9 @@ def add_product(request):
             products = Product.objects.filter(Seller=seller)
             points = sum(int(float(product.Price)) for product in products)
             print(points)
-            instance.sellerPoints = int(points)
-            instance.save()
+            Sinstance = Seller.objects.get(Customer=request.user)
+            Sinstance.sellerpoints = int(points)
+            Sinstance.save()
             return redirect('product-home')
         else:
             # messages.success(request, "Data Not saved, Please check input")
@@ -363,6 +364,7 @@ def signup(request):
 
 
 def My_Orders(request):
+
     return render(request, 'My_orders.html')
 
 import smtplib

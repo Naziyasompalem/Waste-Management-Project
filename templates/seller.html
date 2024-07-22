@@ -1,6 +1,6 @@
 
 {% load static %}
-
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,36 +125,47 @@
         </div>
         <!-- Single Page Header End -->
         
-                </div>
-                <br><br><center><p>Click the Below Button to Add Products</p></center>
                 
-                <style>
-                    .button {
-                      background-color: #70ba2f; /* Green */
-                      border: none;
-                      color: white;
-                      padding: 15px 32px;
-                      text-align: center;
-                      text-decoration: none;
-                      display: inline-block;
-                      font-size: 16px;
-                      margin: 4px 2px;
-                      cursor: pointer;
-                    }
-                    
-                    .button1 {width: 250px;}
-                    
-                    </style>
                     </head>
                     <body>
                     
                     
-                    
-                 
-                    
-                    <center><button class="button button1"><a href="{% url 'add-product' %}">Add Products</a></button><br></center>
-                <br><br><h1 class="fw-bold mb-0">Prodects already Added</h1></br></br>
-                <div class="vesitable">
+                <br><br><h1 class="fw-bold mb-0">Products Added</h1></br></br> 
+                <div class="container">
+                    <div class="row g-4">
+                        {% if products %}
+                            {% for product in products %}
+                            <a href="{% url 'shop-details' product.id %}">
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="{{ product.Image.url }}" class="img-fluid w-100 rounded-top" alt="{{ product.Name }}">
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">
+                                            Eco-Friendly
+                                        </div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h4>{{ product.Name }}</h4>
+                                            <p style="display: block; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ product.Description }}</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/ kg</p>
+                                                <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                                    Add to cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        {% else %}
+                            <p>No items to display</p>
+                        {% endif %}
+                    </div>
+                </div>
+                               
+                                
+                {% comment %} <div class="vesitable">
                     <div class="owl-carousel vegetable-carousel justify-content-center">
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
@@ -295,6 +306,29 @@
                 </div>
             </div>
         </div>
+    </div> {% endcomment %}
+    <hr>
+    <br><br><center><p>Click the Below Button to Add Products</p></center>
+    
+    <style>
+        .button {
+          background-color: #70ba2f; /* Green */
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+        
+        .button1 {width: 250px;}
+        
+        </style>
+        <center><button class="button button1"><a href="{% url 'add-product' %}">Add Products</a></button><br></center>
+        <br><hr>
         <h1 class="display-4">Already Sold Items</h1>
         <div class="container-fluid py-5">
             <div class="container py-5">

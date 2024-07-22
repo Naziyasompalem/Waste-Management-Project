@@ -92,10 +92,14 @@ def paymentSuccessPage(request):
 
 
 def My_Orders(request):
-    order = Order.objects.filter(Customer=request.user)
-    print(order)
-    #order_items = OrderItem.objects.filter(Order=orderId for orderId in order)
-    return render(request, 'My_Orders.html', {'order': order})#, 'order_items': order_items
+    # Retrieve orders for the current user
+    orders = Order.objects.filter(Customer=request.user)
+    
+    # Retrieve order items for the retrieved orders
+    order_items = OrderItem.objects.filter(Order__in=orders)
+    
+    return render(request, 'My_Orders.html', {'orders': orders, 'order_items': order_items})
+
 
 def customerLogin(request):
     if request.method == 'POST':
@@ -136,7 +140,8 @@ def customerLogout(request):
 
 def fcompPage(request):
     sellers = Seller.objects.all().order_by('-sellerpoints')[:5]
-    return render(request,'fcomp.html',{'sellers':sellers})
+    current_seller = Seller.objects.get(Customer=request.user)
+    return render(request,'fcomp.html',{'sellers':sellers, 'current_seller':current_seller})
 
 @login_required
 def myaccountPage(request):
@@ -146,13 +151,13 @@ def myaccountPage(request):
 def shop_detail(request,product_id):
     return render(request,'shop-detail.html')
 
+
 def sellerMain(request):
     seller = Seller.objects.get(Customer=request.user)
     products = Product.objects.filter(Seller=seller)
+
     context = {
-        "categories": Category.objects.all(),
         'products': products,
     }
-    if products:
-        return render(request,"seller.html", context)
-    return render(request,"seller.html",{'products': None})
+
+    return render(request, "seller.html", context)
