@@ -447,3 +447,12 @@ def search(request):
         print(products)
         return render(request, 'search.html', {'products': products})
     return redirect('index')
+
+def add_query(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        customer = request.user
+        product_id = request.POST.get('product_id')
+        extra_item = ExtraItem(product_id=product_id, query=query, customer=customer)
+        extra_item.save()
+        return redirect('shop-details', product_id)
