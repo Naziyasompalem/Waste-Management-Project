@@ -176,6 +176,7 @@ def shopDetails(request, product_id):
 
     if request.user.is_seller:
         extra_items = ExtraItem.objects.filter(product=product)
+        extra_items.update(read=True)
     else:
         extra_items = ExtraItem.objects.filter(product=product, customer=request.user)  # Show all unanswered queries by default for customers (assuming customer has a foreign key to ExtraItem)
     
@@ -496,3 +497,9 @@ def accept_query(request, query_id):
     query.save()
     return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
 
+
+def decline_query(request, query_id):
+    query = ExtraItem.objects.get(id=query_id)
+    query.flag = False
+    query.save()
+    return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))

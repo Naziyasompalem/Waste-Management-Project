@@ -219,5 +219,9 @@ class ExtraItem(models.Model):
   customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
   #user = models.DecimalField(max_digits=10, decimal_places=2)
   flag = models.BooleanField(default=False)
+  read = models.BooleanField(default=False)
   class Meta:
       managed = True
+  
+  def is_read(self):
+     return self.read
