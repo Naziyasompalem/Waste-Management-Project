@@ -504,6 +504,11 @@ def decline_query(request, Query_id):
     query.save()
     return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
 
+def delete_query(request, Query_id):
+    query = ExtraItem.objects.get(id=Query_id)
+    query.delete()
+    return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
+
 def notifications_view(request):
     extra_items = ExtraItem.objects.all().order_by('time_posted')
     notifications = {}

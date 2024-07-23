@@ -31,5 +31,6 @@ urlpatterns=[
     path('search', views.search, name="search"),
     path('accept-query/<int:Query_id>', views.accept_query, name="accept_query"),
     path('decline-query/<int:Query_id>', views.decline_query, name="decline_query"),
+    path('delete-query/<int:Query_id>', views.delete_query, name="delete_query"),
     path('notifications', views.notifications_view, name="notifications"),
 ]
