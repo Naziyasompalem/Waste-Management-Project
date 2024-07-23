@@ -196,6 +196,8 @@ def shopDetails(request, product_id):
     }
 
     return render(request, 'shop-detail.html', context)
+
+
 def contactus_request(request):
     print(request)
     if request.method == "POST":
