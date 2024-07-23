@@ -74,16 +74,10 @@ def index(request):
 
 
 def shop(request):  
-
-    ur=Customer.objects.filter()
-    
-    pr=Product.objects.filter()
-    Fi=FoodItem.objects.filter()
+    pr=Product.objects.filter(Category=6)
     
     context={
-        'ur':ur,
-        'Fi':Fi
-
+    "products": pr
     }
     return render(request,'shop.html', context)
 
@@ -196,7 +190,8 @@ def sellerMain(request):
     print(delivered_orders)
     return render(request, "seller.html", context)
 def Donatepg(request):
-    return render(request,"Donatepage.html")
+    DonatedFood = Product.objects.filter(Category=5)
+    return render(request,"Donatepage.html",{"products":DonatedFood})
 def Pricelist(request):
     return render(request,"pricelist.html")
 # def Generators(request):
