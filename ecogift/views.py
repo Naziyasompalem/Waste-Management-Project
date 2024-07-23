@@ -144,7 +144,7 @@ def fcompPage(request):
 @login_required
 def myaccountPage(request):
     user = request.user
-    return render(request,'my_account.html',{'user': user})
+    return render(request,'profile.html',{'user': user})
 
 def shop_detail(request,product_id):
     return render(request,'shop-detail.html')

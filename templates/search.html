@@ -124,6 +124,7 @@
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center" id="food_items">
                                     {% for item in products %}
+                                    <a href="{% url 'shop-details' item.id %}">
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
@@ -138,8 +139,10 @@
                                                 <p>Type of Food:fried rice</p>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                                     <p class="text-dark fs-5 fw-bold mb-0">20rs</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                    <button onclick="addToCart({{ item.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                                        Add to cart
+                                                    </button>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -147,6 +150,7 @@
                                     {% empty %}
                                     <h2>No Results</h2>
                                     {% endfor %}
+                                </a>
                                 </div>
                             </div>
                         </div>
@@ -154,5 +158,28 @@
                 </div>
             </div>
         </div>
+        <script>
+            function addToCart(productid) {
+                const url = "{% url 'add_to_cart' 0 %}".replace('0', productid);
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',  // Ensure you include CSRF token for security
+                    },
+                    body: JSON.stringify({ productid: productid })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);  // Handle response data
+                    alert('Product added to cart');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to add product to cart');
+                });
+            }
+        </script>
         <!-- Fruits Shop End-->
 {% endblock %}

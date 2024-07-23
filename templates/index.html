@@ -186,7 +186,8 @@
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <!-- ----------------------- -->
                             {% for i in categories %}
-                            {% if i.Name != "Recycled Products" %}
+                            {% if i.Name != "Recycled Products" and i.Name != "Surplus Food" and i.Name != "Donation" %}
+
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill {% if i.id == 1 %}active{% endif %}" data-bs-toggle="pill"
                                     href="#tab-{{i.id}}">
@@ -439,8 +440,9 @@
                         <p class="textDesc" >{{ product.Description }}</p>
                         <div class="d-flex justify-content-between flex-lg-wrap">
                             <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}</p>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                Add to cart
+                            </button>
                         </div>
                     </div>
                 </div>

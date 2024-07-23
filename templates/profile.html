@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="{% static 'my_account_styles.css' %}">
+
 {% endblock style %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% comment %} <!DOCTYPE html>
+<html lang="en"> {% endcomment %}
+{% comment %} <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Account</title>
@@ -18,7 +20,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </head>
-<body>
+<body> {% endcomment %}
     <section class="tg-may-account-wrapp tg hero-header">
         <div class="inner">
             <div class="tg-account">
@@ -29,7 +31,7 @@
                             <div class="row">
                                 <div class="col-md-8 detail">
                                     <div class="inner">
-                                        <h1 class="page-title">My Account</h1>
+                                        <h3 class="page-title">My Account</h3>
                                         <h3 class="user-name">Hello {{ request.user.first_name }}</h3>
                                         <p class="description">{{  request.user.description }}</p>
                                     </div>
@@ -74,8 +76,6 @@
                     <div class="inner">
                         <div class="container">
                             <div class="inner">
-                                <div class="row">
-                                    <a href="{% url 'Myorders' %}">
                                 <div class="tab-content" id="myTabContent">
                                     <!-- Dashboard tab -->
                                     <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-link">
@@ -254,7 +254,7 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="btn btn-danger btn-logout float-right" style="background-color: #81c408" >
+        <a href="{% url 'logoutCus' %}" class="btn btn-danger btn-logout float-right" style="background-color: #81c408" >
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
           </a>
