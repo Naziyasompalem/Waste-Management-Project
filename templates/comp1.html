@@ -1,0 +1,334 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waste Management Competition</title>
+
+  {% block content %}
+
+  <style>
+    /* Grid Layout for Responsive Design */
+    body {
+      display: grid;
+      grid-template-rows: auto 1fr auto; /* Header, Content, Footer */
+      min-height: 100vh; /* Ensures full viewport height */
+      font-family: 'Arial', sans-serif; /* Font style */
+      margin: 0; /* Remove default margin */
+      background-color: white; /* Light background color */
+    }
+
+    header, main, footer {
+      padding: 20px;
+    }
+
+    /* Header Styling */
+    header {
+      background-color:#5c8c04; /* Green header */
+      color: white;
+      text-align: center; /* Center-align header content */
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    /* Content Section Styling */
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center-align content horizontally */
+      align-items: center; /* Center-align content vertically */
+    }
+
+    .content-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 2200px;
+    }
+    
+    .winner-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      border-color: black;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .winner-award { /* Highlight winner award column */
+      color: #f39c12; /* Orange text color */
+      font-weight: bold;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9f8f4;
+      border: 2px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .chart-heading {
+      font-size: 24px;
+      font-weight: bold;
+      font-color:white;
+      margin-bottom: 10px;
+    }
+
+    .user-rank-box {
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+      background-color:rgb(251, 216, 164);
+      border: 2px solid white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      text-align: center;
+    }
+    .user-table-box {
+      width: 100%;
+      max-width: 800px;
+      padding: 10px;
+      background-color:white;
+      border: 2px solid #ddd;
+      box-shadow: ;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .box-heading {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .rank-info {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    /* Footer Styling */
+    footer {
+      background-color:#81C408; /* Green footer */
+      color: white;
+      text-align: center;
+      grid-row-start: 3; /* Ensures footer is at the bottom */
+      grid-row-end: 4; /* Ensures footer is at the bottom */
+    }
+    /* CSS for styled month buttons */
+.month-button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid:#f39c12;
+  background-color:#d5e7b4;
+  color: black;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+.month-button:hover {
+  background-color:white;
+  border-color: #1abc9c;
+  transform: translateY(-2px); /* Optional: Add a subtle lift effect */
+}
+
+
+    a {
+      color: white; /* White for call to action link */
+      text-decoration: none; /* Remove underline */
+      font-weight: bold; /* Bold text */
+    }
+
+    /* Table Hover Effect */
+    tr:hover {
+      background-color: gray; /* Light gray hover color */
+    }
+    .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .img {
+    float: right;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="C:\Users\User\OneDrive\Desktop\competetion_page (2)\competetion_page\comp\cup.jpg" alt="competetion image" width="200",height="200">
+    
+    <h1>Waste Management Competition</h1>
+    <p>Join our Waste Management Competition today to not only compete for incredible prizes but also lead the way in fostering a cleaner, more sustainable environment for generations to come!</p>
+  </header>
+  <main>
+    <div class="container" style="display: flex; gap: 15%;">
+    <div class="user-rank-box" id="userRankBox">
+      <div class="box-heading"> Your Rank  &#x1F3C6</div>
+      <div class="rank-info" id="userRankInfo">Loading...</div>
+      <p>Wishing you the best of luck for your upcoming competition! You’ve got this! &#x1F917</p>
+    </div>
+    <div class="img">
+    <br><img src="C:\Users\User\OneDrive\Desktop\competetion_page (2)\competetion_page\comp\gift.jpg" alt="Participate in our competition" width="300",height="300">
+    </div>
+    </div>
+    <div class="content-wrapper">
+      <div class="chart-container">
+        <div class="chart-heading">&#x1F44F Score of the Month &#x1F3c3</div>
+        <canvas id="quantityChart" width="400" height="300"></canvas>
+      </div>
+      <div class="winner-table">
+      <br><br><br><br><br><br><br><br><br><br><br>  <table id="rankingTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Top 5 Participants (Sorted by Quantity Score) -->
+                {% for seller in sellers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ seller.Customer.username }}</td>
+                        <td>{{ seller.sellerpoints }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+      <!-- Placeholder for top 5 tables -->
+      
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const sellersData = 
+        [
+          {% for seller in sellers %}
+          {
+            name: "{{ seller.Customer.username }}",
+            points: {{ seller.sellerpoints }}
+          },
+          {% endfor %}
+        ];
+        const currentSellerData = {{ current_seller }};
+        console.log(sellersData, currentSellerData  )
+        // Sort the seller data by points in descending order
+        sellersData.sort((a, b) => b.sellerpoints - a.sellerpoints);
+      
+        // Extract the seller names and points from the sorted data
+        const sellerNames = sellersData.map(seller => seller.name);
+        const sellerPoints = sellersData.map(seller => seller.sellerpoints);
+      
+        // Find the current seller's rank
+        const currentSellerRank = sellersData.findIndex(seller => seller.name === currentSellerData.name) + 1;
+      
+        // Update the user rank info box
+        const userRankBox = document.getElementById('userRankInfo');
+        userRankBox.textContent = `${currentSellerData.name}'s rank: ${currentSellerRank}`;
+      
+        // Draw chart using Chart.js
+        const ctx = document.getElementById('seller-chart').getContext('2d');
+      const sellerChart = new Chart(ctx, {
+        type: 'line', // Change from 'bar' to 'line'
+        data: {
+          labels: sellerNames,
+          datasets: [{
+            label: 'Seller Points',
+            data: sellerPoints,
+            borderColor: 'rgba(255, 99, 132, 1)', // Update border color for line chart
+            backgroundColor: 'rgba(255, 99, 132, 0.2)', // Update background color for line chart
+            pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Add point background color for line chart
+            pointRadius: 5, // Add point radius for line chart
+            pointHoverRadius: 8 // Add point hover radius for line chart
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            return `Rank: ${tooltipItem.dataIndex + 1} - ${tooltipItem.label}: ${tooltipItem.formattedValue}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          font: {
+            size: 14
+          }
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          beginAtZero: true,
+          stepSize: 10,
+          font: {
+            size: 14
+          }
+        }
+      }
+    }
+  }
+});
+      
+
+      // Add hover effect to table rows
+      rows.forEach(row => {
+        row.addEventListener('mouseover', () => {
+          row.style.backgroundColor = '#f2f2f2';
+        });
+
+        row.addEventListener('mouseout', () => {
+          row.style.backgroundColor = '';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+{% endblock %}

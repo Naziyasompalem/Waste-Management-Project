@@ -99,8 +99,6 @@ def My_Orders(request):
     order_items = OrderItem.objects.filter(Order__in=orders)
     
     return render(request, 'My_Orders.html', {'orders': orders, 'order_items': order_items})
-
-
 def customerLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -140,8 +138,8 @@ def customerLogout(request):
 
 def fcompPage(request):
     sellers = Seller.objects.all().order_by('-sellerpoints')[:5]
-    #current_seller = Seller.objects.get(Customer=request.user)
-    return render(request,'fcomp.html',{'sellers':sellers, 'current_seller':current_seller})
+    current_seller = Seller.objects.get(Customer=request.user)
+    return render(request,'comp1.html',{'sellers':sellers, 'current_seller':current_seller} )
 
 @login_required
 def myaccountPage(request):
