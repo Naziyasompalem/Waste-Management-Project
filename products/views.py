@@ -503,3 +503,16 @@ def decline_query(request, query_id):
     query.flag = False
     query.save()
     return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
+
+def notifications_view(request):
+    extra_items = ExtraItem.objects.all().order_by('time_posted')
+    notifications = {}
+    for item in extra_items:
+        if str(item.time_posted.date()) in notifications:
+            notifications[str(item.time_posted.date())].append(item)
+        else:
+            notifications[str(item.time_posted.date())] = [item]
+    print(notifications)
+    return render(request, "notifications.html", context={
+        "notifications": notifications,
+    })

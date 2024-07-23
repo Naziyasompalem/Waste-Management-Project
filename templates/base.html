@@ -93,7 +93,7 @@
                         {% comment %} <a href="{% url 'seller-det' %}" class="nav-item nav-link">Seller-log</a> {% endcomment %}
                         {% url 'contactus' as contact_view %}
                         <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
-                        <a href="{% url 'notify' %}" class="position-relative me-4 my-auto">
+                        <a href="{% url 'notification' %}" class="position-relative me-4 my-auto">
                             <i class="fas fa-bell fa-2x notification-icon"></i>
                             <span class="notification-count d-none">0</span>
                           </a>

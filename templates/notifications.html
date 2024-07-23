@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #81c408;
+        }
+
+        .notification-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .notification-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #notifications-content {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            {% comment %}overflow-y: auto;{% endcomment %}%}
+        }
+
+        .notification-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+
+        .notification-item > a img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .time {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #007bff;
+            border-radius: 50%;
+            margin-left: 15px;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        h3 span {
+            font-weight: normal;
+            color: #777;
+        }
+        .position-relative{
+            position: relative;
+        }
+    </style>
+{% endblock style %}
+
+{% block content %}
+    <div class="position-relative" style="margin-top: 20vh">
+        <div id="notifications-content" class="notification-section">
+        {% for date, notification in notifications.items %}
+            <h3>{{ date }}</h3>
+            {% for notice in notification %}
+            <div class="notification-item">
+            <a href="{% url 'shop-details' notice.product.id %}"  style="display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;">
+                <img src="{{ notice.product.Image.url }}" alt="{{ notice.product.Name }}">
+                <div class="details">
+                    <p><strong>{{ notice.query }}</strong></p>
+                    <p class="time">{{ notice.time_posted.time }}</p>
+                </div>
+            {% if not notice.read %}
+            <div class="dot"></div>
+            {% endif %}
+            </div>
+            </a>
+            {% endfor %}
+        {% endfor %}
+        </div>
+    </div>
+{%endblock%}
+        
