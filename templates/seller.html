@@ -153,6 +153,9 @@
                                             <p style="display: block; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ product.Description }}</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">{{ product.Price }}Rs/{{ product.units }}</p>
+                                                <a href="{% url 'DeleteProduct' product.id %}"><button class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary">
+                                                    Delete
+                                                </button></a>
                                             </div>
                                         </div>
                                     </div>

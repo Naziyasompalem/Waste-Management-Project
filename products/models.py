@@ -17,6 +17,7 @@ class Customer(AbstractUser):
   description = models.TextField(max_length=200, blank=True)
   password_main = models.CharField(max_length=50)
   is_seller = models.BooleanField(default=False)
+  is_food = models.BooleanField(default=False)
   groups = models.ManyToManyField(
         Group,
         related_name='customer_set',  # unique related_name

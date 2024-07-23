@@ -36,6 +36,7 @@ urlpatterns = [
     path('products/',include('products.urls')),
     path('myaccount', views.myaccountPage, name="myaccount"),
     path('seller-main',views.sellerMain,name="seller-main"),
+    path("DeleteProduct/<int:product_id>", views.deleteProductPage, name="DeleteProduct"),
     path('Donate',views.Donatepg,name="Donate"),
     path('prices',views.Pricelist,name="prices"),
     path('notify',views.Notification,name="notify"),
