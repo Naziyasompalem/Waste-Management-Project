@@ -3,12 +3,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waste Management Competition</title>
 
   {% block content %}
 
@@ -180,14 +174,8 @@
     float: right;
   }
   </style>
-</head>
-<body>
-  <header>
-    <img src="C:\Users\User\OneDrive\Desktop\competetion_page (2)\competetion_page\comp\cup.jpg" alt="competetion image" width="200",height="200">
-    
-    <h1>Waste Management Competition</h1>
-    <p>Join our Waste Management Competition today to not only compete for incredible prizes but also lead the way in fostering a cleaner, more sustainable environment for generations to come!</p>
-  </header>
+
+
   <main>
     <div class="container" style="display: flex; gap: 15%;">
     <div class="user-rank-box" id="userRankBox">
@@ -231,9 +219,10 @@
       
     </section>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
       document.addEventListener('DOMContentLoaded', function () {
+        console.log("ok",1);
         const sellersData = 
         [
           {% for seller in sellers %}
@@ -243,15 +232,27 @@
           },
           {% endfor %}
         ];
-        const currentSellerData = {{ current_seller }};
-        console.log(sellersData, currentSellerData  )
+
+        const currentSellerData = 
+        [
+
+          {
+            name: "{{ current_seller.Customer.username }}",
+            points: {{ current_seller.sellerpoints }}
+          },
+
+        ];
+
+        {% comment %} const currentSellerData = {{ current_seller }}; {% endcomment %}
+    
         // Sort the seller data by points in descending order
-        sellersData.sort((a, b) => b.sellerpoints - a.sellerpoints);
+        sellersData.sort((a, b) => b.points - a.points);
       
         // Extract the seller names and points from the sorted data
-        const sellerNames = sellersData.map(seller => seller.name);
-        const sellerPoints = sellersData.map(seller => seller.sellerpoints);
-      
+        const sellerNames = sellersData.map(item => item.name);
+        const sellerPoints = sellersData.map(item => item.points);
+        console.log("sell",sellerNames);
+        console.log("sell",sellerPoints);
         // Find the current seller's rank
         const currentSellerRank = sellersData.findIndex(seller => seller.name === currentSellerData.name) + 1;
       
@@ -260,7 +261,7 @@
         userRankBox.textContent = `${currentSellerData.name}'s rank: ${currentSellerRank}`;
       
         // Draw chart using Chart.js
-        const ctx = document.getElementById('seller-chart').getContext('2d');
+        const ctx = document.getElementById('quantityChart');
       const sellerChart = new Chart(ctx, {
         type: 'line', // Change from 'bar' to 'line'
         data: {
@@ -281,13 +282,13 @@
       legend: {
         display: false
       },
-      tooltip: {
+      /* tooltip: {
         callbacks: {
           label: function(tooltipItem) {
             return `Rank: ${tooltipItem.dataIndex + 1} - ${tooltipItem.label}: ${tooltipItem.formattedValue}`;
           }
         }
-      }
+      }*/
     },
     scales: {
       x: {
@@ -318,7 +319,7 @@
       
 
       // Add hover effect to table rows
-      rows.forEach(row => {
+      /*rows.forEach(row => {
         row.addEventListener('mouseover', () => {
           row.style.backgroundColor = '#f2f2f2';
         });
@@ -326,9 +327,7 @@
         row.addEventListener('mouseout', () => {
           row.style.backgroundColor = '';
         });
-      });
+      });*/
     });
   </script>
-</body>
-</html>
 {% endblock %}

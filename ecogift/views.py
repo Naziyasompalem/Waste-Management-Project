@@ -139,6 +139,7 @@ def customerLogout(request):
 def fcompPage(request):
     sellers = Seller.objects.all().order_by('-sellerpoints')[:5]
     current_seller = Seller.objects.get(Customer=request.user)
+    print(sellers )
     return render(request,'comp1.html',{'sellers':sellers, 'current_seller':current_seller} )
 
 @login_required
