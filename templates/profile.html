@@ -34,6 +34,9 @@
                                         <h3 class="page-title">My Account</h3>
                                         <h3 class="user-name">Hello {{ request.user.first_name }}</h3>
                                         <p class="description">{{  request.user.description }}</p>
+                                        {% if seller %}
+                                        <p>Points Earned : {{ seller.sellerpoints }}<i class="bi bi-coin"></i></p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-4 profile">
