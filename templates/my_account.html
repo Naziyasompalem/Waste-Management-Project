@@ -17,6 +17,9 @@
                                         <h1 class="page-title">My Account</h1>
                                         <h3 class="user-name">Hello {{ request.user.first_name }}</h3>
                                         <p class="description">{{  request.user.description }}</p>
+                                        {% if seller is not null %}
+                                        <h1>Points Earned:{{ seller.sellerpoints }}</h1>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-4 profile">
@@ -242,8 +245,8 @@
             </div>
         </div>
     </section>
-
+    <div>
     <button><a href="{% url 'logoutCus' %}">LOG OUT</a></button>
-
+    </div>
     <script src="{% static 'my_account_script.js' %}"></script>
 {% endblock content %}

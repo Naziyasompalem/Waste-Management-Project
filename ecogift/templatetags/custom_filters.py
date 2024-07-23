@@ -1,17 +1,20 @@
 from django import template
 
-register = template.Library()
+# register = template.Library()
 
+
+# @register.filter
+# def get_item(dictionary, key):
+#     return dictionary.get(key)
+register = template.Library()
 
 @register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
+def to_and(value):
+    return value.replace(" ","-")
 
-register = template.Library()
-
-@register.filter(name='mul')
-def multiply(value, arg):
-    try:
-        return float(value) * float(arg)
-    except (ValueError, TypeError):
-        return ''
+# @register.filter(name='mul')
+# def multiply(value, arg):
+#     try:
+#         return float(value) * float(arg)
+#     except (ValueError, TypeError):
+#         return ''

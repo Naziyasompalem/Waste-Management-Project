@@ -443,7 +443,7 @@
                     </div>
                 </div>
                 
-                
+                {% if not request.user.is_seller %}
                 <h1 class="fw-bold mb-0">Related products</h1>
                 <div class="vesitable">
                     <div class="owl-carousel vegetable-carousel justify-content-center">
@@ -467,6 +467,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         <!-- Single Product End -->
     
 {% endblock %}

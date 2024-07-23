@@ -144,6 +144,10 @@ def fcompPage(request):
 @login_required
 def myaccountPage(request):
     user = request.user
+    if user.is_seller:
+        seller = Seller.objects.filter(Customer=request.user).first()
+        print(seller.sellerpoints)
+        return render(request,'profile.html',{'user': user,'seller':seller})    
     return render(request,'profile.html',{'user': user})
 
 def shop_detail(request,product_id):
