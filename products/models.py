@@ -219,7 +219,12 @@ class ExtraItem(models.Model):
   time_posted = models.DateTimeField(auto_now_add=True)
   customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
   #user = models.DecimalField(max_digits=10, decimal_places=2)
-  flag = models.BooleanField(default=False)
+  FLAG_CHOICES = (
+      ('Pending', 'Pending'),
+      ('Accepted', 'Accepted'),
+      ('Rejected', 'Rejected'),
+  )
+  flag = models.TextField(choices=FLAG_CHOICES, default="Pending")
   read = models.BooleanField(default=False)
   class Meta:
       managed = True

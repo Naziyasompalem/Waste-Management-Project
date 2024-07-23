@@ -491,16 +491,16 @@ def add_query(request):
         extra_item.save()
         return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': product.id}))
 
-def accept_query(request, query_id):
-    query = ExtraItem.objects.get(id=query_id)
-    query.flag = True
+def accept_query(request, Query_id):
+    query = ExtraItem.objects.get(id=Query_id)
+    query.flag = "Accepted"
     query.save()
     return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
 
 
-def decline_query(request, query_id):
-    query = ExtraItem.objects.get(id=query_id)
-    query.flag = False
+def decline_query(request, Query_id):
+    query = ExtraItem.objects.get(id=Query_id)
+    query.flag = "Rejected"
     query.save()
     return HttpResponseRedirect(reverse('shop-details', kwargs={'product_id': query.product.id}))
 

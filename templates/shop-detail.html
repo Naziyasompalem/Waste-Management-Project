@@ -207,10 +207,20 @@
                             <div>
                             {% if request.user.is_seller %}
                                 {%  for comment in extra_items %}
-                                <h5>User : {{ comment.customer.username }}</h5>
-                                <p>Query : {{ comment.query }}</p>
-                                <button><i class="bi bi-check"></i></button>
-                                <button><i class="bi bi-x"></i></button>
+                                    {% if comment.flag == "Pending" %}
+                                        <h5>User : {{ comment.customer.username }}</h5>
+                                        <p>Query : {{ comment.query }}</p>
+                                        <a href="{% url 'accept_query' comment.id %}"><i class="bi bi-check"></i></button>
+                                        <a href="{% url 'decline_query' comment.id %}"><i class="bi bi-x"></i></button>
+                                    {% elif comment.flag == "Accepted" %}
+                                        <h5>User : {{ comment.customer.username }}</h5>
+                                        <p>Query : {{ comment.query }}</p>
+                                        <p><i class="bi bi-check"></i>Accepted</p>
+                                    {% else %}
+                                        <h5>User : {{ comment.customer.username }}</h5>
+                                        <p>Query : {{ comment.query }}</p>
+                                        <p><i class="bi bi-x"></i>Rejected</p>
+                                    {% endif %}
                                 {% endfor %}
                             {% else %}
                             {%  for comment in extra_items %}
