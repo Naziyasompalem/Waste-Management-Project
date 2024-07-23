@@ -37,7 +37,8 @@ urlpatterns = [
     path('myaccount', views.myaccountPage, name="myaccount"),
     path('seller-main',views.sellerMain,name="seller-main"),
     path('Donate',views.Donatepg,name="Donate"),
-    path('Prices',views.Pricelist,name="Prices"),
+    path('prices',views.Pricelist,name="prices"),
+    path('notify',views.Notification,name="notify"),
     #path('Generator',views.Generators,name="Generator"),
 ]
 

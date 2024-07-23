@@ -198,3 +198,5 @@ def Pricelist(request):
     return render(request,"pricelist.html")
 # def Generators(request):
 #     return render(request,"selldetpg.html")
+def Notification(request):
+    return render(request,"Notifications.html")
