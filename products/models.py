@@ -70,6 +70,7 @@ class Product(models.Model):
   Category = models.ForeignKey(Category, on_delete=models.CASCADE)
   Image = models.ImageField(upload_to='products/', blank=True)
   Seller = models.ForeignKey(Seller, on_delete=models.CASCADE, default = 1)
+  units = models.CharField(max_length=20,default="Kg")
 
 
 
