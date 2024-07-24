@@ -434,7 +434,7 @@ def send_wait_mail(data):
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
 
-"""from .forms import bulkdataform
+from .forms import bulkdataform
 import pandas as pd
 import os
 from django.core.files.temp import NamedTemporaryFile
@@ -447,25 +447,30 @@ def bulkdata_call(request):
             file = request.FILES['file']
             df = pd.read_excel(file)
             for index, row in df.iterrows():
-                image_url = row['Image (Search Term)']
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(requests.get(image_url).content)
-                img_temp.flush()
+                try:
+                    image_url = row['Photos']
+                    img_temp = NamedTemporaryFile(delete=True)
+                    image = open("img/"+str(image_url), 'rb')
+                    img_temp.write(image.read())
+                    img_temp.flush()
 
-                product = Product(
-                    Category=Category.objects.get_or_create(Name=row['Category'])[0],
-                    Name=row['Product Name'],
-                    Description=row['Description'],
-                    Price=row['Price (INR)'],
-                )
-                product.Image.save(f"{row['Product Name']}.jpg", ContentFile(img_temp.read()), save=True)
-                img_temp.close()
-                print("Saved")
+                    product = Product(
+                        Category=Category.objects.get_or_create(Name=row['Category'])[0],
+                        Name=row['Product Name'],
+                        Description=row['Description'],
+                        Price=row['Price (INR)'],
+                        units=row['Quantity'],
+                    )
+                    product.Image.save(f"{row['Product Name']}.jpg", ContentFile(img_temp.read()), save=True)
+                    img_temp.close()
+                    print("Saved")
+                except FileNotFoundError:
+                    print(f"File not found {row['Photos']}")
             messages.success(request, 'Products uploaded successfully!')
             return redirect('bulkdata')
     else:
         form = bulkdataform()
-    return render(request, 'bulk.html', {'form': form})"""
+    return render(request, 'bulk.html', {'form': form})
 
 def DiscardItem(request,CartItem_id):
     item = CartItem.objects.get(id=CartItem_id)

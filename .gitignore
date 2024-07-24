@@ -7,3 +7,4 @@ products/templatetags/__pycache__/
 .env
 script.py
 hackenv/
+img/
