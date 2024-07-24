@@ -4,7 +4,7 @@
 
 {%block content%}
         <!-- Single Page Header start -->
-        <div class="container-fluid page-header py-5">
+        <div class="container-fluid page-header py-5" >
             <h1 class="text-center text-white display-6">Food</h1>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -15,7 +15,7 @@
         <!-- Single Page Header End -->
 
         {% if request.user.is_food %}
-        <div class="container">
+        <div class="container" style="margin-top:5vh;">
             <div class="row g-4" id="products">
                 {% if products %}
                     {% for product in products %}
