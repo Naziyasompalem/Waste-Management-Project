@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Detail</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px; /* Added padding to body to ensure visibility */
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column; /* Stack cards vertically */
+            gap: 20px; /* Space between cards */
+            max-width: 1000px; /* Adjusted width for better fit */
+            width: 100%;
+            margin: 0 auto; /* Center the container */
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 20px; /* Adjusted padding for a smaller card */
+            max-width: 100%; /* Ensure the card width is responsive */
+            width: 100%;
+            min-height: 300px; /* Adjusted height */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+        }
+        .card img {
+            border-radius: 50%;
+            width: 150px; /* Adjusted image size */
+            height: 150px;
+            background-color: #e0f7e4;
+            position: absolute;
+            right: 20px; /* Adjusted to fit within card */
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .card-content {
+            flex: 1;
+            padding-right: 200px; /* Adjusted padding to fit image */
+            z-index: 1; /* Ensure text is above the image */
+        }
+        .card-content h2 {
+            margin: 0 0 15px 0; /* Reduced margin for better fit */
+            font-size: 28px; /* Adjusted font size */
+            color: #333;
+        }
+        .card-content p {
+            margin: 8px 0; /* Adjusted margin */
+            color: #666;
+            font-size: 16px; /* Adjusted font size */
+            line-height: 1.5;
+        }
+        .card-content .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .card-content .view-more {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px; /* Adjusted padding */
+            color: #fff;
+            background-color: #8bc34a;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px; /* Adjusted font size */
+            transition: background-color 0.3s ease;
+        }
+        .card-content .view-more:hover {
+            background-color: #7cb342;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-content">
+                <h2>Aravind Rao</h2><br>
+                <p><span class="label">Shop Name:</span> Spice Haven</p>
+                <p><span class="label">Address:</span> 12 MG Road, Bangalore, Karnataka</p>
+                <p><span class="label">Description:</span> Spices Haven is a culinary paradise that offers a diverse range of high-quality spices and seasonings sourced from around the world.</p>
+                <p><span class="label">Seller Points:</span></p>
+                <a href="#" class="view-more">View More</a>
+            </div>
+            <img src="signin-image.jpg" alt="Avatar">
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <h2>Aravind Rao</h2><br>
+                <p><span class="label">Shop Name:</span> Spice Haven</p>
+                <p><span class="label">Address:</span> 12 MG Road, Bangalore, Karnataka</p>
+                <p><span class="label">Description:</span> Spices Haven is a culinary paradise that offers a diverse range of high-quality spices and seasonings sourced from around the world.</p>
+                <p><span class="label">Seller Points:</span></p>
+                <a href="#" class="view-more">View More</a>
+            </div>
+            <img src="signin-image.jpg" alt="Avatar">
+        </div>
+    </div>
+</body>
+</html>

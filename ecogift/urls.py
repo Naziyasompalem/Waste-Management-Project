@@ -40,7 +40,7 @@ urlpatterns = [
     path('Donate',views.Donatepg,name="Donate"),
     path('prices',views.Pricelist,name="prices"),
     path('notify',views.Notification,name="notify"),
-    #path('Generator',views.Generators,name="Generator"),
+    path('Generator',views.SellerDet,name="Generator"),
 ]
 
 

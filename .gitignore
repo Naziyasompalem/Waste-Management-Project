@@ -1,3 +1,4 @@
+
 venv/
 ecogift/__pycache__
 products/__pycache__
@@ -7,4 +8,4 @@ products/templatetags/__pycache__/
 .env
 script.py
 hackenv/
-img/
+img/   

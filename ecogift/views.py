@@ -209,3 +209,5 @@ def Pricelist(request):
 #     return render(request,"selldetpg.html")
 def Notification(request):
     return render(request,"Notifications.html")
+def SellerDet(request):
+    return render(request,"seldet.html")
