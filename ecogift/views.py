@@ -74,12 +74,13 @@ def index(request):
 
 
 def shop(request):  
-    pr=Product.objects.filter(Category=6)
+    pr = Product.objects.filter(Category__in=[6, 8])
     
-    context={
-    "products": pr
+    context = {
+        "products": pr
     }
-    return render(request,'shop.html', context)
+    return render(request, 'shop.html', context)
+
 
 def paymentSuccessPage(request):
     return render(request,"successPage.html")
