@@ -147,8 +147,8 @@
                                 
                                 
                                 {% comment %} <a href="{% url 'shop-details' %}" class="nav-item nav-link">Shop Detail</a> {% endcomment %}
-                                {% url 'cart' as cart_view %}
-                                <a href="{% url 'cart' %}" class="nav-item nav-link {% if request.path == cart_view %}active{% endif %}">cart</a>
+                                {% comment %} {% url 'cart' as cart_view %}
+                                <a href="{% url 'cart' %}" class="nav-item nav-link {% if request.path == cart_view %}active{% endif %}">cart</a> {% endcomment %}
                                 {% url 'contactus' as contact_view %}
                                 <a href="{% url 'contactus' %}" class="nav-item nav-link {% if request.path == contact_view %}active{% endif %}">Contact</a>
                                 <div class="d-flex m-3 me-0">
@@ -339,7 +339,7 @@
     <!-- Copyright Start -->
     <div class="container-fluid copyright bg-dark py-4">
         <div class="container">
-            <div class="row">
+            {% comment %} <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                     <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site
                             Name</a>, All right reserved.</span>
@@ -350,7 +350,7 @@
                     <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
                     Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
                         class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </div>

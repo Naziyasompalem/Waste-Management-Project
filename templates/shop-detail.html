@@ -102,7 +102,7 @@
                                     
                                 </nav>
                                
-                                <div class="tab-content mb-5">
+                                {% comment %} <div class="tab-content mb-5">
                                     <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
                                             id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
                                             aria-controls="nav-about" aria-selected="true">Description</button>
@@ -203,7 +203,7 @@
                                             Clita erat ipsum et lorem et sit</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                             <div>
                             {% if request.user.is_seller %}
                                 {%  for comment in extra_items %}
