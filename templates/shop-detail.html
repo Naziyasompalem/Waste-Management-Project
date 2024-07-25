@@ -460,6 +460,7 @@
                 <div class="vesitable">
                     <div class="owl-carousel vegetable-carousel justify-content-center">
                         {% for prod in products %}
+                        <a href="{% url 'shop-details' prod.id %}">
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
                                 <img src="{{ prod.Image.url }}" class="img-fluid w-100 rounded-top" alt="">
@@ -469,11 +470,14 @@
                                 <h4>{{ prod.Name }}</h4>
                                 <p>{{ prod.Description }}</p>
                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">{{ prod.Price }}</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    <p class="text-dark fs-5 fw-bold">{{ prod.Price }} Rs/{{ prod.units }}</p>
+                                    <button onclick="addToCart({{ product.id }})" class="add-to-cart btn border border-secondary rounded-pill px-3 text-primary" data-product-id="{{ product.id }}">
+                                        Add to cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                        </a>
                         {% endfor %}
                     </div>
                 </div>
